@@ -99,7 +99,29 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
-            padding-top: 30px;
+            padding-top: 50px;
+        }
+
+        .dev-billboard {
+            background: rgba(37, 99, 235, 0.03);
+            border: 1px dashed rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .dev-billboard h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .dev-billboard p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
         #hubView {
@@ -121,143 +143,6 @@
             #hubView {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* --- Social Feed Homepage Grid --- */
-        .feed-container {
-            margin-top: 10px;
-        }
-
-        .feed-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px;
-        }
-
-        .feed-profile-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .feed-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            padding: 3px;
-        }
-
-        .feed-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid var(--bg-color);
-        }
-
-        .feed-account h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .feed-account h3 i {
-            color: #3897f0;
-            font-size: 0.9rem;
-        }
-
-        .feed-account p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .insta-external-btn {
-            background: #3897f0;
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .insta-external-btn:hover {
-            background: #287dc5;
-        }
-
-        .instagram-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .instagram-card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.2s;
-        }
-
-        .instagram-card:hover {
-            transform: scale(1.01);
-        }
-
-        .insta-link-wrapper {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .insta-media-wrapper {
-            position: relative;
-            aspect-ratio: 1 / 1;
-            background: #111;
-        }
-
-        .insta-media-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .insta-video-icon {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.6);
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        .insta-content {
-            padding: 15px;
-        }
-
-        .insta-actions {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            color: var(--text-main);
-        }
-
-        .insta-caption {
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .insta-caption span {
-            font-weight: bold;
-            margin-right: 6px;
         }
 
         /* --- Embedded Video Window Architecture --- */
@@ -339,7 +224,7 @@
         .control-group {
             display: flex;
             align-items: center;
-            gap: 18px;
+            gap: 16px;
         }
 
         .ctrl-btn {
@@ -348,10 +233,31 @@
             color: var(--text-main);
             font-size: 1.1rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
         }
 
         .ctrl-btn:hover {
             color: var(--accent-blue);
+        }
+
+        .skip-ad-btn {
+            background: rgba(225, 29, 72, 0.2);
+            border: 1px solid var(--accent-red);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skip-ad-btn:hover {
+            background: var(--accent-red);
+            color: white;
         }
 
         .time-display {
@@ -360,13 +266,20 @@
             font-family: monospace;
         }
 
-        select.speed-dropdown {
-            background: rgba(255, 255, 255, 0.1);
+        .engine-select {
+            background: rgba(255, 255, 255, 0.08);
             color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 4px 8px;
             border-radius: 4px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .engine-select:hover {
+            border-color: rgba(37, 99, 235, 0.5);
         }
 
         /* --- Playlist Sidebar Deck --- */
@@ -601,67 +514,17 @@
 
     <div class="container">
         
-        <!-- State View 1: Homepage (Instagram Feed Style + Bottom About) -->
+        <!-- State View 1: Homepage (Clean Dev State) -->
         <section id="welcomeView">
-            <div class="feed-container">
-                <div class="feed-header">
-                    <div class="feed-profile-meta">
-                        <div class="feed-avatar">
-                            <img src="https://img.youtube.com/vi/qFHLfmoLchI/0.jpg" alt="On Cinema Avatar">
-                        </div>
-                        <div class="feed-account">
-                            <h3>oncinemaonline <i class="fas fa-badge-check"></i></h3>
-                            <p>On Cinema At The Cinema Official Feed</p>
-                        </div>
-                    </div>
-                    <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-external-btn">Follow on Instagram</a>
-                </div>
-
-                <div class="instagram-grid">
-                    <!-- Card 1 -->
-                    <div class="instagram-card">
-                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
-                            <div class="insta-media-wrapper">
-                                <span class="insta-video-icon"><i class="fas fa-video"></i> Reel</span>
-                                <img src="https://img.youtube.com/vi/qFHLfmoLchI/maxresdefault.jpg" alt="Post 1">
-                            </div>
-                            <div class="insta-content">
-                                <div class="insta-actions"><i class="far fa-heart"></i></div>
-                                <div class="insta-caption"><span>oncinemaonline</span>The analytics logs are set for Season 1. Navigate to our system dashboard above to trigger streaming feeds immediately! 🍿🎬</div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="instagram-card">
-                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
-                            <div class="insta-media-wrapper">
-                                <img src="https://img.youtube.com/vi/nfOMBioJDJg/maxresdefault.jpg" alt="Post 2">
-                            </div>
-                            <div class="insta-content">
-                                <div class="insta-actions"><i class="far fa-heart"></i></div>
-                                <div class="insta-caption"><span>oncinemaonline</span>Archival metrics for Breaking Dawn Part 2 have cleared verification protocol steps. Standard 5 bag review incoming.</div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="instagram-card">
-                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
-                            <div class="insta-media-wrapper">
-                                <img src="https://img.youtube.com/vi/WzFILC5bI_c/maxresdefault.jpg" alt="Post 3">
-                            </div>
-                            <div class="insta-content">
-                                <div class="insta-actions"><i class="far fa-heart"></i></div>
-                                <div class="insta-caption"><span>oncinemaonline</span>Action setups configured cleanly across our secondary database modules. True cinema structure.</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+            <div class="dev-billboard">
+                <h1>- In Development</h1>
+                <p>Advanced media portal architecture is actively upgrading. Access streaming layouts directly using the menu indicators.</p>
             </div>
 
             <!-- Stays at the bottom of the home screen -->
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
-                <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
+                <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
             </div>
         </section>
 
@@ -680,16 +543,30 @@
                                 <button class="ctrl-btn" onclick="togglePlay()" id="play-btn"><i class="fas fa-play"></i></button>
                                 <button class="ctrl-btn" onclick="skip(-10)"><i class="fas fa-backward"></i></button>
                                 <button class="ctrl-btn" onclick="skip(10)"><i class="fas fa-forward"></i></button>
+                                <button class="ctrl-btn skip-ad-btn" onclick="triggerAdSkip()">Skip Ad</button>
                                 <span class="time-display" id="time-display">0:00 / 0:00</span>
                             </div>
                             <div class="control-group">
                                 <button class="ctrl-btn" onclick="toggleSubtitles()" id="caption-btn"><i class="fas fa-closed-captioning"></i></button>
-                                <select class="speed-dropdown" id="speed-dropdown" onchange="changeSpeed(this.value)">
+                                
+                                <!-- Playback Speed Adjuster -->
+                                <select class="engine-select" id="speed-dropdown" onchange="changeSpeed(this.value)">
                                     <option value="0.5">0.5x</option>
-                                    <option value="1" selected>Normal</option>
+                                    <option value="1" selected>1.0x</option>
                                     <option value="1.5">1.5x</option>
                                     <option value="2">2.0x</option>
                                 </select>
+
+                                <!-- Quality Adjuster -->
+                                <select class="engine-select" id="quality-dropdown" onchange="changeQuality(this.value)">
+                                    <option value="default" selected>Auto</option>
+                                    <option value="highres">1080p</option>
+                                    <option value="hd720">720p</option>
+                                    <option value="large">480p</option>
+                                    <option value="medium">360p</option>
+                                    <option value="small">240p</option>
+                                </select>
+
                                 <button class="ctrl-btn" onclick="toggleFullscreen()"><i class="fas fa-expand" id="fullscreen-icon"></i></button>
                             </div>
                         </div>
@@ -723,7 +600,7 @@
         <section id="dedicatedAboutView">
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
-                <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
+                <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
             </div>
         </section>
 
@@ -885,7 +762,6 @@
             changeSeason(seasonNum, false);
         }
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', () => {
             document.getElementById('customDropdown').classList.remove('open');
         });
@@ -952,7 +828,6 @@
         function changeSeason(seasonNum, internalRouting = false) {
             currentSelectedSeason = seasonNum;
             
-            // Update Custom Dropdown Visuals
             document.getElementById('dropdownLabel').innerText = `Season ${seasonNum}`;
             document.querySelectorAll('.dropdown-option').forEach(opt => {
                 if (parseInt(opt.getAttribute('data-value')) === seasonNum) {
@@ -1033,6 +908,7 @@
                 player.loadVideoById(trackId);
             }
             document.getElementById('speed-dropdown').value = "1";
+            document.getElementById('quality-dropdown').value = "default";
         }
 
         function togglePlay() {
@@ -1045,6 +921,20 @@
         function skip(seconds) {
             if (player && player.getCurrentTime) {
                 player.seekTo(player.getCurrentTime() + seconds, true);
+            }
+        }
+
+        /* --- New Features Execution Core --- */
+        function triggerAdSkip() {
+            if (player && player.getCurrentTime) {
+                // Skips forward 15 seconds instantly to clear intros/skits/embedded segments
+                player.seekTo(player.getCurrentTime() + 15, true);
+            }
+        }
+
+        function changeQuality(targetQuality) {
+            if (player && player.setPlaybackQuality) {
+                player.setPlaybackQuality(targetQuality);
             }
         }
 
