@@ -9,7 +9,8 @@
         :root {
             --red: #e50914;
             --blue: #0056b3;
-            --dark-blue: #0a1128;
+            --dark-blue: #060b19;
+            --card-bg: #111827;
             --text-color: #ffffff;
         }
 
@@ -29,43 +30,43 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--red) 0%, var(--blue) 100%);
+            background-color: var(--red);
             padding: 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
 
         h1 {
             font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
 
         .about-container {
-            max-width: 700px;
-            margin: 60px auto;
+            max-width: 650px;
+            margin: 80px auto;
             padding: 40px;
-            background: rgba(255,255,255,0.05);
-            border: 3px solid var(--red);
-            border-radius: 8px;
-            box-shadow: 0 0 30px var(--blue);
+            background-color: var(--card-bg);
+            border-top: 5px solid var(--red);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             text-align: center;
         }
 
         h2 {
             font-family: 'Oswald', sans-serif;
-            color: var(--red);
-            margin-bottom: 20px;
+            color: white;
+            margin-bottom: 25px;
             font-size: 2rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.7;
             margin-bottom: 20px;
-            color: #e0e0e0;
+            color: #d1d5db;
         }
 
         .back-btn {
@@ -74,12 +75,13 @@
             background-color: var(--blue);
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 12px 28px;
             font-weight: bold;
             text-transform: uppercase;
             font-family: 'Oswald', sans-serif;
             border-radius: 4px;
             transition: background 0.2s;
+            letter-spacing: 0.5px;
         }
 
         .back-btn:hover {
@@ -87,13 +89,13 @@
         }
 
         footer {
-            background-color: #050a18;
+            background-color: #030611;
             text-align: center;
             padding: 20px;
             margin-top: auto;
-            border-top: 3px solid var(--red);
+            border-top: 2px solid #1e293b;
             font-size: 0.9rem;
-            color: #aaa;
+            color: #64748b;
         }
 
         footer a {
@@ -112,8 +114,8 @@
     <div class="about-container">
         <h2>About This Site</h2>
         <p>This site just puts all the On Cinema available in one place.</p>
-        <p><strong>This is not an official On Cinema site.</strong> It was made entirely by a fan who values real movie expertise.</p>
-        <p>All official properties belong to the HEI Network team. Thank you for supporting the movies!</p>
+        <p><strong>This is not an official On Cinema site.</strong> It was made entirely by a fan.</p>
+        <p>All rights belong to the HEI Network team. Enjoy the reviews!</p>
         
         <a href="index.html" class="back-btn">← Back to Movies</a>
     </div>
