@@ -52,13 +52,9 @@
             text-transform: uppercase;
             cursor: pointer;
         }
-
+        
         .logo span.red-txt {
             color: var(--accent-red);
-        }
-        
-        .logo span.blue-txt {
-            color: var(--accent-blue);
         }
 
         nav {
@@ -68,16 +64,27 @@
         }
 
         nav a {
-            color: var(--text-muted);
             text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 600;
+            transition: color 0.3s, opacity 0.3s;
+            font-weight: 700;
             text-transform: uppercase;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
         }
 
-        nav a:hover {
+        nav a.blue-nav {
+            color: var(--accent-blue);
+        }
+
+        nav a.blue-nav:hover {
+            color: var(--text-main);
+        }
+
+        nav a.standard-nav {
+            color: var(--text-muted);
+        }
+
+        nav a.standard-nav:hover {
             color: var(--accent-blue);
         }
 
@@ -99,7 +106,35 @@
             display: none;
             text-align: center;
             max-width: 500px;
-            margin: 100px auto;
+            margin: 120px auto;
+        }
+
+        #seasonView h3 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+
+        .season-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .season-btn:hover {
+            background-color: var(--hover-blue);
+            transform: translateY(-2px);
         }
 
         #hubView {
@@ -130,11 +165,17 @@
 
         .feed-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
             margin-bottom: 25px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             padding-bottom: 15px;
+        }
+
+        .feed-profile-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .feed-avatar {
@@ -156,6 +197,14 @@
         .feed-account h3 {
             font-size: 1.1rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feed-account h3 i {
+            color: #3897f0;
+            font-size: 0.9rem;
         }
 
         .feed-account p {
@@ -163,10 +212,25 @@
             color: var(--text-muted);
         }
 
+        .insta-external-btn {
+            background: #3897f0;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .insta-external-btn:hover {
+            background: #287dc5;
+        }
+
         .instagram-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         .instagram-card {
@@ -207,6 +271,7 @@
             gap: 15px;
             margin-bottom: 10px;
             font-size: 1.2rem;
+            color: var(--text-main);
         }
 
         .insta-caption {
@@ -460,16 +525,6 @@
             font-size: 0.8rem;
         }
 
-        .imdb-link {
-            display: inline-block;
-            margin-top: 12px;
-            color: var(--accent-red);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
         /* --- Shared Styling for Container Blocks --- */
         .about-section {
             background: linear-gradient(135deg, #18181b, #09090b);
@@ -494,11 +549,11 @@
 <body>
 
     <header>
-        <div class="logo" onclick="showView('welcome')">On<span class="red-txt">Cinema</span><span class="blue-txt"> Hub</span></div>
+        <div class="logo" onclick="showView('welcome')">On Cinema <span class="red-txt">Hub</span></div>
         <nav>
-            <a href="#" onclick="showView('welcome')">Home</a>
-            <a href="#" onclick="showView('season')">OnCinema</a>
-            <a href="#" onclick="showView('about')">About</a>
+            <a href="#" class="blue-nav" onclick="showView('welcome')">Home</a>
+            <a href="#" class="standard-nav" onclick="showView('season')">On Cinema</a>
+            <a href="#" class="blue-nav" onclick="showView('about')">About</a>
         </nav>
     </header>
 
@@ -508,13 +563,16 @@
         <section id="welcomeView">
             <div class="feed-container">
                 <div class="feed-header">
-                    <div class="feed-avatar">
-                        <img src="https://img.youtube.com/vi/qFHLfmoLchI/0.jpg" alt="On Cinema Avatar">
+                    <div class="feed-profile-meta">
+                        <div class="feed-avatar">
+                            <img src="https://img.youtube.com/vi/qFHLfmoLchI/0.jpg" alt="On Cinema Avatar">
+                        </div>
+                        <div class="feed-account">
+                            <h3>oncinemaonline <i class="fas fa-badge-check"></i></h3>
+                            <p>On Cinema At The Cinema Official Feed</p>
+                        </div>
                     </div>
-                    <div class="feed-account">
-                        <h3>oncinematv</h3>
-                        <p>Official On Cinema Network Updates</p>
-                    </div>
+                    <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-external-btn">Follow</a>
                 </div>
 
                 <div class="instagram-grid">
@@ -525,7 +583,7 @@
                         </div>
                         <div class="insta-content">
                             <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinematv</span>The wait is over! Season 1 calculations are complete. Head over to our network dashboard link up top to start streaming right now! 🔥🎬</div>
+                            <div class="insta-caption"><span>oncinemaonline</span>The analytics logs are set for Season 1. Navigate to our system dashboard above to trigger streaming feeds immediately! 🍿🎬</div>
                         </div>
                     </div>
                     <div class="instagram-card">
@@ -534,7 +592,7 @@
                         </div>
                         <div class="insta-content">
                             <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinematv</span>Review notes for Twilight Breaking Dawn Part 2 have officially hit the archival desk. Gregg has some thoughts. 🍿🍿🍿🍿🍿</div>
+                            <div class="insta-caption"><span>oncinemaonline</span>Archival metrics for Breaking Dawn Part 2 have cleared verification protocol steps. Standard 5 bag review incoming.</div>
                         </div>
                     </div>
                     <div class="instagram-card">
@@ -543,7 +601,7 @@
                         </div>
                         <div class="insta-content">
                             <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinematv</span>Action-packed setups coming your way inside our exclusive data segment blocks. It's a certified classic system.</div>
+                            <div class="insta-caption"><span>oncinemaonline</span>Action setups configured cleanly across our secondary database modules. True cinema structure.</div>
                         </div>
                     </div>
                 </div>
@@ -558,8 +616,8 @@
 
         <!-- State View 2: Season Selector -->
         <section id="seasonView">
-            <h3>Select an Available Arc</h3>
-            <button class="season-btn" style="background-color: var(--accent-blue); color: white; border: none; padding: 18px 40px; font-size: 1.2rem; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 100%; border-radius: 8px; margin-top: 20px;" onclick="showView('hub')">Season 1</button>
+            <h3>Select a Season</h3>
+            <button class="season-btn" onclick="showView('hub')">Season 1</button>
         </section>
 
         <!-- State View 3: Control Hub Layout -->
@@ -621,8 +679,8 @@
                 title: "Season 1, Episode 1",
                 thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
                 movies: [
-                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" },
-                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }
+                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe" },
+                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington" }
                 ]
             },
             {
@@ -630,8 +688,8 @@
                 title: "Season 1, Episode 2",
                 thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
                 movies: [
-                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" },
-                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }
+                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart" },
+                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley" }
                 ]
             },
             {
@@ -639,8 +697,8 @@
                 title: "Season 1, Episode 3",
                 thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
                 movies: [
-                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1659221/" },
-                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2005374/" }
+                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme" },
+                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage" }
                 ]
             }
         ];
@@ -652,7 +710,7 @@
         let ccEnabled = false;
 
         function showView(viewName) {
-            // Instantly stop standard stream modules running on screen view transitions
+            // Instantly pause running video elements on changing structural navigation channels
             if (player && player.pauseVideo) {
                 player.pauseVideo();
             }
