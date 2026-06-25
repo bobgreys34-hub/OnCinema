@@ -64,37 +64,21 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
 
         nav a {
             color: var(--text-muted);
             text-decoration: none;
             transition: color 0.3s;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
 
         nav a:hover {
             color: var(--accent-blue);
-        }
-
-        .nav-dash-btn {
-            background: linear-gradient(135deg, var(--accent-blue), var(--hover-blue));
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .nav-dash-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-            color: white;
         }
 
         .container {
@@ -103,7 +87,7 @@
             padding: 0 4%;
         }
 
-        /* --- Views Management Display States --- */
+        /* --- View Container Mechanics --- */
         #welcomeView {
             display: flex;
             flex-direction: column;
@@ -127,7 +111,10 @@
 
         #dedicatedAboutView {
             display: none;
-            margin-top: 40px;
+            margin-top: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @media (max-width: 1024px) {
@@ -136,7 +123,7 @@
             }
         }
 
-        /* --- Simulated Instagram Feed Homepage Matrix --- */
+        /* --- Social Feed Homepage Grid --- */
         .feed-container {
             margin-top: 10px;
         }
@@ -195,7 +182,7 @@
             background: #111;
         }
 
-        .insta-media-wrapper img, .insta-media-wrapper video {
+        .insta-media-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -222,15 +209,6 @@
             font-size: 1.2rem;
         }
 
-        .insta-actions i {
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .insta-actions i:hover {
-            color: var(--accent-red);
-        }
-
         .insta-caption {
             font-size: 0.9rem;
             line-height: 1.4;
@@ -241,7 +219,7 @@
             margin-right: 6px;
         }
 
-        /* --- Player Container & Aesthetic Controls --- */
+        /* --- Embedded Video Window Architecture --- */
         .player-wrapper {
             position: relative;
             background: #000;
@@ -250,7 +228,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             aspect-ratio: 16 / 9;
             width: 100%;
-            transition: cursor 0.3s ease;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -287,11 +264,7 @@
             z-index: 3;
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .player-wrapper.user-idle {
-            cursor: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .player-wrapper.user-idle .custom-controls {
@@ -307,11 +280,6 @@
             border-radius: 3px;
             cursor: pointer;
             position: relative;
-            transition: height 0.1s ease;
-        }
-
-        .progress-container:hover {
-            height: 7px;
         }
 
         .progress-bar {
@@ -339,7 +307,6 @@
             color: var(--text-main);
             font-size: 1.1rem;
             cursor: pointer;
-            transition: color 0.2s, transform 0.1s;
         }
 
         .ctrl-btn:hover {
@@ -359,16 +326,9 @@
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.85rem;
-            cursor: pointer;
-            outline: none;
         }
 
-        select.speed-dropdown option {
-            background: var(--card-bg);
-            color: var(--text-main);
-        }
-
-        /* --- Sidebar Playlist Deck --- */
+        /* --- Playlist Sidebar Deck --- */
         .sidebar {
             background: var(--card-bg);
             border-radius: 12px;
@@ -389,8 +349,6 @@
             padding: 12px;
             border-radius: 6px;
             font-weight: 600;
-            outline: none;
-            cursor: pointer;
         }
 
         .playlist-title {
@@ -414,7 +372,6 @@
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
             background: rgba(255,255,255,0.02);
             border: 1px solid transparent;
         }
@@ -450,7 +407,7 @@
             color: var(--text-muted);
         }
 
-        /* --- Metadata Grid --- */
+        /* --- Metadata Modules --- */
         .video-details {
             margin-top: 25px;
         }
@@ -513,11 +470,7 @@
             text-transform: uppercase;
         }
 
-        .imdb-link:hover {
-            text-decoration: underline;
-        }
-
-        /* --- About Section Formatting --- */
+        /* --- Shared Styling for Container Blocks --- */
         .about-section {
             background: linear-gradient(135deg, #18181b, #09090b);
             padding: 30px;
@@ -544,7 +497,7 @@
         <div class="logo" onclick="showView('welcome')">On<span class="red-txt">Cinema</span><span class="blue-txt"> Hub</span></div>
         <nav>
             <a href="#" onclick="showView('welcome')">Home</a>
-            <button class="nav-dash-btn" onclick="showView('season')">OnCinema Dashboard</button>
+            <a href="#" onclick="showView('season')">OnCinema</a>
             <a href="#" onclick="showView('about')">About</a>
         </nav>
     </header>
@@ -565,41 +518,38 @@
                 </div>
 
                 <div class="instagram-grid">
-                    <!-- Post 1: Video Simulated Card -->
                     <div class="instagram-card">
                         <div class="insta-media-wrapper">
                             <span class="insta-video-icon"><i class="fas fa-video"></i> Reel</span>
                             <img src="https://img.youtube.com/vi/qFHLfmoLchI/maxresdefault.jpg" alt="Post 1">
                         </div>
                         <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-actions"><i class="far fa-heart"></i></div>
                             <div class="insta-caption"><span>oncinematv</span>The wait is over! Season 1 calculations are complete. Head over to our network dashboard link up top to start streaming right now! 🔥🎬</div>
                         </div>
                     </div>
-                    <!-- Post 2: Standard Image Card -->
                     <div class="instagram-card">
                         <div class="insta-media-wrapper">
                             <img src="https://img.youtube.com/vi/nfOMBioJDJg/maxresdefault.jpg" alt="Post 2">
                         </div>
                         <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-actions"><i class="far fa-heart"></i></div>
                             <div class="insta-caption"><span>oncinematv</span>Review notes for Twilight Breaking Dawn Part 2 have officially hit the archival desk. Gregg has some thoughts. 🍿🍿🍿🍿🍿</div>
                         </div>
                     </div>
-                    <!-- Post 3: Standard Image Card -->
                     <div class="instagram-card">
                         <div class="insta-media-wrapper">
                             <img src="https://img.youtube.com/vi/WzFILC5bI_c/maxresdefault.jpg" alt="Post 3">
                         </div>
                         <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-actions"><i class="far fa-heart"></i></div>
                             <div class="insta-caption"><span>oncinematv</span>Action-packed setups coming your way inside our exclusive data segment blocks. It's a certified classic system.</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Stays on homepage bottom area -->
+            <!-- Stays at the bottom of the home screen -->
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
                 <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
@@ -609,7 +559,7 @@
         <!-- State View 2: Season Selector -->
         <section id="seasonView">
             <h3>Select an Available Arc</h3>
-            <button class="season-btn" onclick="showView('hub')">Season 1</button>
+            <button class="season-btn" style="background-color: var(--accent-blue); color: white; border: none; padding: 18px 40px; font-size: 1.2rem; font-weight: bold; text-transform: uppercase; cursor: pointer; width: 100%; border-radius: 8px; margin-top: 20px;" onclick="showView('hub')">Season 1</button>
         </section>
 
         <!-- State View 3: Control Hub Layout -->
@@ -654,13 +604,11 @@
             </div>
         </section>
 
-        <!-- State View 4: Clean Dedicated About Screen View -->
+        <!-- State View 4: Isolated Clean Dedicated About Screen -->
         <section id="dedicatedAboutView">
             <div class="about-section">
-                <h2>Network Profile & Overview</h2>
+                <h2>About On Cinema at the Cinema</h2>
                 <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
-                <br>
-                <p style="color: var(--text-muted)">This dynamic entertainment hub environment has been carefully structuralized to display comprehensive review logs and video feeds seamlessly on a singular dark interface canvas.</p>
             </div>
         </section>
 
@@ -704,7 +652,7 @@
         let ccEnabled = false;
 
         function showView(viewName) {
-            // Safety Check: Halt running video streams instantly when swapping structural view tabs
+            // Instantly stop standard stream modules running on screen view transitions
             if (player && player.pauseVideo) {
                 player.pauseVideo();
             }
@@ -821,7 +769,6 @@
                     <div class="meta-line"><span class="meta-label">IMDb Rating:</span> <span class="rating-badge">${movie.rating}</span></div>
                     <div class="meta-line"><span class="meta-label">Director:</span> ${movie.director}</div>
                     <div class="meta-line"><span class="meta-label">Cast:</span> ${movie.cast}</div>
-                    <a href="${movie.imdb}" target="_blank" class="imdb-link">IMDb Page →</a>
                 `;
                 metaGrid.appendChild(card);
             });
