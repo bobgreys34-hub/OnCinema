@@ -61,10 +61,15 @@
             color: var(--accent-blue);
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         nav a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 20px;
             transition: color 0.3s;
             font-weight: 500;
             text-transform: uppercase;
@@ -75,56 +80,35 @@
             color: var(--accent-blue);
         }
 
+        .nav-dash-btn {
+            background: linear-gradient(135deg, var(--accent-blue), var(--hover-blue));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nav-dash-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            color: white;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 4%;
         }
 
-        /* Views management logic styles */
+        /* --- Views Management Display States --- */
         #welcomeView {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 70vh;
-        }
-
-        .welcome-box {
-            background-color: var(--card-bg);
-            border: 2px solid var(--accent-blue);
-            border-radius: 12px;
-            padding: 60px 40px;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .welcome-box:hover {
-            transform: scale(1.02);
-            border-color: var(--accent-red);
-            box-shadow: 0 20px 40px rgba(225, 29, 72, 0.1);
-        }
-
-        .welcome-box h2 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .welcome-box h2 span.red-txt {
-            color: var(--accent-red);
-        }
-
-        .welcome-box p {
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: bold;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            flex-direction: column;
+            gap: 40px;
+            padding-top: 30px;
         }
 
         #seasonView {
@@ -134,38 +118,16 @@
             margin: 100px auto;
         }
 
-        #seasonView h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .season-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .season-btn:hover {
-            background-color: var(--hover-blue);
-            transform: translateY(-2px);
-        }
-
         #hubView {
             display: none; 
             grid-template-columns: 3fr 1fr;
             gap: 30px;
             margin-top: 20px;
+        }
+
+        #dedicatedAboutView {
+            display: none;
+            margin-top: 40px;
         }
 
         @media (max-width: 1024px) {
@@ -174,7 +136,112 @@
             }
         }
 
-        /* --- Player Container & Aesthetic controls Overlay --- */
+        /* --- Simulated Instagram Feed Homepage Matrix --- */
+        .feed-container {
+            margin-top: 10px;
+        }
+
+        .feed-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 15px;
+        }
+
+        .feed-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 3px;
+        }
+
+        .feed-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--bg-color);
+        }
+
+        .feed-account h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .feed-account p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .instagram-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .insta-media-wrapper {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            background: #111;
+        }
+
+        .insta-media-wrapper img, .insta-media-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .insta-video-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.6);
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .insta-content {
+            padding: 15px;
+        }
+
+        .insta-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .insta-actions i {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .insta-actions i:hover {
+            color: var(--accent-red);
+        }
+
+        .insta-caption {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .insta-caption span {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        /* --- Player Container & Aesthetic Controls --- */
         .player-wrapper {
             position: relative;
             background: #000;
@@ -279,10 +346,6 @@
             color: var(--accent-blue);
         }
 
-        .ctrl-btn:active {
-            transform: scale(0.95);
-        }
-
         .time-display {
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -305,26 +368,7 @@
             color: var(--text-main);
         }
 
-        .player-wrapper:fullscreen {
-            border-radius: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .player-wrapper:fullscreen iframe {
-            position: static;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        /* --- Sidebar Playlist Architecture Layout --- */
+        /* --- Sidebar Playlist Deck --- */
         .sidebar {
             background: var(--card-bg);
             border-radius: 12px;
@@ -347,11 +391,6 @@
             font-weight: 600;
             outline: none;
             cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .season-selector:focus {
-            border-color: var(--accent-blue);
         }
 
         .playlist-title {
@@ -388,9 +427,6 @@
         .episode-item.active {
             background: rgba(225, 29, 72, 0.08);
             border-left: 3px solid var(--accent-red);
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
         }
 
         .ep-thumb {
@@ -407,7 +443,6 @@
             font-size: 0.85rem;
             margin-bottom: 4px;
             line-height: 1.3;
-            color: var(--text-main);
         }
 
         .ep-info p {
@@ -415,7 +450,7 @@
             color: var(--text-muted);
         }
 
-        /* --- Under Player Ratings/Metadata Layout --- */
+        /* --- Metadata Grid --- */
         .video-details {
             margin-top: 25px;
         }
@@ -441,17 +476,11 @@
             padding: 20px;
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.05);
-            transition: border-color 0.2s;
-        }
-
-        .movie-card:hover {
-            border-color: rgba(37, 99, 235, 0.2);
         }
 
         .movie-card h4 {
             font-size: 1.3rem;
             margin-bottom: 12px;
-            color: #fff;
         }
 
         .meta-line {
@@ -482,17 +511,14 @@
             font-weight: bold;
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
         }
 
         .imdb-link:hover {
-            color: var(--text-main);
             text-decoration: underline;
         }
 
+        /* --- About Section Formatting --- */
         .about-section {
-            margin-top: 40px;
             background: linear-gradient(135deg, #18181b, #09090b);
             padding: 30px;
             border-radius: 12px;
@@ -518,95 +544,126 @@
         <div class="logo" onclick="showView('welcome')">On<span class="red-txt">Cinema</span><span class="blue-txt"> Hub</span></div>
         <nav>
             <a href="#" onclick="showView('welcome')">Home</a>
-            <a href="#about">About</a>
+            <button class="nav-dash-btn" onclick="showView('season')">OnCinema Dashboard</button>
+            <a href="#" onclick="showView('about')">About</a>
         </nav>
     </header>
 
     <div class="container">
         
-        <!-- State View 1: Welcome Box Splash -->
+        <!-- State View 1: Homepage (Instagram Feed Style + Bottom About) -->
         <section id="welcomeView">
-            <div class="welcome-box" onclick="showView('season')">
-                <h2>On<span class="red-txt">Cinema</span> Platform</h2>
-                <p>Click to Enter Movie Network</p>
+            <div class="feed-container">
+                <div class="feed-header">
+                    <div class="feed-avatar">
+                        <img src="https://img.youtube.com/vi/qFHLfmoLchI/0.jpg" alt="On Cinema Avatar">
+                    </div>
+                    <div class="feed-account">
+                        <h3>oncinematv</h3>
+                        <p>Official On Cinema Network Updates</p>
+                    </div>
+                </div>
+
+                <div class="instagram-grid">
+                    <!-- Post 1: Video Simulated Card -->
+                    <div class="instagram-card">
+                        <div class="insta-media-wrapper">
+                            <span class="insta-video-icon"><i class="fas fa-video"></i> Reel</span>
+                            <img src="https://img.youtube.com/vi/qFHLfmoLchI/maxresdefault.jpg" alt="Post 1">
+                        </div>
+                        <div class="insta-content">
+                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-caption"><span>oncinematv</span>The wait is over! Season 1 calculations are complete. Head over to our network dashboard link up top to start streaming right now! 🔥🎬</div>
+                        </div>
+                    </div>
+                    <!-- Post 2: Standard Image Card -->
+                    <div class="instagram-card">
+                        <div class="insta-media-wrapper">
+                            <img src="https://img.youtube.com/vi/nfOMBioJDJg/maxresdefault.jpg" alt="Post 2">
+                        </div>
+                        <div class="insta-content">
+                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-caption"><span>oncinematv</span>Review notes for Twilight Breaking Dawn Part 2 have officially hit the archival desk. Gregg has some thoughts. 🍿🍿🍿🍿🍿</div>
+                        </div>
+                    </div>
+                    <!-- Post 3: Standard Image Card -->
+                    <div class="instagram-card">
+                        <div class="insta-media-wrapper">
+                            <img src="https://img.youtube.com/vi/WzFILC5bI_c/maxresdefault.jpg" alt="Post 3">
+                        </div>
+                        <div class="insta-content">
+                            <div class="insta-actions"><i class="far fa-heart"></i><i class="far fa-comment"></i></div>
+                            <div class="insta-caption"><span>oncinematv</span>Action-packed setups coming your way inside our exclusive data segment blocks. It's a certified classic system.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stays on homepage bottom area -->
+            <div class="about-section">
+                <h2>About On Cinema at the Cinema</h2>
+                <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
             </div>
         </section>
 
-        <!-- State View 2: Season Grid/Selector -->
+        <!-- State View 2: Season Selector -->
         <section id="seasonView">
             <h3>Select an Available Arc</h3>
             <button class="season-btn" onclick="showView('hub')">Season 1</button>
         </section>
 
-        <!-- State View 3: Unified Left-Heavy Cinema Control Hub Layout -->
+        <!-- State View 3: Control Hub Layout -->
         <section id="hubView">
-            
-            <!-- Left Grid Pane: Player Platform -->
             <div>
                 <div class="player-wrapper" id="player-container">
                     <div id="yt-player"></div>
-                    
                     <div class="video-overlay-click" onclick="togglePlay()"></div>
-
                     <div class="custom-controls" id="custom-controls-bar">
                         <div class="progress-container" id="progress-container" onclick="seekVideo(event)">
                             <div class="progress-bar" id="progress-bar"></div>
                         </div>
                         <div class="control-buttons">
                             <div class="control-group">
-                                <button class="ctrl-btn" onclick="togglePlay()" id="play-btn" title="Play/Pause">
-                                    <i class="fas fa-play"></i>
-                                </button>
-                                <button class="ctrl-btn" onclick="skip(-10)" title="Rewind 10s">
-                                    <i class="fas fa-backward"></i>
-                                </button>
-                                <button class="ctrl-btn" onclick="skip(10)" title="Fast Forward 10s">
-                                    <i class="fas fa-forward"></i>
-                                </button>
+                                <button class="ctrl-btn" onclick="togglePlay()" id="play-btn"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" onclick="skip(-10)"><i class="fas fa-backward"></i></button>
+                                <button class="ctrl-btn" onclick="skip(10)"><i class="fas fa-forward"></i></button>
                                 <span class="time-display" id="time-display">0:00 / 0:00</span>
                             </div>
-
                             <div class="control-group">
-                                <button class="ctrl-btn" onclick="toggleSubtitles()" id="caption-btn" title="Toggle Subtitles">
-                                    <i class="fas fa-closed-captioning"></i>
-                                </button>
-                                <select class="speed-dropdown" id="speed-dropdown" onchange="changeSpeed(this.value)" title="Playback Speed">
+                                <button class="ctrl-btn" onclick="toggleSubtitles()" id="caption-btn"><i class="fas fa-closed-captioning"></i></button>
+                                <select class="speed-dropdown" id="speed-dropdown" onchange="changeSpeed(this.value)">
                                     <option value="0.5">0.5x</option>
                                     <option value="1" selected>Normal</option>
                                     <option value="1.5">1.5x</option>
                                     <option value="2">2.0x</option>
                                 </select>
-                                <button class="ctrl-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
-                                    <i class="fas fa-expand" id="fullscreen-icon"></i>
-                                </button>
+                                <button class="ctrl-btn" onclick="toggleFullscreen()"><i class="fas fa-expand" id="fullscreen-icon"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Live Dynamic Ratings Data Sheet Injections -->
                 <div class="video-details">
                     <h1 class="episode-title-hdr" id="active-title-header">Season 1, Episode 1</h1>
                     <div class="movies-meta-grid" id="movieMetaGrid"></div>
                 </div>
             </div>
-
-            <!-- Right Sidebar: Vertical Segment Selector Deck -->
             <div class="sidebar">
-                <select class="season-selector">
-                    <option value="1">Season 1</option>
-                </select>
-                
+                <select class="season-selector"><option value="1">Season 1</option></select>
                 <div class="playlist-title">Episodes</div>
                 <div class="episode-list" id="episode-list"></div>
             </div>
-
         </section>
 
-        <div class="about-section" id="about">
-            <h2>About On Cinema at the Cinema</h2>
-            <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
-        </div>
+        <!-- State View 4: Clean Dedicated About Screen View -->
+        <section id="dedicatedAboutView">
+            <div class="about-section">
+                <h2>Network Profile & Overview</h2>
+                <p>Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
+                <br>
+                <p style="color: var(--text-muted)">This dynamic entertainment hub environment has been carefully structuralized to display comprehensive review logs and video feeds seamlessly on a singular dark interface canvas.</p>
+            </div>
+        </section>
+
     </div>
 
     <script>
@@ -616,20 +673,8 @@
                 title: "Season 1, Episode 1",
                 thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
                 movies: [
-                    {
-                        name: "The Man with the Iron Fists",
-                        rating: "5.6/10",
-                        director: "RZA",
-                        cast: "RZA, Russell Crowe, Lucy Liu",
-                        imdb: "https://www.imdb.com/title/tt1258972/"
-                    },
-                    {
-                        name: "Flight",
-                        rating: "7.3/10",
-                        director: "Robert Zemeckis",
-                        cast: "Denzel Washington, Don Cheadle, Kelly Reilly",
-                        imdb: "https://www.imdb.com/title/tt1907668/"
-                    }
+                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" },
+                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }
                 ]
             },
             {
@@ -637,20 +682,8 @@
                 title: "Season 1, Episode 2",
                 thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
                 movies: [
-                    {
-                        name: "The Twilight Saga: Breaking Dawn - Part 2",
-                        rating: "5.5/10",
-                        director: "Bill Condon",
-                        cast: "Kristen Stewart, Robert Pattinson, Taylor Lautner",
-                        imdb: "https://www.imdb.com/title/tt1673434/"
-                    },
-                    {
-                        name: "Anna Karenina",
-                        rating: "6.6/10",
-                        director: "Joe Wright",
-                        cast: "Keira Knightley, Jude Law, Aaron Taylor-Johnson",
-                        imdb: "https://www.imdb.com/title/tt1781769/"
-                    }
+                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" },
+                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }
                 ]
             },
             {
@@ -658,20 +691,8 @@
                 title: "Season 1, Episode 3",
                 thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
                 movies: [
-                    {
-                        name: "Universal Soldier: Day of Reckoning",
-                        rating: "5.8/10",
-                        director: "John Hyams",
-                        cast: "Jean-Claude Van Damme, Scott Adkins, Dolph Lundgren",
-                        imdb: "https://www.imdb.com/title/tt1659221/"
-                    },
-                    {
-                        name: "The Frozen Ground",
-                        rating: "6.4/10",
-                        director: "Scott Walker",
-                        cast: "Nicolas Cage, John Cusack, Vanessa Hudgens",
-                        imdb: "https://www.imdb.com/title/tt2005374/"
-                    }
+                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1659221/" },
+                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2005374/" }
                 ]
             }
         ];
@@ -683,9 +704,15 @@
         let ccEnabled = false;
 
         function showView(viewName) {
+            // Safety Check: Halt running video streams instantly when swapping structural view tabs
+            if (player && player.pauseVideo) {
+                player.pauseVideo();
+            }
+
             document.getElementById('welcomeView').style.display = 'none';
             document.getElementById('seasonView').style.display = 'none';
             document.getElementById('hubView').style.display = 'none';
+            document.getElementById('dedicatedAboutView').style.display = 'none';
 
             if(viewName === 'welcome') {
                 document.getElementById('welcomeView').style.display = 'flex';
@@ -698,6 +725,8 @@
                 } else {
                     player.playVideo();
                 }
+            } else if (viewName === 'about') {
+                document.getElementById('dedicatedAboutView').style.display = 'block';
             }
         }
 
@@ -711,18 +740,8 @@
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
                 videoId: playlistData[currentTrackIndex].id,
-                playerVars: {
-                    'controls': 0,
-                    'rel': 0,
-                    'modestbranding': 1,
-                    'iv_load_policy': 3,
-                    'cc_load_policy': 0,
-                    'fs': 0
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
+                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0 },
+                events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
         }
 
@@ -762,9 +781,7 @@
             showControls();
             clearTimeout(idleTimer);
             if (player && player.getPlayerState && player.getPlayerState() == YT.PlayerState.PLAYING) {
-                idleTimer = setTimeout(() => {
-                    container.classList.add('user-idle');
-                }, 3000);
+                idleTimer = setTimeout(() => { container.classList.add('user-idle'); }, 3000);
             }
         }
 
@@ -775,14 +792,11 @@
         function buildPlaylistUI() {
             const listContainer = document.getElementById('episode-list');
             listContainer.innerHTML = "";
-            
             playlistData.forEach((item, index) => {
                 const div = document.createElement('div');
                 div.className = `episode-item ${index === currentTrackIndex ? 'active' : ''}`;
                 div.onclick = () => playEpisode(index);
-                
                 let subtitleString = item.movies.map(m => m.name).join(" & ");
-                
                 div.innerHTML = `
                     <div class="ep-thumb" style="background-image: url('${item.thumb}')"></div>
                     <div class="ep-info">
@@ -797,10 +811,8 @@
         function switchVideoData(index) {
             const currentEp = playlistData[index];
             document.getElementById('active-title-header').innerText = currentEp.title;
-            
             const metaGrid = document.getElementById('movieMetaGrid');
             metaGrid.innerHTML = "";
-
             currentEp.movies.forEach(movie => {
                 const card = document.createElement('div');
                 card.className = "movie-card";
@@ -823,29 +835,21 @@
             document.getElementById('speed-dropdown').value = "1";
         }
 
-        // Action controls mappings
         function togglePlay() {
             if (player && player.getPlayerState) {
-                const state = player.getPlayerState();
-                if (state == YT.PlayerState.PLAYING) {
-                    player.pauseVideo();
-                } else {
-                    player.playVideo();
-                }
+                if (player.getPlayerState() == YT.PlayerState.PLAYING) { player.pauseVideo(); } 
+                else { player.playVideo(); }
             }
         }
 
         function skip(seconds) {
             if (player && player.getCurrentTime) {
-                const currentTime = player.getCurrentTime();
-                player.seekTo(currentTime + seconds, true);
+                player.seekTo(player.getCurrentTime() + seconds, true);
             }
         }
 
         function changeSpeed(rate) {
-            if (player && player.setPlaybackRate) {
-                player.setPlaybackRate(parseFloat(rate));
-            }
+            if (player && player.setPlaybackRate) { player.setPlaybackRate(parseFloat(rate)); }
         }
 
         function toggleSubtitles() {
@@ -866,26 +870,13 @@
         function toggleFullscreen() {
             const container = document.getElementById('player-container');
             const icon = document.getElementById('fullscreen-icon');
-            
             if (!document.fullscreenElement) {
-                container.requestFullscreen().then(() => {
-                    icon.className = "fas fa-compress";
-                }).catch(err => {
-                    console.error(`Fullscreen initialization error: ${err.message}`);
-                });
+                container.requestFullscreen().then(() => { icon.className = "fas fa-compress"; });
             } else {
                 document.exitFullscreen();
                 icon.className = "fas fa-expand";
             }
         }
-
-        document.addEventListener('fullscreenchange', () => {
-            const icon = document.getElementById('fullscreen-icon');
-            if (!document.fullscreenElement) {
-                icon.className = "fas fa-expand";
-            }
-            resetIdleTimer();
-        });
 
         function startProgressLoop() {
             clearInterval(updateTimer);
@@ -893,12 +884,9 @@
                 if (player && player.getCurrentTime) {
                     const current = player.getCurrentTime();
                     const duration = player.getDuration() || 0;
-                    
                     if (duration > 0) {
-                        const pct = (current / duration) * 100;
-                        document.getElementById('progress-bar').style.width = pct + '%';
+                        document.getElementById('progress-bar').style.width = ((current / duration) * 100) + '%';
                     }
-                    
                     document.getElementById('time-display').innerText = `${formatTime(current)} / ${formatTime(duration)}`;
                 }
             }, 300);
@@ -907,9 +895,7 @@
         function seekVideo(event) {
             if (player && player.getDuration) {
                 const rect = document.getElementById('progress-container').getBoundingClientRect();
-                const clickX = event.clientX - rect.left;
-                const pct = clickX / rect.width;
-                const seekTarget = player.getDuration() * pct;
+                const seekTarget = player.getDuration() * ((event.clientX - rect.left) / rect.width);
                 player.seekTo(seekTarget, true);
             }
         }
