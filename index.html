@@ -94,7 +94,6 @@
             padding: 0 4%;
         }
 
-        /* --- View Container Mechanics --- */
         #welcomeView {
             display: flex;
             flex-direction: column;
@@ -148,7 +147,6 @@
             }
         }
 
-        /* --- Embedded Video Window Architecture --- */
         .player-wrapper {
             position: relative;
             background: #000;
@@ -267,7 +265,6 @@
             border-color: rgba(37, 99, 235, 0.5);
         }
 
-        /* --- Centered Larger Standalone Special Player Layout --- */
         .special-player-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -280,7 +277,6 @@
             margin-bottom: 20px;
         }
 
-        /* --- Grid Decks for Cards --- */
         .specials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -321,7 +317,6 @@
             color: var(--text-main);
         }
 
-        /* --- Playlist Sidebar Deck --- */
         .sidebar {
             background: var(--card-bg);
             border-radius: 12px;
@@ -334,7 +329,6 @@
             border: 1px solid rgba(37, 99, 235, 0.15);
         }
 
-        /* --- Custom Dropdown Styling --- */
         .custom-dropdown {
             position: relative;
             width: 100%;
@@ -466,7 +460,6 @@
             color: var(--text-muted);
         }
 
-        /* --- Metadata Modules --- */
         .video-details {
             margin-top: 25px;
         }
@@ -544,7 +537,6 @@
             border-color: #f5c518;
         }
 
-        /* --- Shared Styling for Container Blocks --- */
         .about-section {
             background: linear-gradient(135deg, #18181b, #09090b);
             padding: 30px;
@@ -580,7 +572,6 @@
 
     <div class="container">
         
-        <!-- State View 1: Homepage -->
         <section id="welcomeView">
             <div class="dev-billboard">
                 <h1>- In Development</h1>
@@ -593,7 +584,6 @@
             </div>
         </section>
 
-        <!-- State View 2: Control Hub Layout -->
         <section id="hubView">
             <div>
                 <div class="player-wrapper" id="player-container">
@@ -657,13 +647,11 @@
             </div>
         </section>
 
-        <!-- State View 3: Oscar's Specials Dashboard Layout -->
         <section id="oscarsSpecialsView">
             <h1 class="episode-title-hdr">Oscar's Specials Deck</h1>
             <div class="specials-grid" id="specialsGridContainer"></div>
         </section>
 
-        <!-- State View 4: Centered & Enlarged Standalone Special Player Layout -->
         <section id="specialPlayerView">
             <div class="special-player-container">
                 <div class="special-player-header">
@@ -709,7 +697,6 @@
                     </div>
                 </div>
 
-                <!-- Academy Awards Historical Data Container -->
                 <div class="video-details" style="margin-top:25px;">
                     <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
                     <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
@@ -717,13 +704,11 @@
             </div>
         </section>
 
-        <!-- State View 5: Extras Dashboard Layout -->
         <section id="extrasView">
             <h1 class="episode-title-hdr">Bonus Elements & Extras</h1>
             <div class="specials-grid" id="extrasGridContainer"></div>
         </section>
 
-        <!-- State View 6: Isolated Clean Dedicated About Screen -->
         <section id="dedicatedAboutView">
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
@@ -735,300 +720,37 @@
 
     <script>
         const playlistData = [
-            {
-                id: 'qFHLfmoLchI',
-                season: 1,
-                title: "Season 1, Episode 1",
-                thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
-                movies: [
-                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" },
-                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }
-                ]
-            },
-            {
-                id: 'nfOMBioJDJg',
-                season: 1,
-                title: "Season 1, Episode 2",
-                thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
-                movies: [
-                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" },
-                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }
-                ]
-            },
-            {
-                id: 'WzFILC5bI_c',
-                season: 1,
-                title: "Season 1, Episode 3",
-                thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
-                movies: [
-                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1654194/" },
-                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2004332/" }
-                ]
-            },
-            {
-                id: 'QYVJLsbciS8',
-                season: 1,
-                title: "Season 1, Episode 4",
-                thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg",
-                movies: [
-                    { name: "Skyfall", rating: "7.8/10", director: "Sam Mendes", cast: "Daniel Craig, Javier Bardem", imdb: "https://www.imdb.com/title/tt1077368/" },
-                    { name: "Lincoln", rating: "7.3/10", director: "Steven Spielberg", cast: "Daniel Day-Lewis", imdb: "https://www.imdb.com/title/tt0443272/" }
-                ]
-            },
-            {
-                id: 'SQZJktp-etk',
-                season: 1,
-                title: "Season 1, Episode 5",
-                thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg",
-                movies: [
-                    { name: "Life of Pi", rating: "7.9/10", director: "Ang Lee", cast: "Suraj Sharma, Irrfan Khan", imdb: "https://www.imdb.com/title/tt0454876/" },
-                    { name: "Rise of the Guardians", rating: "7.2/10", director: "Peter Ramsey", cast: "Chris Pine, Alec Baldwin", imdb: "https://www.imdb.com/title/tt1446192/" }
-                ]
-            },
-            {
-                id: 'HMKm0CYEXDU',
-                season: 1,
-                title: "Season 1, Episode 6",
-                thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg",
-                movies: [
-                    { name: "Killing Them Softly", rating: "6.2/10", director: "Andrew Dominik", cast: "Brad Pitt, Ray Liotta", imdb: "https://www.imdb.com/title/tt1764234/" },
-                    { name: "The Collection", rating: "6.1/10", director: "Marcus Dunstan", cast: "Josh Stewart", imdb: "https://www.imdb.com/title/tt1748227/" }
-                ]
-            },
-            {
-                id: 'Okikb3fpN4w',
-                season: 1,
-                title: "Season 1, Episode 7",
-                thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg",
-                movies: [
-                    { name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel", imdb: "https://www.imdb.com/title/tt1726592/" },
-                    { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch", imdb: "https://www.imdb.com/title/tt1669649/" }
-                ]
-            },
-            {
-                id: 'qjqfZhyGSrA',
-                season: 1,
-                title: "Season 1, Episode 8",
-                thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg",
-                movies: [
-                    { name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen", imdb: "https://www.imdb.com/title/tt0117038/" },
-                    { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington", imdb: "https://www.imdb.com" }
-                ]
-            },
-            {
-                id: 'vvoqgPay8bM',
-                season: 1,
-                title: "Season 1, Episode 9",
-                thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg",
-                movies: [
-                    { name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike", imdb: "https://www.imdb.com/title/tt1971352/" },
-                    { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann", imdb: "https://www.imdb.com/title/tt1758830/" }
-                ]
-            },
-            {
-                id: 'u75FIgboNHU',
-                season: 1,
-                title: "Season 1, Episode 10",
-                thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg",
-                movies: [
-                    { name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway", imdb: "https://www.imdb.com/title/tt1707386/" },
-                    { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler", imdb: "https://www.imdb.com/title/tt1047540/" }
-                ]
-            },
-            {
-                id: 'LPw-R-WWdOc',
-                season: 2,
-                title: "Season 2, Episode 1: Side Effects & Identity Thief",
-                thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg",
-                movies: [
-                    { name: "Side Effects", rating: "7.1/10", director: "Steven Soderbergh", cast: "Rooney Mara, Channing Tatum", imdb: "https://www.imdb.com/title/tt2053463/" },
-                    { name: "Identity Thief", rating: "5.7/10", director: "Seth Gordon", cast: "Jason Bateman, Melissa McCarthy", imdb: "https://www.imdb.com/title/tt2024432/" }
-                ]
-            },
-            {
-                id: '1M2yXVn2GGA',
-                season: 2,
-                title: "Season 2, Episode 2: A Good Day to Die Hard & Escape From Planet Earth",
-                thumb: "https://img.youtube.com/vi/1M2yXVn2GGA/0.jpg",
-                movies: [
-                    { name: "A Good Day to Die Hard", rating: "5.2/10", director: "John Moore", cast: "Bruce Willis, Jai Courtney", imdb: "https://www.imdb.com/title/tt1606378/" },
-                    { name: "Escape From Planet Earth", rating: "5.9/10", director: "Cal Brunker", cast: "Rob Corddry, Brendan Fraser", imdb: "https://www.imdb.com/title/tt0765446/" }
-                ]
-            },
-            {
-                id: 'MMTsSMttjdI',
-                season: 2,
-                title: "Season 2, Episode 3: Snitch & Dark Skies",
-                thumb: "https://img.youtube.com/vi/MMTsSMttjdI/0.jpg",
-                movies: [
-                    { name: "Snitch", rating: "6.4/10", director: "Ric Roman Waugh", cast: "Dwayne Johnson, Jon Bernthal", imdb: "https://www.imdb.com/title/tt1131734/" },
-                    { name: "Dark Skies", rating: "6.3/10", director: "Scott Stewart", cast: "Keri Russell, Josh Hamilton", imdb: "https://www.imdb.com/title/tt2387346/" }
-                ]
-            },
-            {
-                id: 'LjVTxxFNeQY',
-                season: 2,
-                title: "Season 2, Episode 4: 21 and Over & Jack the Giant Slayer",
-                thumb: "https://img.youtube.com/vi/LjVTxxFNeQY/0.jpg",
-                movies: [
-                    { name: "21 & Over", rating: "5.8/10", director: "Jon Lucas, Scott Moore", cast: "Miles Teller, Skylar Astin", imdb: "https://www.imdb.com/title/tt1711425/" },
-                    { name: "Jack the Giant Slayer", rating: "6.3/10", director: "Bryan Singer", cast: "Nicholas Hoult, Eleanor Tomlinson", imdb: "https://www.imdb.com/title/tt1351685/" }
-                ]
-            },
-            {
-                id: 'JhcGWg7aV0w',
-                season: 2,
-                title: "Season 2, Episode 5: Oz the Great and Powerful & Dead Man Down",
-                thumb: "https://img.youtube.com/vi/JhcGWg7aV0w/0.jpg",
-                movies: [
-                    { name: "Oz the Great and Powerful", rating: "6.3/10", director: "Sam Raimi", cast: "James Franco, Mila Kunis", imdb: "https://www.imdb.com/title/tt1351685/" },
-                    { name: "Dead Man Down", rating: "6.4/10", director: "Niels Arden Oplev", cast: "Colin Farrell, Noomi Rapace", imdb: "https://www.imdb.com/title/tt2101341/" }
-                ]
-            },
-            {
-                id: 'fah28oNAhT8',
-                season: 2,
-                title: "Season 2, Episode 6: Carrie & The Incredible Burt Wonderstone",
-                thumb: "https://img.youtube.com/vi/fah28oNAhT8/0.jpg",
-                movies: [
-                    { name: "Carrie", rating: "5.8/10", director: "Kimberly Peirce", cast: "Chloë Grace Moretz, Julianne Moore", imdb: "https://www.imdb.com/title/tt1930315/" },
-                    { name: "The Incredible Burt Wonderstone", rating: "5.9/10", director: "Don Scardino", cast: "Steve Carell, Luke Vanek", imdb: "https://www.imdb.com/title/tt0790628/" }
-                ]
-            },
-            {
-                id: 'XxJ7YQS8sos',
-                season: 2,
-                title: "Season 2, Episode 7: The Croods",
-                thumb: "https://img.youtube.com/vi/XxJ7YQS8sos/0.jpg",
-                movies: [
-                    { name: "The Croods", rating: "7.2/10", director: "Kirk DeMicco, Chris Sanders", cast: "Nicolas Cage, Emma Stone", imdb: "https://www.imdb.com/title/tt0479143/" }
-                ]
-            },
-            {
-                id: 'jFmz7t07i7w',
-                season: 2,
-                title: "Season 2, Episode 8: G.I. Joe: Retaliation & Temptation",
-                thumb: "https://img.youtube.com/vi/jFmz7t07i7w/0.jpg",
-                movies: [
-                    { name: "G.I. Joe: Retaliation", rating: "5.7/10", director: "Jon M. Chu", cast: "Dwayne Johnson, Channing Tatum", imdb: "https://www.imdb.com/title/tt1583421/" },
-                    { name: "Temptation: Confessions of a Marriage Counselor", rating: "4.9/10", director: "Tyler Perry", cast: "Jurnee Smollett, Lance Gross", imdb: "https://www.imdb.com/title/tt2070590/" }
-                ]
-            },
-            {
-                id: 'ri0n5EMEApY',
-                season: 2,
-                title: "Season 2, Episode 9: The Company You Keep & Jurassic Park 3D",
-                thumb: "https://img.youtube.com/vi/ri0n5EMEApY/0.jpg",
-                movies: [
-                    { name: "The Company You Keep", rating: "6.4/10", director: "Robert Redford", cast: "Robert Redford, Shia LaBeouf", imdb: "https://www.imdb.com/title/tt1380607/" },
-                    { name: "Jurassic Park 3D", rating: "8.2/10", director: "Steven Spielberg", cast: "Sam Neill, Laura Dern", imdb: "https://www.imdb.com/title/tt0107290/" }
-                ]
-            },
-            {
-                id: 'R_5-N9t26V8',
-                season: 2,
-                title: "Season 2, Episode 10: Oblivion & Scary Movie 5",
-                thumb: "https://img.youtube.com/vi/R_5-N9t26V8/0.jpg",
-                movies: [
-                    { name: "Oblivion", rating: "7.0/10", director: "Joseph Kosinski", cast: "Tom Cruise, Morgan Freeman", imdb: "https://www.imdb.com/title/tt1483013/" },
-                    { name: "Scary Movie 5", rating: "3.5/10", director: "Malcolm D. Lee", cast: "Simon Rex, Ashley Tisdale", imdb: "https://www.imdb.com/title/tt0795461/" }
-                ]
-            }
+            { id: 'qFHLfmoLchI', season: 1, title: "Season 1, Episode 1", thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg", movies: [{ name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" }, { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }] },
+            { id: 'nfOMBioJDJg', season: 1, title: "Season 1, Episode 2", thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg", movies: [{ name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" }, { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }] },
+            { id: 'WzFILC5bI_c', season: 1, title: "Season 1, Episode 3", thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg", movies: [{ name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1654194/" }, { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2004332/" }] },
+            { id: 'QYVJLsbciS8', season: 1, title: "Season 1, Episode 4", thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg", movies: [{ name: "Skyfall", rating: "7.8/10", director: "Sam Mendes", cast: "Daniel Craig, Javier Bardem", imdb: "https://www.imdb.com/title/tt1077368/" }, { name: "Lincoln", rating: "7.3/10", director: "Steven Spielberg", cast: "Daniel Day-Lewis", imdb: "https://www.imdb.com/title/tt0443272/" }] },
+            { id: 'SQZJktp-etk', season: 1, title: "Season 1, Episode 5", thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg", movies: [{ name: "Life of Pi", rating: "7.9/10", director: "Ang Lee", cast: "Suraj Sharma, Irrfan Khan", imdb: "https://www.imdb.com/title/tt0454876/" }, { name: "Rise of the Guardians", rating: "7.2/10", director: "Peter Ramsey", cast: "Chris Pine, Alec Baldwin", imdb: "https://www.imdb.com/title/tt1446192/" }] },
+            { id: 'HMKm0CYEXDU', season: 1, title: "Season 1, Episode 6", thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg", movies: [{ name: "Killing Them Softly", rating: "6.2/10", director: "Andrew Dominik", cast: "Brad Pitt, Ray Liotta", imdb: "https://www.imdb.com/title/tt1764234/" }, { name: "The Collection", rating: "6.1/10", director: "Marcus Dunstan", cast: "Josh Stewart", imdb: "https://www.imdb.com/title/tt1748227/" }] },
+            { id: 'Okikb3fpN4w', season: 1, title: "Season 1, Episode 7", thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg", movies: [{ name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel", imdb: "https://www.imdb.com/title/tt1726592/" }, { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch", imdb: "https://www.imdb.com/title/tt1669649/" }] },
+            { id: 'qjqfZhyGSrA', season: 1, title: "Season 1, Episode 8", thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg", movies: [{ name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen", imdb: "https://www.imdb.com/title/tt0117038/" }, { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington", imdb: "https://www.imdb.com" }] },
+            { id: 'vvoqgPay8bM', season: 1, title: "Season 1, Episode 9", thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg", movies: [{ name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike", imdb: "https://www.imdb.com/title/tt1971352/" }, { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann", imdb: "https://www.imdb.com/title/tt1758830/" }] },
+            { id: 'u75FIgboNHU', season: 1, title: "Season 1, Episode 10", thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg", movies: [{ name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway", imdb: "https://www.imdb.com/title/tt1707386/" }, { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler", imdb: "https://www.imdb.com/title/tt1047540/" }] },
+            { id: 'LPw-R-WWdOc', season: 2, title: "Season 2, Episode 1: Side Effects & Identity Thief", thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg", movies: [{ name: "Side Effects", rating: "7.1/10", director: "Steven Soderbergh", cast: "Rooney Mara, Channing Tatum", imdb: "https://www.imdb.com/title/tt2053463/" }, { name: "Identity Thief", rating: "5.7/10", director: "Seth Gordon", cast: "Jason Bateman, Melissa McCarthy", imdb: "https://www.imdb.com/title/tt2024432/" }] },
+            { id: '1M2yXVn2GGA', season: 2, title: "Season 2, Episode 2: A Good Day to Die Hard & Escape From Planet Earth", thumb: "https://img.youtube.com/vi/1M2yXVn2GGA/0.jpg", movies: [{ name: "A Good Day to Die Hard", rating: "5.2/10", director: "John Moore", cast: "Bruce Willis, Jai Courtney", imdb: "https://www.imdb.com/title/tt1606378/" }, { name: "Escape From Planet Earth", rating: "5.9/10", director: "Cal Brunker", cast: "Rob Corddry, Brendan Fraser", imdb: "https://www.imdb.com/title/tt0765446/" }] },
+            { id: 'MMTsSMttjdI', season: 2, title: "Season 2, Episode 3: Snitch & Dark Skies", thumb: "https://img.youtube.com/vi/MMTsSMttjdI/0.jpg", movies: [{ name: "Snitch", rating: "6.4/10", director: "Ric Roman Waugh", cast: "Dwayne Johnson, Jon Bernthal", imdb: "https://www.imdb.com/title/tt1131734/" }, { name: "Dark Skies", rating: "6.3/10", director: "Scott Stewart", cast: "Keri Russell, Josh Hamilton", imdb: "https://www.imdb.com/title/tt2387346/" }] },
+            { id: 'LjVTxxFNeQY', season: 2, title: "Season 2, Episode 4: 21 and Over & Jack the Giant Slayer", thumb: "https://img.youtube.com/vi/LjVTxxFNeQY/0.jpg", movies: [{ name: "21 & Over", rating: "5.8/10", director: "Jon Lucas, Scott Moore", cast: "Miles Teller, Skylar Astin", imdb: "https://www.imdb.com/title/tt1711425/" }, { name: "Jack the Giant Slayer", rating: "6.3/10", director: "Bryan Singer", cast: "Nicholas Hoult, Eleanor Tomlinson", imdb: "https://www.imdb.com/title/tt1351685/" }] },
+            { id: 'JhcGWg7aV0w', season: 2, title: "Season 2, Episode 5: Oz the Great and Powerful & Dead Man Down", thumb: "https://img.youtube.com/vi/JhcGWg7aV0w/0.jpg", movies: [{ name: "Oz the Great and Powerful", rating: "6.3/10", director: "Sam Raimi", cast: "James Franco, Mila Kunis", imdb: "https://www.imdb.com/title/tt1351685/" }, { name: "Dead Man Down", rating: "6.4/10", director: "Niels Arden Oplev", cast: "Colin Farrell, Noomi Rapace", imdb: "https://www.imdb.com/title/tt2101341/" }] },
+            { id: 'fah28oNAhT8', season: 2, title: "Season 2, Episode 6: Carrie & The Incredible Burt Wonderstone", thumb: "https://img.youtube.com/vi/fah28oNAhT8/0.jpg", movies: [{ name: "Carrie", rating: "5.8/10", director: "Kimberly Peirce", cast: "Chloë Grace Moretz, Julianne Moore", imdb: "https://www.imdb.com/title/tt1930315/" }, { name: "The Incredible Burt Wonderstone", rating: "5.9/10", director: "Don Scardino", cast: "Steve Carell, Luke Vanek", imdb: "https://www.imdb.com/title/tt0790628/" }] },
+            { id: 'XxJ7YQS8sos', season: 2, title: "Season 2, Episode 7: The Croods", thumb: "https://img.youtube.com/vi/XxJ7YQS8sos/0.jpg", movies: [{ name: "The Croods", rating: "7.2/10", director: "Kirk DeMicco, Chris Sanders", cast: "Nicolas Cage, Emma Stone", imdb: "https://www.imdb.com/title/tt0479143/" }] },
+            { id: 'jFmz7t07i7w', season: 2, title: "Season 2, Episode 8: G.I. Joe: Retaliation & Temptation", thumb: "https://img.youtube.com/vi/jFmz7t07i7w/0.jpg", movies: [{ name: "G.I. Joe: Retaliation", rating: "5.7/10", director: "Jon M. Chu", cast: "Dwayne Johnson, Channing Tatum", imdb: "https://www.imdb.com/title/tt1583421/" }, { name: "Temptation: Confessions of a Marriage Counselor", rating: "4.9/10", director: "Tyler Perry", cast: "Jurnee Smollett, Lance Gross", imdb: "https://www.imdb.com/title/tt2070590/" }] },
+            { id: 'ri0n5EMEApY', season: 2, title: "Season 2, Episode 9: The Company You Keep & Jurassic Park 3D", thumb: "https://img.youtube.com/vi/ri0n5EMEApY/0.jpg", movies: [{ name: "The Company You Keep", rating: "6.4/10", director: "Robert Redford", cast: "Robert Redford, Shia LaBeouf", imdb: "https://www.imdb.com/title/tt1380607/" }, { name: "Jurassic Park 3D", rating: "8.2/10", director: "Steven Spielberg", cast: "Sam Neill, Laura Dern", imdb: "https://www.imdb.com/title/tt0107290/" }] },
+            { id: 'R_5-N9t26V8', season: 2, title: "Season 2, Episode 10: Oblivion & Scary Movie 5", thumb: "https://img.youtube.com/vi/R_5-N9t26V8/0.jpg", movies: [{ name: "Oblivion", rating: "7.0/10", director: "Joseph Kosinski", cast: "Tom Cruise, Morgan Freeman", imdb: "https://www.imdb.com/title/tt1483013/" }, { name: "Scary Movie 5", rating: "3.5/10", director: "Malcolm D. Lee", cast: "Simon Rex, Ashley Tisdale", imdb: "https://www.imdb.com/title/tt0795461/" }] }
         ];
 
-        // Complete Repository mapping historical award indices across all 7 entries
         const oscarsData = [
-            { 
-                id: 'fDj-ZOqFiLI', // Corrected: This is the first one (Index 14)
-                title: "The 1st Annual Oscar Special",
-                year: "2013 (85th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Argo" },
-                    { label: "Best Director", val: "Ang Lee (Life of Pi)" },
-                    { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" },
-                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" },
-                    { label: "Best Supporting Actor", val: "Christoph Waltz (Django Unchained)" },
-                    { label: "Best Supporting Actress", val: "Anne Hathaway (Les Misérables)" }
-                ]
-            },
-            { 
-                id: 'v9-A6_p0vAw', // Corrected: This is the second one (3rd video in playlist order)
-                title: "The 2nd Annual Oscar Special",
-                year: "2014 (86th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "12 Years a Slave" },
-                    { label: "Best Director", val: "Alfonso Cuarón (Gravity)" },
-                    { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" },
-                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" },
-                    { label: "Best Supporting Actor", val: "Jared Leto (Dallas Buyers Club)" },
-                    { label: "Best Supporting Actress", val: "Lupita Nyong'o (12 Years a Slave)" }
-                ]
-            },
-            { 
-                id: '3m69XwA66pI', // Corrected: This is the third one (4th video in playlist order)
-                title: "The 3rd Annual Oscar Special",
-                year: "2015 (87th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Birdman" },
-                    { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
-                    { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
-                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" },
-                    { label: "Best Supporting Actor", val: "J.K. Simmons (Whiplash)" },
-                    { label: "Best Supporting Actress", val: "Patricia Arquette (Boyhood)" }
-                ]
-            },
-            { 
-                id: 'ZMIQEWdPaRA', 
-                title: "Our Cinema Oscar Special LIVE",
-                year: "2016 (88th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Spotlight" },
-                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
-                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
-                    { label: "Best Actress", val: "Brie Larson (Room)" },
-                    { label: "Best Supporting Actor", val: "Mark Rylance (Bridge of Spies)" },
-                    { label: "Best Supporting Actress", val: "Alicia Vikander (The Danish Girl)" }
-                ]
-            },
-            { 
-                id: 'MIAttlFcO6g', 
-                title: "The 5th Annual Oscar Special",
-                year: "2017 (89th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Moonlight" },
-                    { label: "Best Director", val: "Damien Chazelle (La La Land)" },
-                    { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" },
-                    { label: "Best Actress", val: "Emma Stone (La La Land)" },
-                    { label: "Best Supporting Actor", val: "Mahershala Ali (Moonlight)" },
-                    { label: "Best Supporting Actress", val: "Viola Davis (Fences)" }
-                ]
-            },
-            { 
-                id: 'pKkAdoZEn-s', 
-                title: "The 6th Annual Oscar Special",
-                year: "2018 (90th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "The Shape of Water" },
-                    { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" },
-                    { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" },
-                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" },
-                    { label: "Best Supporting Actor", val: "Sam Rockwell (Three Billboards Outside Ebbing, Missouri)" },
-                    { label: "Best Supporting Actress", val: "Allison Janney (I, Tonya)" }
-                ]
-            },
-            { 
-                id: 'WCowInr2d0s', 
-                title: "The 7th Annual Oscar Special",
-                year: "2019 (91st Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Green Book" },
-                    { label: "Best Director", val: "Alfonso Cuarón (Roma)" },
-                    { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" },
-                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" },
-                    { label: "Best Supporting Actor", val: "Mahershala Ali (Green Book)" },
-                    { label: "Best Supporting Actress", val: "Regina King (If Beale Street Could Talk)" }
-                ]
-            }
+            { id: 'fDj-ZOqFiLI', title: "Oscar Special 2013", year: "2013 (85th Academy Awards)", history: [{ label: "Best Picture", val: "Argo" }, { label: "Best Director", val: "Ang Lee (Life of Pi)" }, { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" }, { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" }] },
+            { id: 'aHebKoIFRKE', title: "Oscar Special 2014", year: "2014 (86th Academy Awards)", history: [{ label: "Best Picture", val: "12 Years a Slave" }, { label: "Best Director", val: "Alfonso Cuarón (Gravity)" }, { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" }, { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" }] },
+            { id: 'K5UFrRFD3Gw', title: "Oscar Special 2015", year: "2015 (87th Academy Awards)", history: [{ label: "Best Picture", val: "Birdman" }, { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" }, { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" }, { label: "Best Actress", val: "Julianne Moore (Still Alice)" }] },
+            { id: 'ANNOQWby8R8', title: "Oscar Special 2016", year: "2016 (88th Academy Awards)", history: [{ label: "Best Picture", val: "Spotlight" }, { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" }, { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" }, { label: "Best Actress", val: "Brie Larson (Room)" }] },
+            { id: 'ZMIQEWdPaRA', title: "Oscar Special 2017", year: "2017 (89th Academy Awards)", history: [{ label: "Best Picture", val: "Moonlight" }, { label: "Best Director", val: "Damien Chazelle (La La Land)" }, { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" }, { label: "Best Actress", val: "Emma Stone (La La Land)" }] },
+            { id: 'MIAttlFcO6g', title: "Oscar Special 2018", year: "2018 (90th Academy Awards)", history: [{ label: "Best Picture", val: "The Shape of Water" }, { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" }, { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" }, { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" }] },
+            { id: 'pKkAdoZEn-s', title: "Oscar Special 2019", year: "2019 (91st Academy Awards)", history: [{ label: "Best Picture", val: "Green Book" }, { label: "Best Director", val: "Alfonso Cuarón (Roma)" }, { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" }, { label: "Best Actress", val: "Olivia Colman (The Favourite)" }] },
+            { id: 'WCowInr2d0s', title: "Oscar Special 2020", year: "2020 (92nd Academy Awards)", history: [{ label: "Best Picture", val: "Parasite" }, { label: "Best Director", val: "Bong Joon-ho (Parasite)" }, { label: "Best Actor", val: "Joaquin Phoenix (Joker)" }, { label: "Best Actress", val: "Renée Zellweger (Judy)" }] }
         ];
 
         const extrasData = [
@@ -1080,7 +802,7 @@
 
         function toggleDropdown(event) {
             event.stopPropagation();
-            document.getElementById('customDropdown').toggle('open');
+            document.getElementById('customDropdown').classList.toggle('open');
         }
 
         function selectDropdownOption(seasonNum) {
@@ -1234,32 +956,25 @@
             document.getElementById('special-speed-dropdown').value = "1";
             document.getElementById('special-quality-dropdown').value = "default";
 
+            const matchedSpecial = oscarsData.find(o => o.id === trackId);
             const dataHeader = document.getElementById('oscarYearTitle');
             const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
             
-            // Clean division: only display Academy Awards if launched from the oscars tab view
-            if (originView === 'oscars') {
-                const matchedSpecial = oscarsData.find(o => o.id === trackId);
-                if (matchedSpecial && matchedSpecial.history) {
-                    dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
-                    dataGrid.innerHTML = "";
-                    matchedSpecial.history.forEach(award => {
-                        const card = document.createElement('div');
-                        card.className = "movie-card";
-                        card.innerHTML = `
-                            <div>
-                                <h4>${award.label}</h4>
-                                <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
-                            </div>
-                        `;
-                        dataGrid.appendChild(card);
-                    });
-                } else {
-                    dataHeader.innerText = "Academy Awards Reference Block";
-                    dataGrid.innerHTML = `<div class="movie-card"><h4>No log matrix attached to this feature block.</h4></div>`;
-                }
+            if (matchedSpecial && matchedSpecial.history) {
+                dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
+                dataGrid.innerHTML = "";
+                matchedSpecial.history.forEach(award => {
+                    const card = document.createElement('div');
+                    card.className = "movie-card";
+                    card.innerHTML = `
+                        <div>
+                            <h4>${award.label}</h4>
+                            <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
+                        </div>
+                    `;
+                    dataGrid.appendChild(card);
+                });
             } else {
-                // If loaded from "extras", the layout omits Academy Awards details completely.
                 dataHeader.innerText = "Bonus Archive Material";
                 dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
             }
