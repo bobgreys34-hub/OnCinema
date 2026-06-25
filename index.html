@@ -238,6 +238,17 @@
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s;
+        }
+
+        .instagram-card:hover {
+            transform: scale(1.01);
+        }
+
+        .insta-link-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .insta-media-wrapper {
@@ -572,37 +583,46 @@
                             <p>On Cinema At The Cinema Official Feed</p>
                         </div>
                     </div>
-                    <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-external-btn">Follow</a>
+                    <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-external-btn">Follow on Instagram</a>
                 </div>
 
                 <div class="instagram-grid">
+                    <!-- Card 1 -->
                     <div class="instagram-card">
-                        <div class="insta-media-wrapper">
-                            <span class="insta-video-icon"><i class="fas fa-video"></i> Reel</span>
-                            <img src="https://img.youtube.com/vi/qFHLfmoLchI/maxresdefault.jpg" alt="Post 1">
-                        </div>
-                        <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinemaonline</span>The analytics logs are set for Season 1. Navigate to our system dashboard above to trigger streaming feeds immediately! 🍿🎬</div>
-                        </div>
+                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
+                            <div class="insta-media-wrapper">
+                                <span class="insta-video-icon"><i class="fas fa-video"></i> Reel</span>
+                                <img src="https://img.youtube.com/vi/qFHLfmoLchI/maxresdefault.jpg" alt="Post 1">
+                            </div>
+                            <div class="insta-content">
+                                <div class="insta-actions"><i class="far fa-heart"></i></div>
+                                <div class="insta-caption"><span>oncinemaonline</span>The analytics logs are set for Season 1. Navigate to our system dashboard above to trigger streaming feeds immediately! 🍿🎬</div>
+                            </div>
+                        </a>
                     </div>
+                    <!-- Card 2 -->
                     <div class="instagram-card">
-                        <div class="insta-media-wrapper">
-                            <img src="https://img.youtube.com/vi/nfOMBioJDJg/maxresdefault.jpg" alt="Post 2">
-                        </div>
-                        <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinemaonline</span>Archival metrics for Breaking Dawn Part 2 have cleared verification protocol steps. Standard 5 bag review incoming.</div>
-                        </div>
+                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
+                            <div class="insta-media-wrapper">
+                                <img src="https://img.youtube.com/vi/nfOMBioJDJg/maxresdefault.jpg" alt="Post 2">
+                            </div>
+                            <div class="insta-content">
+                                <div class="insta-actions"><i class="far fa-heart"></i></div>
+                                <div class="insta-caption"><span>oncinemaonline</span>Archival metrics for Breaking Dawn Part 2 have cleared verification protocol steps. Standard 5 bag review incoming.</div>
+                            </div>
+                        </a>
                     </div>
+                    <!-- Card 3 -->
                     <div class="instagram-card">
-                        <div class="insta-media-wrapper">
-                            <img src="https://img.youtube.com/vi/WzFILC5bI_c/maxresdefault.jpg" alt="Post 3">
-                        </div>
-                        <div class="insta-content">
-                            <div class="insta-actions"><i class="far fa-heart"></i></div>
-                            <div class="insta-caption"><span>oncinemaonline</span>Action setups configured cleanly across our secondary database modules. True cinema structure.</div>
-                        </div>
+                        <a href="https://www.instagram.com/oncinemaonline/" target="_blank" class="insta-link-wrapper">
+                            <div class="insta-media-wrapper">
+                                <img src="https://img.youtube.com/vi/WzFILC5bI_c/maxresdefault.jpg" alt="Post 3">
+                            </div>
+                            <div class="insta-content">
+                                <div class="insta-actions"><i class="far fa-heart"></i></div>
+                                <div class="insta-caption"><span>oncinemaonline</span>Action setups configured cleanly across our secondary database modules. True cinema structure.</div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -710,7 +730,6 @@
         let ccEnabled = false;
 
         function showView(viewName) {
-            // Instantly pause running video elements on changing structural navigation channels
             if (player && player.pauseVideo) {
                 player.pauseVideo();
             }
