@@ -102,41 +102,6 @@
             padding-top: 30px;
         }
 
-        #seasonView {
-            display: none;
-            text-align: center;
-            max-width: 500px;
-            margin: 120px auto;
-        }
-
-        #seasonView h3 {
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            font-weight: 800;
-        }
-
-        .season-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .season-btn:hover {
-            background-color: var(--hover-blue);
-            transform: translateY(-2px);
-        }
-
         #hubView {
             display: none; 
             grid-template-columns: 3fr 1fr;
@@ -417,14 +382,80 @@
             border: 1px solid rgba(37, 99, 235, 0.15);
         }
 
-        .season-selector {
+        /* --- Custom Dropdown Styling --- */
+        .custom-dropdown {
+            position: relative;
             width: 100%;
-            background: rgba(255,255,255,0.05);
+            user-select: none;
+            z-index: 10;
+        }
+
+        .dropdown-selected {
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px;
             border-radius: 6px;
             font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s;
+        }
+
+        .dropdown-selected:hover {
+            border-color: rgba(37, 99, 235, 0.4);
+        }
+
+        .dropdown-selected i {
+            font-size: 0.85rem;
+            transition: transform 0.2s;
+            color: var(--text-muted);
+        }
+
+        .custom-dropdown.open .dropdown-selected i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            right: 0;
+            background: #1f1f23;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .custom-dropdown.open .dropdown-options {
+            display: block;
+        }
+
+        .dropdown-option {
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-option:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .dropdown-option.active {
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .dropdown-option.active:hover {
+            color: white;
+            background: var(--accent-blue);
         }
 
         .playlist-title {
@@ -563,7 +594,7 @@
         <div class="logo" onclick="showView('welcome')">On Cinema <span class="red-txt">Hub</span></div>
         <nav>
             <a href="#" class="blue-nav" onclick="showView('welcome')">Home</a>
-            <a href="#" class="standard-nav" onclick="showView('season')">On Cinema</a>
+            <a href="#" class="standard-nav" onclick="showView('hub')">On Cinema</a>
             <a href="#" class="blue-nav" onclick="showView('about')">About</a>
         </nav>
     </header>
@@ -634,12 +665,6 @@
             </div>
         </section>
 
-        <!-- State View 2: Season Selector -->
-        <section id="seasonView">
-            <h3>Select a Season</h3>
-            <button class="season-btn" onclick="showView('hub')">Season 1</button>
-        </section>
-
         <!-- State View 3: Control Hub Layout -->
         <section id="hubView">
             <div>
@@ -675,8 +700,20 @@
                     <div class="movies-meta-grid" id="movieMetaGrid"></div>
                 </div>
             </div>
+            
             <div class="sidebar">
-                <select class="season-selector"><option value="1">Season 1</option></select>
+                <!-- Custom Dynamic Dropdown Menu -->
+                <div class="custom-dropdown" id="customDropdown">
+                    <div class="dropdown-selected" onclick="toggleDropdown(event)">
+                        <span id="dropdownLabel">Season 1</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-option active" data-value="1" onclick="selectDropdownOption(1)">Season 1</div>
+                        <div class="dropdown-option" data-value="2" onclick="selectDropdownOption(2)">Season 2</div>
+                    </div>
+                </div>
+                
                 <div class="playlist-title">Episodes</div>
                 <div class="episode-list" id="episode-list"></div>
             </div>
@@ -696,6 +733,7 @@
         const playlistData = [
             {
                 id: 'qFHLfmoLchI',
+                season: 1,
                 title: "Season 1, Episode 1",
                 thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
                 movies: [
@@ -705,6 +743,7 @@
             },
             {
                 id: 'nfOMBioJDJg',
+                season: 1,
                 title: "Season 1, Episode 2",
                 thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
                 movies: [
@@ -714,6 +753,7 @@
             },
             {
                 id: 'WzFILC5bI_c',
+                season: 1,
                 title: "Season 1, Episode 3",
                 thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
                 movies: [
@@ -723,6 +763,7 @@
             },
             {
                 id: 'QYVJLsbciS8',
+                season: 1,
                 title: "Season 1, Episode 4",
                 thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg",
                 movies: [
@@ -732,6 +773,7 @@
             },
             {
                 id: 'SQZJktp-etk',
+                season: 1,
                 title: "Season 1, Episode 5",
                 thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg",
                 movies: [
@@ -741,6 +783,7 @@
             },
             {
                 id: 'HMKm0CYEXDU',
+                season: 1,
                 title: "Season 1, Episode 6",
                 thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg",
                 movies: [
@@ -750,37 +793,77 @@
             },
             {
                 id: 'Okikb3fpN4w',
+                season: 1,
                 title: "Season 1, Episode 7",
                 thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg",
                 movies: [
                     { name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel" },
                     { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch" }
                 ]
+            },
+            {
+                id: 'qjqfZhyGSrA',
+                season: 1,
+                title: "Season 1, Episode 8",
+                thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg",
+                movies: [
+                    { name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen" },
+                    { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington" }
+                ]
+            },
+            {
+                id: 'vvoqgPay8bM',
+                season: 1,
+                title: "Season 1, Episode 9",
+                thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg",
+                movies: [
+                    { name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike" },
+                    { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann" }
+                ]
+            },
+            {
+                id: 'u75FIgboNHU',
+                season: 1,
+                title: "Season 1, Episode 10",
+                thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg",
+                movies: [
+                    { name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway" },
+                    { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler" }
+                ]
+            },
+            {
+                id: 'LPw-R-WWdOc',
+                season: 2,
+                title: "Season 2, Episode 1",
+                thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg",
+                movies: [
+                    { name: "Texas Chainsaw 3D", rating: "4.8/10", director: "John Luessenhop", cast: "Alexandra Daddario" },
+                    { name: "A Haunted House", rating: "5.0/10", director: "Michael Tiddes", cast: "Marlon Wayans" }
+                ]
             }
         ];
 
-        let currentTrackIndex = 0;
+        let currentActiveTrackId = playlistData[0].id;
+        let currentSelectedSeason = 1;
         let player;
         let updateTimer;
         let idleTimer;
         let ccEnabled = false;
 
-        function showView(viewName) {
+        function showView(viewName, defaultSeason = 1) {
             if (player && player.pauseVideo) {
                 player.pauseVideo();
             }
 
             document.getElementById('welcomeView').style.display = 'none';
-            document.getElementById('seasonView').style.display = 'none';
             document.getElementById('hubView').style.display = 'none';
             document.getElementById('dedicatedAboutView').style.display = 'none';
 
             if(viewName === 'welcome') {
                 document.getElementById('welcomeView').style.display = 'flex';
-            } else if (viewName === 'season') {
-                document.getElementById('seasonView').style.display = 'block';
             } else if (viewName === 'hub') {
                 document.getElementById('hubView').style.display = 'grid';
+                changeSeason(defaultSeason, true);
                 if (!player) {
                     initYouTubeEngine();
                 } else {
@@ -791,6 +874,22 @@
             }
         }
 
+        /* --- Custom Dropdown Handlers --- */
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('customDropdown').classList.toggle('open');
+        }
+
+        function selectDropdownOption(seasonNum) {
+            document.getElementById('customDropdown').classList.remove('open');
+            changeSeason(seasonNum, false);
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            document.getElementById('customDropdown').classList.remove('open');
+        });
+
         function initYouTubeEngine() {
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
@@ -800,7 +899,7 @@
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
-                videoId: playlistData[currentTrackIndex].id,
+                videoId: currentActiveTrackId,
                 playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0 },
                 events: { 'onReady': onPlayerReady, 'onStateChange': onPlayerStateChange }
             });
@@ -808,7 +907,7 @@
 
         function onPlayerReady(event) {
             buildPlaylistUI();
-            switchVideoData(currentTrackIndex);
+            switchVideoDetails(currentActiveTrackId);
             setupIdleDetection();
             player.playVideo();
         }
@@ -850,13 +949,38 @@
             document.getElementById('player-container').classList.remove('user-idle');
         }
 
+        function changeSeason(seasonNum, internalRouting = false) {
+            currentSelectedSeason = seasonNum;
+            
+            // Update Custom Dropdown Visuals
+            document.getElementById('dropdownLabel').innerText = `Season ${seasonNum}`;
+            document.querySelectorAll('.dropdown-option').forEach(opt => {
+                if (parseInt(opt.getAttribute('data-value')) === seasonNum) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+            
+            const filtered = playlistData.filter(item => item.season === seasonNum);
+            if (filtered.length > 0 && !internalRouting) {
+                playEpisode(filtered[0].id);
+            } else if (filtered.length > 0 && internalRouting) {
+                currentActiveTrackId = filtered[0].id;
+                buildPlaylistUI();
+            }
+        }
+
         function buildPlaylistUI() {
             const listContainer = document.getElementById('episode-list');
             listContainer.innerHTML = "";
-            playlistData.forEach((item, index) => {
+            
+            const filteredList = playlistData.filter(item => item.season === currentSelectedSeason);
+            
+            filteredList.forEach((item) => {
                 const div = document.createElement('div');
-                div.className = `episode-item ${index === currentTrackIndex ? 'active' : ''}`;
-                div.onclick = () => playEpisode(index);
+                div.className = `episode-item ${item.id === currentActiveTrackId ? 'active' : ''}`;
+                div.onclick = () => playEpisode(item.id);
                 let subtitleString = item.movies.map(m => m.name).join(" & ");
                 div.innerHTML = `
                     <div class="ep-thumb" style="background-image: url('${item.thumb}')"></div>
@@ -869,8 +993,10 @@
             });
         }
 
-        function switchVideoData(index) {
-            const currentEp = playlistData[index];
+        function switchVideoDetails(trackId) {
+            const currentEp = playlistData.find(item => item.id === trackId);
+            if (!currentEp) return;
+            
             document.getElementById('active-title-header').innerText = currentEp.title;
             const metaGrid = document.getElementById('movieMetaGrid');
             metaGrid.innerHTML = "";
@@ -887,11 +1013,25 @@
             });
         }
 
-        function playEpisode(index) {
-            currentTrackIndex = index;
+        function playEpisode(trackId) {
+            currentActiveTrackId = trackId;
+            const track = playlistData.find(item => item.id === trackId);
+            if(track) {
+                currentSelectedSeason = track.season;
+                document.getElementById('dropdownLabel').innerText = `Season ${track.season}`;
+                document.querySelectorAll('.dropdown-option').forEach(opt => {
+                    if (parseInt(opt.getAttribute('data-value')) === track.season) {
+                        opt.classList.add('active');
+                    } else {
+                        opt.classList.remove('active');
+                    }
+                });
+            }
             buildPlaylistUI();
-            switchVideoData(index);
-            player.loadVideoById(playlistData[index].id);
+            switchVideoDetails(trackId);
+            if (player && player.loadVideoById) {
+                player.loadVideoById(trackId);
+            }
             document.getElementById('speed-dropdown').value = "1";
         }
 
