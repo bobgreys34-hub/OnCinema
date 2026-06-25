@@ -11,7 +11,6 @@
             --red: #e50914;
             --blue: #0056b3;
             --dark-blue: #0a1128;
-            --light-gray: #f4f4f4;
             --text-color: #ffffff;
         }
 
@@ -30,13 +29,11 @@
             min-height: 100vh;
         }
 
-        /* Header / Navigation */
         header {
             background: linear-gradient(135deg, var(--red) 0%, var(--blue) 100%);
             padding: 20px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            position: relative;
         }
 
         h1 {
@@ -77,7 +74,6 @@
             color: var(--red);
         }
 
-        /* Main Layout */
         .container {
             max-width: 1200px;
             margin: 30px auto;
@@ -88,7 +84,6 @@
             gap: 30px;
         }
 
-        /* Video Showcase Player Area */
         .player-section {
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
@@ -96,18 +91,17 @@
             border: 2px solid var(--blue);
         }
 
-        /* Custom Video Container with Overlay Capabilities */
         .video-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            padding-top: 56.25%; 
             background-color: #000;
             overflow: hidden;
             border-radius: 4px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
-        .video-wrapper iframe, .video-wrapper #player {
+        .video-wrapper #player {
             position: absolute;
             top: 0;
             left: 0;
@@ -116,7 +110,6 @@
             border: 0;
         }
 
-        /* Overlay & Custom Controls styling */
         .player-overlay {
             position: absolute;
             top: 0;
@@ -127,7 +120,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            pointer-events: none; /* Let clicks pass through to video unless hovering controls */
+            pointer-events: none;
             transition: opacity 0.5s ease;
             opacity: 1;
         }
@@ -142,7 +135,7 @@
         }
 
         .custom-controls {
-            pointer-events: auto; /* Re-enable pointer events for buttons */
+            pointer-events: auto;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
             padding: 20px;
             display: flex;
@@ -168,7 +161,6 @@
             background: var(--red);
         }
 
-        /* Movie Details */
         .movie-details {
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.4);
@@ -236,7 +228,6 @@
             text-decoration: underline;
         }
 
-        /* Playlist Selection Sidebar/Bottom Grid */
         .playlist-section h3 {
             font-family: 'Oswald', sans-serif;
             font-size: 1.8rem;
@@ -276,7 +267,6 @@
             color: #ccc;
         }
 
-        /* Footer */
         footer {
             background-color: #050a18;
             text-align: center;
@@ -296,51 +286,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        /* Modal Page Simulation for "About" Tab */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: var(--dark-blue);
-            border: 3px solid var(--red);
-            padding: 40px;
-            border-radius: 8px;
-            max-width: 600px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 0 30px var(--blue);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--red);
-        }
-
-        .modal-content h2 {
-            font-family: 'Oswald', sans-serif;
-            margin-bottom: 20px;
-            color: var(--red);
-        }
-
-        .modal-content p {
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
     </style>
 </head>
 <body>
@@ -348,12 +293,12 @@
     <header>
         <h1>On Cinema <span>at the cinema</span></h1>
         <nav>
-            <a onclick="openAbout()">About</a>
+            <!-- Opens about.html in a fresh new page tab -->
+            <a href="about.html" target="_blank">About</a>
         </nav>
     </header>
 
     <div class="container">
-        
         <section class="player-section">
             <div class="video-wrapper" id="videoWrapper">
                 <div id="player"></div>
@@ -371,8 +316,7 @@
 
             <div class="movie-details">
                 <h3 class="episode-title" id="displayEpTitle">Season 1, Episode 1</h3>
-                <div class="movies-grid" id="movieMetaGrid">
-                    </div>
+                <div class="movies-grid" id="movieMetaGrid"></div>
             </div>
         </section>
 
@@ -395,22 +339,11 @@
         </section>
     </div>
 
-    <div class="modal" id="aboutModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeAbout()">&times;</span>
-            <h2>About This Site</h2>
-            <p>This site just puts all the On Cinema available in one place.</p>
-            <p><strong>Please Note:</strong> This is not an official On Cinema site. This was lovingly put together by a fan of the show.</p>
-            <p>All credit goes to Tim Heidecker, Gregg Turkington, and the HEI Network crew for keeping expert movie expertise alive!</p>
-        </div>
-    </div>
-
     <footer>
         Official Website: <a href="https://www.heinetwork.tv/" target="_blank">https://www.heinetwork.tv/</a>
     </footer>
 
     <script>
-        // Data Structure for the videos and extracted movie metadata
         const episodesData = [
             {
                 vidId: 'qFHLfmoLchI',
@@ -421,14 +354,14 @@
                         rating: "5.6/10",
                         director: "RZA",
                         cast: "RZA, Russell Crowe, Lucy Liu",
-                        imdb: "https://www.imdb.com/title/t1258972/"
+                        imdb: "https://www.imdb.com/title/tt1258972/"
                     },
                     {
                         title: "Flight",
                         rating: "7.3/10",
                         director: "Robert Zemeckis",
                         cast: "Denzel Washington, Don Cheadle, Kelly Reilly",
-                        imdb: "https://www.imdb.com/title/t1907668/"
+                        imdb: "https://www.imdb.com/title/tt1907668/"
                     }
                 ]
             },
@@ -441,14 +374,14 @@
                         rating: "7.1/10",
                         director: "Steven Soderbergh",
                         cast: "Rooney Mara, Channing Tatum, Jude Law",
-                        imdb: "https://www.imdb.com/title/t2053463/"
+                        imdb: "https://www.imdb.com/title/tt2053463/"
                     },
                     {
                         title: "Identity Thief",
                         rating: "5.7/10",
                         director: "Seth Gordon",
                         cast: "Jason Bateman, Melissa McCarthy, John Cho",
-                        imdb: "https://www.imdb.com/title/t2024432/"
+                        imdb: "https://www.imdb.com/title/tt2024432/"
                     }
                 ]
             },
@@ -461,20 +394,19 @@
                         rating: "5.2/10",
                         director: "John Moore",
                         cast: "Bruce Willis, Jai Courtney, Sebastian Koch",
-                        imdb: "https://www.imdb.com/title/t1606378/"
+                        imdb: "https://www.imdb.com/title/tt1606378/"
                     },
                     {
                         title: "Escape from Planet Earth",
                         rating: "5.9/10",
                         director: "Cal Brunker",
                         cast: "Rob Corddry, Brendan Fraser, Jessica Alba",
-                        imdb: "https://www.imdb.com/title/t1421382/"
+                        imdb: "https://www.imdb.com/title/tt1421382/"
                     }
                 ]
             }
         ];
 
-        // Load YouTube Iframe API token
         let tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         let firstScriptTag = document.getElementsByTagName('script')[0];
@@ -484,12 +416,11 @@
         let currentEpIndex = 0;
         let ccEnabled = false;
 
-        // Initialize YouTube Player
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
                 videoId: episodesData[currentEpIndex].vidId,
                 playerVars: {
-                    'controls': 0, // Disables YT native control layout
+                    'controls': 0, 
                     'rel': 0,
                     'modestbranding': 1,
                     'iv_load_policy': 3
@@ -506,7 +437,6 @@
             setupInactivityDimmer();
         }
 
-        // Custom Layout UI Interactions
         function setupCustomControls() {
             const playPauseBtn = document.getElementById('playPauseBtn');
             const skipBtn = document.getElementById('skipBtn');
@@ -517,7 +447,7 @@
 
             playPauseBtn.addEventListener('click', () => {
                 let state = player.getPlayerState();
-                if (state == 1) { // playing
+                if (state == 1) {
                     player.pauseVideo();
                     playPauseBtn.innerText = "Play";
                 } else {
@@ -544,7 +474,7 @@
 
             qualityBtn.addEventListener('click', () => {
                 player.setPlaybackQuality('hd720');
-                alert("Quality forced to High Definition (720p+) if supported by current video.");
+                alert("Quality set to HD/Auto selection mode.");
             });
 
             fullscreenBtn.addEventListener('click', () => {
@@ -558,7 +488,6 @@
             });
         }
 
-        // Hide Cursor and HUD Controls Overlay on inactivity
         function setupInactivityDimmer() {
             const wrapper = document.getElementById('videoWrapper');
             const overlay = document.getElementById('playerOverlay');
@@ -569,25 +498,22 @@
                 wrapper.classList.remove('hide-cursor');
                 clearTimeout(timeout);
                 timeout = setTimeout(() => {
-                    // Check if video is playing before hiding controls
                     if (player && player.getPlayerState() === 1) {
                         overlay.classList.add('hide-controls');
                         wrapper.classList.add('hide-cursor');
                     }
-                }, 3000); // 3 seconds timeout
+                }, 3000);
             }
 
             wrapper.addEventListener('mousemove', resetTimer);
             wrapper.addEventListener('click', resetTimer);
         }
 
-        // Episode Switching Logic
         function loadEpisode(index) {
             currentEpIndex = index;
             player.loadVideoById(episodesData[index].vidId);
             document.getElementById('playPauseBtn').innerText = "Pause";
             
-            // Manage Active Thumb Visuals
             let thumbs = document.querySelectorAll('.episode-thumb');
             thumbs.forEach((t, idx) => {
                 if(idx === index) t.classList.add('active');
@@ -597,13 +523,12 @@
             updateMetadata(index);
         }
 
-        // Dynamic Movie Data Text Updates
         function updateMetadata(index) {
             const data = episodesData[index];
             document.getElementById('displayEpTitle').innerText = data.epTitle;
 
             const grid = document.getElementById('movieMetaGrid');
-            grid.innerHTML = ""; // Clear existing
+            grid.innerHTML = "";
 
             data.movies.forEach(movie => {
                 const card = document.createElement('div');
@@ -617,14 +542,6 @@
                 `;
                 grid.appendChild(card);
             });
-        }
-
-        // Simulated Simulated Modal Transitions
-        function openAbout() {
-            document.getElementById('aboutModal').style.display = 'flex';
-        }
-        function closeAbout() {
-            document.getElementById('aboutModal').style.display = 'none';
         }
     </script>
 </body>
