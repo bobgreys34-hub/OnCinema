@@ -102,25 +102,6 @@
             padding-top: 30px;
         }
 
-        .home-hero-banner {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-        }
-
-        .home-hero-banner img {
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            display: block;
-        }
-
         .dev-billboard {
             background: rgba(37, 99, 235, 0.03);
             border: 1px dashed rgba(37, 99, 235, 0.2);
@@ -186,7 +167,6 @@
             width: 100%;
             height: 100%;
             border: none;
-            pointer-events: none; 
         }
 
         .video-overlay-click {
@@ -602,17 +582,11 @@
         
         <!-- State View 1: Homepage -->
         <section id="welcomeView">
-            <!-- Brand Graphic Integration -->
-            <div class="home-hero-banner">
-                <img src="image_925020.png" alt="On Cinema at the Cinema Logo Banner">
-            </div>
-
             <div class="dev-billboard">
                 <h1>- In Development</h1>
                 <p>Advanced media portal architecture is actively upgrading. Access streaming layouts directly using the menu indicators.</p>
             </div>
 
-            <!-- Stays at the bottom of the home screen -->
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
                 <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
@@ -634,7 +608,7 @@
                                 <button class="ctrl-btn" onclick="togglePlay(mainPlayer)" id="play-btn"><i class="fas fa-play"></i></button>
                                 <button class="ctrl-btn" onclick="skip(mainPlayer, -10)"><i class="fas fa-backward"></i></button>
                                 <button class="ctrl-btn" onclick="skip(mainPlayer, 10)"><i class="fas fa-forward"></i></button>
-                                <span class="time-display" id="time-display">0:00 / 0:00</span>
+                                <span class="time-display" id="time-display">00:00:00 / 00:00:00</span>
                             </div>
                             <div class="control-group">
                                 <button class="ctrl-btn" onclick="toggleSubtitles(mainPlayer, 'caption-btn')" id="caption-btn"><i class="fas fa-closed-captioning"></i></button>
@@ -667,7 +641,6 @@
             </div>
             
             <div class="sidebar">
-                <!-- Custom Dynamic Dropdown Menu -->
                 <div class="custom-dropdown" id="customDropdown">
                     <div class="dropdown-selected" onclick="toggleDropdown(event)">
                         <span id="dropdownLabel">Season 1</span>
@@ -709,7 +682,7 @@
                                 <button class="ctrl-btn" onclick="togglePlay(specialPlayer)" id="special-play-btn"><i class="fas fa-play"></i></button>
                                 <button class="ctrl-btn" onclick="skip(specialPlayer, -10)"><i class="fas fa-backward"></i></button>
                                 <button class="ctrl-btn" onclick="skip(specialPlayer, 10)"><i class="fas fa-forward"></i></button>
-                                <span class="time-display" id="special-time-display">0:00 / 0:00</span>
+                                <span class="time-display" id="special-time-display">00:00:00 / 00:00:00</span>
                             </div>
                             <div class="control-group">
                                 <button class="ctrl-btn" onclick="toggleSubtitles(specialPlayer, 'special-caption-btn')" id="special-caption-btn"><i class="fas fa-closed-captioning"></i></button>
@@ -734,6 +707,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Academy Awards Historical Data Container -->
+                <div class="video-details" style="margin-top:25px;">
+                    <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
+                    <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
                 </div>
             </div>
         </section>
@@ -957,22 +936,89 @@
             }
         ];
 
-        // Populated accurately with all 7 requested Oscar Special videos
+        // Complete Repository mapping historical award indices across all 7 entries
         const oscarsData = [
-            { id: 'aHebKoIFRKE', title: "The 1st Annual Oscar Special" },
-            { id: 'K5UFrRFD3Gw', title: "The 2nd Annual Oscar Special" },
-            { id: 'ANNOQWby8R8', title: "The 3rd Annual Oscar Special" },
-            { id: 'ZMIQEWdPaRA', title: "The 4th Annual Oscar Special" },
-            { id: 'MIAttlFcO6g', title: "The 5th Annual Oscar Special" },
-            { id: 'pKkAdoZEn-s', title: "The 6th Annual Oscar Special" },
-            { id: 'WCowInr2d0s', title: "The 7th Annual Oscar Special" }
+            { 
+                id: 'aHebKoIFRKE', 
+                title: "The 1st Annual Oscar Special",
+                year: "2013 (85th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Argo" },
+                    { label: "Best Director", val: "Ang Lee (Life of Pi)" },
+                    { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" },
+                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" }
+                ]
+            },
+            { 
+                id: 'K5UFrRFD3Gw', 
+                title: "The 2nd Annual Oscar Special",
+                year: "2014 (86th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "12 Years a Slave" },
+                    { label: "Best Director", val: "Alfonso Cuarón (Gravity)" },
+                    { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" },
+                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" }
+                ]
+            },
+            { 
+                id: 'ANNOQWby8R8', 
+                title: "The 3rd Annual Oscar Special",
+                year: "2015 (87th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Birdman" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
+                    { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
+                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" }
+                ]
+            },
+            { 
+                id: 'ZMIQEWdPaRA', 
+                title: "Our Cinema Oscar Special LIVE",
+                year: "2016 (88th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Spotlight" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
+                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
+                    { label: "Best Actress", val: "Brie Larson (Room)" }
+                ]
+            },
+            { 
+                id: 'MIAttlFcO6g', 
+                title: "The 5th Annual Oscar Special",
+                year: "2017 (89th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Moonlight" },
+                    { label: "Best Director", val: "Damien Chazelle (La La Land)" },
+                    { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" },
+                    { label: "Best Actress", val: "Emma Stone (La La Land)" }
+                ]
+            },
+            { 
+                id: 'pKkAdoZEn-s', 
+                title: "The 6th Annual Oscar Special",
+                year: "2018 (90th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "The Shape of Water" },
+                    { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" },
+                    { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" },
+                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" }
+                ]
+            },
+            { 
+                id: 'WCowInr2d0s', 
+                title: "The 7th Annual Oscar Special",
+                year: "2019 (91st Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Green Book" },
+                    { label: "Best Director", val: "Alfonso Cuarón (Roma)" },
+                    { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" },
+                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" }
+                ]
+            }
         ];
 
         const extrasData = [
-            {
-                id: '6jNJwufR8BU',
-                title: "On Cinema Tribute to Steven Spielberg in 3D"
-            }
+            { id: '6jNJwufR8BU', title: "On Cinema Tribute to Steven Spielberg in 3D" }
         ];
 
         let currentActiveTrackId = playlistData[0].id;
@@ -1004,8 +1050,6 @@
                 changeSeason(defaultSeason, true);
                 if (!apiScriptInitialized) {
                     initYouTubeEngine();
-                } else if (mainPlayer && mainPlayer.playVideo) {
-                    mainPlayer.playVideo();
                 }
             } else if (viewName === 'oscars') {
                 document.getElementById('oscarsSpecialsView').style.display = 'block';
@@ -1045,13 +1089,13 @@
         function onYouTubeIframeAPIReady() {
             mainPlayer = new YT.Player('yt-player', {
                 videoId: currentActiveTrackId,
-                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0 },
+                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
                 events: { 'onReady': onPlayerReady, 'onStateChange': (e) => onPlayerStateChange(e, 'play-btn', 'player-container') }
             });
 
             specialPlayer = new YT.Player('special-yt-player', {
                 videoId: oscarsData[0].id,
-                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0 },
+                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
                 events: { 'onStateChange': (e) => onPlayerStateChange(e, 'special-play-btn', 'special-player-container-block') }
             });
         }
@@ -1060,7 +1104,6 @@
             buildPlaylistUI();
             switchVideoDetails(currentActiveTrackId);
             setupIdleDetection('player-container');
-            mainPlayer.playVideo();
         }
 
         function onPlayerStateChange(event, playBtnId, containerId) {
@@ -1170,12 +1213,36 @@
             const backBtn = document.getElementById('specialBackBtn');
             backBtn.setAttribute('onclick', `showView('${originView}')`);
             
-            if (specialPlayer && specialPlayer.loadVideoById) {
-                specialPlayer.loadVideoById(trackId);
+            if (specialPlayer && specialPlayer.cueVideoById) {
+                specialPlayer.cueVideoById(trackId);
             }
             setupIdleDetection('special-player-container-block');
             document.getElementById('special-speed-dropdown').value = "1";
             document.getElementById('special-quality-dropdown').value = "default";
+
+            // Query historical metrics mapping
+            const matchedSpecial = oscarsData.find(o => o.id === trackId);
+            const dataHeader = document.getElementById('oscarYearTitle');
+            const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+            
+            if (matchedSpecial && matchedSpecial.history) {
+                dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
+                dataGrid.innerHTML = "";
+                matchedSpecial.history.forEach(award => {
+                    const card = document.createElement('div');
+                    card.className = "movie-card";
+                    card.innerHTML = `
+                        <div>
+                            <h4>${award.label}</h4>
+                            <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
+                        </div>
+                    `;
+                    dataGrid.appendChild(card);
+                });
+            } else {
+                dataHeader.innerText = "Bonus Archive Material";
+                dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+            }
         }
 
         function switchVideoDetails(trackId) {
@@ -1217,8 +1284,8 @@
             }
             buildPlaylistUI();
             switchVideoDetails(trackId);
-            if (mainPlayer && mainPlayer.loadVideoById) {
-                mainPlayer.loadVideoById(trackId);
+            if (mainPlayer && mainPlayer.cueVideoById) {
+                mainPlayer.cueVideoById(trackId);
             }
             document.getElementById('speed-dropdown').value = "1";
             document.getElementById('quality-dropdown').value = "default";
@@ -1296,10 +1363,14 @@
             }
         }
 
+        // Expanded parser tracking hh:mm:ss formatting
         function formatTime(sec) {
-            const minutes = Math.floor(sec / 60);
-            const seconds = Math.floor(sec % 60);
-            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            const hrs = Math.floor(sec / 3600);
+            const mins = Math.floor((sec % 3600) / 60);
+            const secs = Math.floor(sec % 60);
+
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
         }
     </script>
 </body>
