@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - On Cinema Fan Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e50914;
+            --blue: #0056b3;
+            --dark-blue: #0a1128;
+            --text-color: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--red) 0%, var(--blue) 100%);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .about-container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 3px solid var(--red);
+            border-radius: 8px;
+            box-shadow: 0 0 30px var(--blue);
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--red);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: var(--blue);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--red);
+        }
+
+        footer {
+            background-color: #050a18;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 3px solid var(--red);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        footer a {
+            color: var(--red);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>On Cinema Fan Hub</h1>
+    </header>
+
+    <div class="about-container">
+        <h2>About This Site</h2>
+        <p>This site just puts all the On Cinema available in one place.</p>
+        <p><strong>This is not an official On Cinema site.</strong> It was made entirely by a fan who values real movie expertise.</p>
+        <p>All official properties belong to the HEI Network team. Thank you for supporting the movies!</p>
+        
+        <a href="home.html" class="back-btn">← Back to Movies</a>
+    </div>
+
+    <footer>
+        Official Website: <a href="https://www.heinetwork.tv/" target="_blank">https://www.heinetwork.tv/</a>
+    </footer>
+
+</body>
+</html>
