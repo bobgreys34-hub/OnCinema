@@ -10,8 +10,9 @@
         :root {
             --bg-color: #09090b;
             --card-bg: #18181b;
-            --accent-color: #e50914; /* Classic On Cinema Red */
-            --accent-blue: #0056b3;
+            --accent-red: #e11d48;
+            --accent-blue: #2563eb;
+            --hover-blue: #1d4ed8;
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
         }
@@ -40,6 +41,7 @@
             top: 0;
             z-index: 100;
             backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
         }
 
         .logo {
@@ -51,8 +53,12 @@
             cursor: pointer;
         }
 
-        .logo span {
-            color: var(--accent-color);
+        .logo span.red-txt {
+            color: var(--accent-red);
+        }
+        
+        .logo span.blue-txt {
+            color: var(--accent-blue);
         }
 
         nav a {
@@ -66,7 +72,7 @@
         }
 
         nav a:hover {
-            color: var(--text-main);
+            color: var(--accent-blue);
         }
 
         .container {
@@ -85,7 +91,7 @@
 
         .welcome-box {
             background-color: var(--card-bg);
-            border: 2px solid var(--accent-color);
+            border: 2px solid var(--accent-blue);
             border-radius: 12px;
             padding: 60px 40px;
             text-align: center;
@@ -93,12 +99,13 @@
             width: 100%;
             max-width: 500px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
 
         .welcome-box:hover {
             transform: scale(1.02);
-            border-color: var(--accent-blue);
+            border-color: var(--accent-red);
+            box-shadow: 0 20px 40px rgba(225, 29, 72, 0.1);
         }
 
         .welcome-box h2 {
@@ -108,8 +115,8 @@
             margin-bottom: 10px;
         }
 
-        .welcome-box h2 span {
-            color: var(--accent-color);
+        .welcome-box h2 span.red-txt {
+            color: var(--accent-red);
         }
 
         .welcome-box p {
@@ -150,12 +157,12 @@
         }
 
         .season-btn:hover {
-            background-color: var(--accent-color);
+            background-color: var(--hover-blue);
             transform: translateY(-2px);
         }
 
         #hubView {
-            display: none; /* Injected dynamically by app code logic */
+            display: none; 
             grid-template-columns: 3fr 1fr;
             gap: 30px;
             margin-top: 20px;
@@ -177,6 +184,7 @@
             aspect-ratio: 16 / 9;
             width: 100%;
             transition: cursor 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .player-wrapper iframe {
@@ -242,7 +250,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background: var(--accent-color);
+            background: var(--accent-red);
             border-radius: 3px;
         }
 
@@ -268,7 +276,7 @@
         }
 
         .ctrl-btn:hover {
-            color: var(--accent-color);
+            color: var(--accent-blue);
         }
 
         .ctrl-btn:active {
@@ -326,7 +334,7 @@
             gap: 15px;
             max-height: 600px;
             overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(37, 99, 235, 0.15);
         }
 
         .season-selector {
@@ -339,13 +347,18 @@
             font-weight: 600;
             outline: none;
             cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .season-selector:focus {
+            border-color: var(--accent-blue);
         }
 
         .playlist-title {
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--text-muted);
+            color: var(--accent-blue);
             margin-top: 5px;
             font-weight: 700;
         }
@@ -368,12 +381,16 @@
         }
 
         .episode-item:hover {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(37, 99, 235, 0.2);
         }
 
         .episode-item.active {
-            background: rgba(225, 29, 72, 0.1);
-            border-left: 3px solid var(--accent-color);
+            background: rgba(225, 29, 72, 0.08);
+            border-left: 3px solid var(--accent-red);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
         }
 
         .ep-thumb {
@@ -408,6 +425,8 @@
             margin-bottom: 20px;
             font-weight: 800;
             letter-spacing: -0.5px;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 12px;
         }
 
         .movies-meta-grid {
@@ -422,6 +441,11 @@
             padding: 20px;
             border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.05);
+            transition: border-color 0.2s;
+        }
+
+        .movie-card:hover {
+            border-color: rgba(37, 99, 235, 0.2);
         }
 
         .movie-card h4 {
@@ -453,15 +477,17 @@
         .imdb-link {
             display: inline-block;
             margin-top: 12px;
-            color: var(--accent-color);
+            color: var(--accent-red);
             text-decoration: none;
             font-weight: bold;
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            transition: color 0.2s;
         }
 
         .imdb-link:hover {
+            color: var(--text-main);
             text-decoration: underline;
         }
 
@@ -470,12 +496,13 @@
             background: linear-gradient(135deg, #18181b, #09090b);
             padding: 30px;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(37, 99, 235, 0.15);
         }
 
         .about-section h2 {
             font-size: 1.4rem;
             margin-bottom: 12px;
+            color: var(--accent-blue);
         }
 
         .about-section p {
@@ -488,7 +515,7 @@
 <body>
 
     <header>
-        <div class="logo" onclick="showView('welcome')">On<span>Cinema</span></div>
+        <div class="logo" onclick="showView('welcome')">On<span class="red-txt">Cinema</span><span class="blue-txt"> Hub</span></div>
         <nav>
             <a href="#" onclick="showView('welcome')">Home</a>
             <a href="#about">About</a>
@@ -497,20 +524,24 @@
 
     <div class="container">
         
+        <!-- State View 1: Welcome Box Splash -->
         <section id="welcomeView">
             <div class="welcome-box" onclick="showView('season')">
-                <h2>On<span>Cinema</span> Dashboard</h2>
+                <h2>On<span class="red-txt">Cinema</span> Platform</h2>
                 <p>Click to Enter Movie Network</p>
             </div>
         </section>
 
+        <!-- State View 2: Season Grid/Selector -->
         <section id="seasonView">
             <h3>Select an Available Arc</h3>
             <button class="season-btn" onclick="showView('hub')">Season 1</button>
         </section>
 
+        <!-- State View 3: Unified Left-Heavy Cinema Control Hub Layout -->
         <section id="hubView">
             
+            <!-- Left Grid Pane: Player Platform -->
             <div>
                 <div class="player-wrapper" id="player-container">
                     <div id="yt-player"></div>
@@ -553,12 +584,14 @@
                     </div>
                 </div>
 
+                <!-- Live Dynamic Ratings Data Sheet Injections -->
                 <div class="video-details">
                     <h1 class="episode-title-hdr" id="active-title-header">Season 1, Episode 1</h1>
                     <div class="movies-meta-grid" id="movieMetaGrid"></div>
                 </div>
             </div>
 
+            <!-- Right Sidebar: Vertical Segment Selector Deck -->
             <div class="sidebar">
                 <select class="season-selector">
                     <option value="1">Season 1</option>
@@ -748,7 +781,6 @@
                 div.className = `episode-item ${index === currentTrackIndex ? 'active' : ''}`;
                 div.onclick = () => playEpisode(index);
                 
-                // Show simplified title names in list panel view
                 let subtitleString = item.movies.map(m => m.name).join(" & ");
                 
                 div.innerHTML = `
@@ -791,6 +823,7 @@
             document.getElementById('speed-dropdown').value = "1";
         }
 
+        // Action controls mappings
         function togglePlay() {
             if (player && player.getPlayerState) {
                 const state = player.getPlayerState();
@@ -809,7 +842,6 @@
             }
         }
 
-        // Keep core features running smooth on tracking engine loop
         function changeSpeed(rate) {
             if (player && player.setPlaybackRate) {
                 player.setPlaybackRate(parseFloat(rate));
@@ -822,7 +854,7 @@
                 if (!ccEnabled) {
                     player.loadModule("captions");
                     ccEnabled = true;
-                    btn.style.color = "var(--accent-color)";
+                    btn.style.color = "var(--accent-blue)";
                 } else {
                     player.unloadModule("captions");
                     ccEnabled = false;
@@ -839,7 +871,7 @@
                 container.requestFullscreen().then(() => {
                     icon.className = "fas fa-compress";
                 }).catch(err => {
-                    console.error(`Fullscreen element initialization error: ${err.message}`);
+                    console.error(`Fullscreen initialization error: ${err.message}`);
                 });
             } else {
                 document.exitFullscreen();
