@@ -579,13 +579,11 @@
     </header>
 
     <div class="container">
-        
         <section id="welcomeView">
             <div class="dev-billboard">
                 <h1>- In Development</h1>
                 <p>Advanced media portal architecture is actively upgrading. Access streaming layouts directly using the menu indicators.</p>
             </div>
-
             <div class="about-section">
                 <h2>About On Cinema at the Cinema</h2>
                 <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
@@ -610,14 +608,12 @@
                             </div>
                             <div class="control-group">
                                 <button class="ctrl-btn" onclick="toggleSubtitles(mainPlayer, 'caption-btn')" id="caption-btn"><i class="fas fa-closed-captioning"></i></button>
-                                
                                 <select class="engine-select" id="speed-dropdown" onchange="changeSpeed(mainPlayer, this.value)">
                                     <option value="0.5">0.5x</option>
                                     <option value="1" selected>1.0x</option>
                                     <option value="1.5">1.5x</option>
                                     <option value="2">2.0x</option>
                                 </select>
-
                                 <select class="engine-select" id="quality-dropdown" onchange="changeQuality(mainPlayer, this.value)">
                                     <option value="default" selected>Auto</option>
                                     <option value="highres">1080p</option>
@@ -626,7 +622,6 @@
                                     <option value="medium">360p</option>
                                     <option value="small">240p</option>
                                 </select>
-
                                 <button class="ctrl-btn" onclick="toggleFullscreen('player-container', 'fullscreen-icon')"><i class="fas fa-expand" id="fullscreen-icon"></i></button>
                             </div>
                         </div>
@@ -649,7 +644,6 @@
                         <div class="dropdown-option" data-value="2" onclick="selectDropdownOption(2)">Season 2</div>
                     </div>
                 </div>
-                
                 <div class="playlist-title">Episodes</div>
                 <div class="episode-list" id="episode-list"></div>
             </div>
@@ -682,14 +676,12 @@
                             </div>
                             <div class="control-group">
                                 <button class="ctrl-btn" onclick="toggleSubtitles(specialPlayer, 'special-caption-btn')" id="special-caption-btn"><i class="fas fa-closed-captioning"></i></button>
-                                
                                 <select class="engine-select" id="special-speed-dropdown" onchange="changeSpeed(specialPlayer, this.value)">
                                     <option value="0.5">0.5x</option>
                                     <option value="1" selected>1.0x</option>
                                     <option value="1.5">1.5x</option>
                                     <option value="2">2.0x</option>
                                 </select>
-
                                 <select class="engine-select" id="special-quality-dropdown" onchange="changeQuality(specialPlayer, this.value)">
                                     <option value="default" selected>Auto</option>
                                     <option value="highres">1080p</option>
@@ -698,13 +690,11 @@
                                     <option value="medium">360p</option>
                                     <option value="small">240p</option>
                                 </select>
-
                                 <button class="ctrl-btn" onclick="toggleFullscreen('special-player-container-block', 'special-fullscreen-icon')"><i class="fas fa-expand" id="special-fullscreen-icon"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="video-details" style="margin-top:25px;">
                     <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
                     <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
@@ -723,291 +713,40 @@
                 <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
             </div>
         </section>
-
     </div>
 
     <script>
         const playlistData = [
-            {
-                id: 'qFHLfmoLchI',
-                season: 1,
-                title: "Season 1, Episode 1",
-                thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
-                movies: [
-                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" },
-                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }
-                ]
-            },
-            {
-                id: 'nfOMBioJDJg',
-                season: 1,
-                title: "Season 1, Episode 2",
-                thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
-                movies: [
-                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" },
-                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }
-                ]
-            },
-            {
-                id: 'WzFILC5bI_c',
-                season: 1,
-                title: "Season 1, Episode 3",
-                thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
-                movies: [
-                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1654194/" },
-                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2004332/" }
-                ]
-            },
-            {
-                id: 'QYVJLsbciS8',
-                season: 1,
-                title: "Season 1, Episode 4",
-                thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg",
-                movies: [
-                    { name: "Skyfall", rating: "7.8/10", director: "Sam Mendes", cast: "Daniel Craig, Javier Bardem", imdb: "https://www.imdb.com/title/tt1077368/" },
-                    { name: "Lincoln", rating: "7.3/10", director: "Steven Spielberg", cast: "Daniel Day-Lewis", imdb: "https://www.imdb.com/title/tt0443272/" }
-                ]
-            },
-            {
-                id: 'SQZJktp-etk',
-                season: 1,
-                title: "Season 1, Episode 5",
-                thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg",
-                movies: [
-                    { name: "Life of Pi", rating: "7.9/10", director: "Ang Lee", cast: "Suraj Sharma, Irrfan Khan", imdb: "https://www.imdb.com/title/tt0454876/" },
-                    { name: "Rise of the Guardians", rating: "7.2/10", director: "Peter Ramsey", cast: "Chris Pine, Alec Baldwin", imdb: "https://www.imdb.com/title/tt1446192/" }
-                ]
-            },
-            {
-                id: 'HMKm0CYEXDU',
-                season: 1,
-                title: "Season 1, Episode 6",
-                thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg",
-                movies: [
-                    { name: "Killing Them Softly", rating: "6.2/10", director: "Andrew Dominik", cast: "Brad Pitt, Ray Liotta", imdb: "https://www.imdb.com/title/tt1764234/" },
-                    { name: "The Collection", rating: "6.1/10", director: "Marcus Dunstan", cast: "Josh Stewart", imdb: "https://www.imdb.com/title/tt1748227/" }
-                ]
-            },
-            {
-                id: 'Okikb3fpN4w',
-                season: 1,
-                title: "Season 1, Episode 7",
-                thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg",
-                movies: [
-                    { name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel", imdb: "https://www.imdb.com/title/tt1726592/" },
-                    { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch", imdb: "https://www.imdb.com/title/tt1669649/" }
-                ]
-            },
-            {
-                id: 'qjqfZhyGSrA',
-                season: 1,
-                title: "Season 1, Episode 8",
-                thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg",
-                movies: [
-                    { name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen", imdb: "https://www.imdb.com/title/tt0117038/" },
-                    { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington", imdb: "https://www.imdb.com" }
-                ]
-            },
-            {
-                id: 'vvoqgPay8bM',
-                season: 1,
-                title: "Season 1, Episode 9",
-                thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg",
-                movies: [
-                    { name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike", imdb: "https://www.imdb.com/title/tt1971352/" },
-                    { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann", imdb: "https://www.imdb.com/title/tt1758830/" }
-                ]
-            },
-            {
-                id: 'u75FIgboNHU',
-                season: 1,
-                title: "Season 1, Episode 10",
-                thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg",
-                movies: [
-                    { name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway", imdb: "https://www.imdb.com/title/tt1707386/" },
-                    { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler", imdb: "https://www.imdb.com/title/tt1047540/" }
-                ]
-            },
-            {
-                id: 'LPw-R-WWdOc',
-                season: 2,
-                title: "Season 2, Episode 1: Side Effects & Identity Thief",
-                thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg",
-                movies: [
-                    { name: "Side Effects", rating: "7.1/10", director: "Steven Soderbergh", cast: "Rooney Mara, Channing Tatum", imdb: "https://www.imdb.com/title/tt2053463/" },
-                    { name: "Identity Thief", rating: "5.7/10", director: "Seth Gordon", cast: "Jason Bateman, Melissa McCarthy", imdb: "https://www.imdb.com/title/tt2024432/" }
-                ]
-            },
-            {
-                id: '1M2yXVn2GGA',
-                season: 2,
-                title: "Season 2, Episode 2: A Good Day to Die Hard & Escape From Planet Earth",
-                thumb: "https://img.youtube.com/vi/1M2yXVn2GGA/0.jpg",
-                movies: [
-                    { name: "A Good Day to Die Hard", rating: "5.2/10", director: "John Moore", cast: "Bruce Willis, Jai Courtney", imdb: "https://www.imdb.com/title/tt1606378/" },
-                    { name: "Escape From Planet Earth", rating: "5.9/10", director: "Cal Brunker", cast: "Rob Corddry, Brendan Fraser", imdb: "https://www.imdb.com/title/tt0765446/" }
-                ]
-            },
-            {
-                id: 'MMTsSMttjdI',
-                season: 2,
-                title: "Season 2, Episode 3: Snitch & Dark Skies",
-                thumb: "https://img.youtube.com/vi/MMTsSMttjdI/0.jpg",
-                movies: [
-                    { name: "Snitch", rating: "6.4/10", director: "Ric Roman Waugh", cast: "Dwayne Johnson, Jon Bernthal", imdb: "https://www.imdb.com/title/tt1131734/" },
-                    { name: "Dark Skies", rating: "6.3/10", director: "Scott Stewart", cast: "Keri Russell, Josh Hamilton", imdb: "https://www.imdb.com/title/tt2387346/" }
-                ]
-            },
-            {
-                id: 'LjVTxxFNeQY',
-                season: 2,
-                title: "Season 2, Episode 4: 21 and Over & Jack the Giant Slayer",
-                thumb: "https://img.youtube.com/vi/LjVTxxFNeQY/0.jpg",
-                movies: [
-                    { name: "21 & Over", rating: "5.8/10", director: "Jon Lucas, Scott Moore", cast: "Miles Teller, Skylar Astin", imdb: "https://www.imdb.com/title/tt1711425/" },
-                    { name: "Jack the Giant Slayer", rating: "6.3/10", director: "Bryan Singer", cast: "Nicholas Hoult, Eleanor Tomlinson", imdb: "https://www.imdb.com/title/tt1351685/" }
-                ]
-            },
-            {
-                id: 'JhcGWg7aV0w',
-                season: 2,
-                title: "Season 2, Episode 5: Oz the Great and Powerful & Dead Man Down",
-                thumb: "https://img.youtube.com/vi/JhcGWg7aV0w/0.jpg",
-                movies: [
-                    { name: "Oz the Great and Powerful", rating: "6.3/10", director: "Sam Raimi", cast: "James Franco, Mila Kunis", imdb: "https://www.imdb.com/title/tt1351685/" },
-                    { name: "Dead Man Down", rating: "6.4/10", director: "Niels Arden Oplev", cast: "Colin Farrell, Noomi Rapace", imdb: "https://www.imdb.com/title/tt2101341/" }
-                ]
-            },
-            {
-                id: 'fah28oNAhT8',
-                season: 2,
-                title: "Season 2, Episode 6: Carrie & The Incredible Burt Wonderstone",
-                thumb: "https://img.youtube.com/vi/fah28oNAhT8/0.jpg",
-                movies: [
-                    { name: "Carrie", rating: "5.8/10", director: "Kimberly Peirce", cast: "Chloë Grace Moretz, Julianne Moore", imdb: "https://www.imdb.com/title/tt1930315/" },
-                    { name: "The Incredible Burt Wonderstone", rating: "5.9/10", director: "Don Scardino", cast: "Steve Carell, Luke Vanek", imdb: "https://www.imdb.com/title/tt0790628/" }
-                ]
-            },
-            {
-                id: 'XxJ7YQS8sos',
-                season: 2,
-                title: "Season 2, Episode 7: The Croods",
-                thumb: "https://img.youtube.com/vi/XxJ7YQS8sos/0.jpg",
-                movies: [
-                    { name: "The Croods", rating: "7.2/10", director: "Kirk DeMicco, Chris Sanders", cast: "Nicolas Cage, Emma Stone", imdb: "https://www.imdb.com/title/tt0479143/" }
-                ]
-            },
-            {
-                id: 'jFmz7t07i7w',
-                season: 2,
-                title: "Season 2, Episode 8: G.I. Joe: Retaliation & Temptation",
-                thumb: "https://img.youtube.com/vi/jFmz7t07i7w/0.jpg",
-                movies: [
-                    { name: "G.I. Joe: Retaliation", rating: "5.7/10", director: "Jon M. Chu", cast: "Dwayne Johnson, Channing Tatum", imdb: "https://www.imdb.com/title/tt1583421/" },
-                    { name: "Temptation: Confessions of a Marriage Counselor", rating: "4.9/10", director: "Tyler Perry", cast: "Jurnee Smollett, Lance Gross", imdb: "https://www.imdb.com/title/tt2070590/" }
-                ]
-            },
-            {
-                id: 'ri0n5EMEApY',
-                season: 2,
-                title: "Season 2, Episode 9: The Company You Keep & Jurassic Park 3D",
-                thumb: "https://img.youtube.com/vi/ri0n5EMEApY/0.jpg",
-                movies: [
-                    { name: "The Company You Keep", rating: "6.4/10", director: "Robert Redford", cast: "Robert Redford, Shia LaBeouf", imdb: "https://www.imdb.com/title/tt1380607/" },
-                    { name: "Jurassic Park 3D", rating: "8.2/10", director: "Steven Spielberg", cast: "Sam Neill, Laura Dern", imdb: "https://www.imdb.com/title/tt0107290/" }
-                ]
-            },
-            {
-                id: 'R_5-N9t26V8',
-                season: 2,
-                title: "Season 2, Episode 10: Oblivion & Scary Movie 5",
-                thumb: "https://img.youtube.com/vi/R_5-N9t26V8/0.jpg",
-                movies: [
-                    { name: "Oblivion", rating: "7.0/10", director: "Joseph Kosinski", cast: "Tom Cruise, Morgan Freeman", imdb: "https://www.imdb.com/title/tt1483013/" },
-                    { name: "Scary Movie 5", rating: "3.5/10", director: "Malcolm D. Lee", cast: "Simon Rex, Ashley Tisdale", imdb: "https://www.imdb.com/title/tt0795461/" }
-                ]
-            }
+            { id: 'qFHLfmoLchI', season: 1, title: "Season 1, Episode 1", thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg", movies: [ { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" }, { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" } ] },
+            { id: 'nfOMBioJDJg', season: 1, title: "Season 1, Episode 2", thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg", movies: [ { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" }, { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" } ] },
+            { id: 'WzFILC5bI_c', season: 1, title: "Season 1, Episode 3", thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg", movies: [ { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1654194/" }, { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2004332/" } ] },
+            { id: 'QYVJLsbciS8', season: 1, title: "Season 1, Episode 4", thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg", movies: [ { name: "Skyfall", rating: "7.8/10", director: "Sam Mendes", cast: "Daniel Craig, Javier Bardem", imdb: "https://www.imdb.com/title/tt1077368/" }, { name: "Lincoln", rating: "7.3/10", director: "Steven Spielberg", cast: "Daniel Day-Lewis", imdb: "https://www.imdb.com/title/tt0443272/" } ] },
+            { id: 'SQZJktp-etk', season: 1, title: "Season 1, Episode 5", thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg", movies: [ { name: "Life of Pi", rating: "7.9/10", director: "Ang Lee", cast: "Suraj Sharma, Irrfan Khan", imdb: "https://www.imdb.com/title/tt0454876/" }, { name: "Rise of the Guardians", rating: "7.2/10", director: "Peter Ramsey", cast: "Chris Pine, Alec Baldwin", imdb: "https://www.imdb.com/title/tt1446192/" } ] },
+            { id: 'HMKm0CYEXDU', season: 1, title: "Season 1, Episode 6", thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg", movies: [ { name: "Killing Them Softly", rating: "6.2/10", director: "Andrew Dominik", cast: "Brad Pitt, Ray Liotta", imdb: "https://www.imdb.com/title/tt1764234/" }, { name: "The Collection", rating: "6.1/10", director: "Marcus Dunstan", cast: "Josh Stewart", imdb: "https://www.imdb.com/title/tt1748227/" } ] },
+            { id: 'Okikb3fpN4w', season: 1, title: "Season 1, Episode 7", thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg", movies: [ { name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel", imdb: "https://www.imdb.com/title/tt1726592/" }, { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch", imdb: "https://www.imdb.com/title/tt1669649/" } ] },
+            { id: 'qjqfZhyGSrA', season: 1, title: "Season 1, Episode 8", thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg", movies: [ { name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen", imdb: "https://www.imdb.com/title/tt0117038/" }, { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington", imdb: "https://www.imdb.com" } ] },
+            { id: 'vvoqgPay8bM', season: 1, title: "Season 1, Episode 9", thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg", movies: [ { name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike", imdb: "https://www.imdb.com/title/tt1971352/" }, { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann", imdb: "https://www.imdb.com/title/tt1758830/" } ] },
+            { id: 'u75FIgboNHU', season: 1, title: "Season 1, Episode 10", thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg", movies: [ { name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway", imdb: "https://www.imdb.com/title/tt1707386/" }, { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler", imdb: "https://www.imdb.com/title/tt1047540/" } ] },
+            { id: 'LPw-R-WWdOc', season: 2, title: "Season 2, Episode 1: Side Effects & Identity Thief", thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg", movies: [ { name: "Side Effects", rating: "7.1/10", director: "Steven Soderbergh", cast: "Rooney Mara, Channing Tatum", imdb: "https://www.imdb.com/title/tt2053463/" }, { name: "Identity Thief", rating: "5.7/10", director: "Seth Gordon", cast: "Jason Bateman, Melissa McCarthy", imdb: "https://www.imdb.com/title/tt2024432/" } ] },
+            { id: '1M2yXVn2GGA', season: 2, title: "Season 2, Episode 2: A Good Day to Die Hard & Escape From Planet Earth", thumb: "https://img.youtube.com/vi/1M2yXVn2GGA/0.jpg", movies: [ { name: "A Good Day to Die Hard", rating: "5.2/10", director: "John Moore", cast: "Bruce Willis, Jai Courtney", imdb: "https://www.imdb.com/title/tt1606378/" }, { name: "Escape From Planet Earth", rating: "5.9/10", director: "Cal Brunker", cast: "Rob Corddry, Brendan Fraser", imdb: "https://www.imdb.com/title/tt0765446/" } ] },
+            { id: 'MMTsSMttjdI', season: 2, title: "Season 2, Episode 3: Snitch & Dark Skies", thumb: "https://img.youtube.com/vi/MMTsSMttjdI/0.jpg", movies: [ { name: "Snitch", rating: "6.4/10", director: "Ric Roman Waugh", cast: "Dwayne Johnson, Jon Bernthal", imdb: "https://www.imdb.com/title/tt1131734/" }, { name: "Dark Skies", rating: "6.3/10", director: "Scott Stewart", cast: "Keri Russell, Josh Hamilton", imdb: "https://www.imdb.com/title/tt2387346/" } ] },
+            { id: 'LjVTxxFNeQY', season: 2, title: "Season 2, Episode 4: 21 and Over & Jack the Giant Slayer", thumb: "https://img.youtube.com/vi/LjVTxxFNeQY/0.jpg", movies: [ { name: "21 & Over", rating: "5.8/10", director: "Jon Lucas, Scott Moore", cast: "Miles Teller, Skylar Astin", imdb: "https://www.imdb.com/title/tt1711425/" }, { name: "Jack the Giant Slayer", rating: "6.3/10", director: "Bryan Singer", cast: "Nicholas Hoult, Eleanor Tomlinson", imdb: "https://www.imdb.com/title/tt1351685/" } ] },
+            { id: 'JhcGWg7aV0w', season: 2, title: "Season 2, Episode 5: Oz the Great and Powerful & Dead Man Down", thumb: "https://img.youtube.com/vi/JhcGWg7aV0w/0.jpg", movies: [ { name: "Oz the Great and Powerful", rating: "6.3/10", director: "Sam Raimi", cast: "James Franco, Mila Kunis", imdb: "https://www.imdb.com/title/tt1351685/" }, { name: "Dead Man Down", rating: "6.4/10", director: "Niels Arden Oplev", cast: "Colin Farrell, Noomi Rapace", imdb: "https://www.imdb.com/title/tt2101341/" } ] },
+            { id: 'fah28oNAhT8', season: 2, title: "Season 2, Episode 6: Carrie & The Incredible Burt Wonderstone", thumb: "https://img.youtube.com/vi/fah28oNAhT8/0.jpg", movies: [ { name: "Carrie", rating: "5.8/10", director: "Kimberly Peirce", cast: "Chloë Grace Moretz, Julianne Moore", imdb: "https://www.imdb.com/title/tt1930315/" }, { name: "The Incredible Burt Wonderstone", rating: "5.9/10", director: "Don Scardino", cast: "Steve Carell, Luke Vanek", imdb: "https://www.imdb.com/title/tt0790628/" } ] },
+            { id: 'XxJ7YQS8sos', season: 2, title: "Season 2, Episode 7: The Croods", thumb: "https://img.youtube.com/vi/XxJ7YQS8sos/0.jpg", movies: [ { name: "The Croods", rating: "7.2/10", director: "Kirk DeMicco, Chris Sanders", cast: "Nicolas Cage, Emma Stone", imdb: "https://www.imdb.com/title/tt0479143/" } ] },
+            { id: 'jFmz7t07i7w', season: 2, title: "Season 2, Episode 8: G.I. Joe: Retaliation & Temptation", thumb: "https://img.youtube.com/vi/jFmz7t07i7w/0.jpg", movies: [ { name: "G.I. Joe: Retaliation", rating: "5.7/10", director: "Jon M. Chu", cast: "Dwayne Johnson, Channing Tatum", imdb: "https://www.imdb.com/title/tt1583421/" }, { name: "Temptation: Confessions of a Marriage Counselor", rating: "4.9/10", director: "Tyler Perry", cast: "Jurnee Smollett, Lance Gross", imdb: "https://www.imdb.com/title/tt2070590/" } ] },
+            { id: 'ri0n5EMEApY', season: 2, title: "Season 2, Episode 9: The Company You Keep & Jurassic Park 3D", thumb: "https://img.youtube.com/vi/ri0n5EMEApY/0.jpg", movies: [ { name: "The Company You Keep", rating: "6.4/10", director: "Robert Redford", cast: "Robert Redford, Shia LaBeouf", imdb: "https://www.imdb.com/title/tt1380607/" }, { name: "Jurassic Park 3D", rating: "8.2/10", director: "Steven Spielberg", cast: "Sam Neill, Laura Dern", imdb: "https://www.imdb.com/title/tt0107290/" } ] },
+            { id: 'R_5-N9t26V8', season: 2, title: "Season 2, Episode 10: Oblivion & Scary Movie 5", thumb: "https://img.youtube.com/vi/R_5-N9t26V8/0.jpg", movies: [ { name: "Oblivion", rating: "7.0/10", director: "Joseph Kosinski", cast: "Tom Cruise, Morgan Freeman", imdb: "https://www.imdb.com/title/tt1483013/" }, { name: "Scary Movie 5", rating: "3.5/10", director: "Malcolm D. Lee", cast: "Simon Rex, Ashley Tisdale", imdb: "https://www.imdb.com/title/tt0795461/" } ] }
         ];
 
-        // Complete Repository mapping historical award indices across all 7 entries
         const oscarsData = [
-            { 
-                id: 'aHebKoIFRKE', 
-                title: "The 1st Annual Oscar Special",
-                year: "2013 (85th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Argo" },
-                    { label: "Best Director", val: "Ang Lee (Life of Pi)" },
-                    { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" },
-                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" }
-                ]
-            },
-            { 
-                id: 'K5UFrRFD3Gw', 
-                title: "The 2nd Annual Oscar Special",
-                year: "2014 (86th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "12 Years a Slave" },
-                    { label: "Best Director", val: "Alfonso Cuarón (Gravity)" },
-                    { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" },
-                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" }
-                ]
-            },
-            { 
-                id: 'ANNOQWby8R8', 
-                title: "The 3rd Annual Oscar Special",
-                year: "2015 (87th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Birdman" },
-                    { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
-                    { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
-                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" }
-                ]
-            },
-            { 
-                id: 'ZMIQEWdPaRA', 
-                title: "Our Cinema Oscar Special LIVE",
-                year: "2016 (88th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Spotlight" },
-                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
-                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
-                    { label: "Best Actress", val: "Brie Larson (Room)" }
-                ]
-            },
-            { 
-                id: 'MIAttlFcO6g', 
-                title: "The 5th Annual Oscar Special",
-                year: "2017 (89th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Moonlight" },
-                    { label: "Best Director", val: "Damien Chazelle (La La Land)" },
-                    { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" },
-                    { label: "Best Actress", val: "Emma Stone (La La Land)" }
-                ]
-            },
-            { 
-                id: 'pKkAdoZEn-s', 
-                title: "The 6th Annual Oscar Special",
-                year: "2018 (90th Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "The Shape of Water" },
-                    { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" },
-                    { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" },
-                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" }
-                ]
-            },
-            { 
-                id: 'WCowInr2d0s', 
-                title: "The 7th Annual Oscar Special",
-                year: "2019 (91st Academy Awards)",
-                history: [
-                    { label: "Best Picture", val: "Green Book" },
-                    { label: "Best Director", val: "Alfonso Cuarón (Roma)" },
-                    { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" },
-                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" }
-                ]
-            }
+            { id: 'aHebKoIFRKE', title: "The 1st Annual Oscar Special", year: "2013 (85th Academy Awards)", history: [ { label: "Best Picture", val: "Argo" }, { label: "Best Director", val: "Ang Lee (Life of Pi)" }, { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" }, { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" } ] },
+            { id: 'K5UFrRFD3Gw', title: "The 2nd Annual Oscar Special", year: "2014 (86th Academy Awards)", history: [ { label: "Best Picture", val: "12 Years a Slave" }, { label: "Best Director", val: "Alfonso Cuarón (Gravity)" }, { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" }, { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" } ] },
+            { id: 'ANNOQWby8R8', title: "The 3rd Annual Oscar Special", year: "2015 (87th Academy Awards)", history: [ { label: "Best Picture", val: "Birdman" }, { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" }, { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" }, { label: "Best Actress", val: "Julianne Moore (Still Alice)" } ] },
+            { id: 'ZMIQEWdPaRA', title: "Our Cinema Oscar Special LIVE", year: "2016 (88th Academy Awards)", history: [ { label: "Best Picture", val: "Spotlight" }, { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" }, { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" }, { label: "Best Actress", val: "Brie Larson (Room)" } ] },
+            { id: 'MIAttlFcO6g', title: "The 5th Annual Oscar Special", year: "2017 (89th Academy Awards)", history: [ { label: "Best Picture", val: "Moonlight" }, { label: "Best Director", val: "Damien Chazelle (La La Land)" }, { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" }, { label: "Best Actress", val: "Emma Stone (La La Land)" } ] },
+            { id: 'pKkAdoZEn-s', title: "The New On Cinema Oscar Special", year: "2018 (90th Academy Awards)", history: [ { label: "Best Picture", val: "The Shape of Water" }, { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" }, { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" }, { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" } ] },
+            { id: 'WCowInr2d0s', title: "The 7th Annual Oscar Special", year: "2019 (91st Academy Awards)", history: [ { label: "Best Picture", val: "Green Book" }, { label: "Best Director", val: "Alfonso Cuarón (Roma)" }, { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" }, { label: "Best Actress", val: "Olivia Colman (The Favourite)" } ] }
         ];
 
         const extrasData = [
@@ -1016,355 +755,111 @@
 
         let currentActiveTrackId = playlistData[0].id;
         let currentSelectedSeason = 1;
-        
-        let mainPlayer;
-        let specialPlayer;
-        let apiScriptInitialized = false;
-
-        let updateTimer;
-        let idleTimer;
-        let ccEnabled = false;
+        let mainPlayer, specialPlayer, apiScriptInitialized = false;
+        let updateTimer, idleTimer, ccEnabled = false;
 
         function showView(viewName, defaultSeason = 1) {
             if (mainPlayer && mainPlayer.pauseVideo) mainPlayer.pauseVideo();
             if (specialPlayer && specialPlayer.pauseVideo) specialPlayer.pauseVideo();
-
             document.getElementById('welcomeView').style.display = 'none';
             document.getElementById('hubView').style.display = 'none';
             document.getElementById('oscarsSpecialsView').style.display = 'none';
             document.getElementById('specialPlayerView').style.display = 'none';
             document.getElementById('extrasView').style.display = 'none';
             document.getElementById('dedicatedAboutView').style.display = 'none';
-
-            if(viewName === 'welcome') {
-                document.getElementById('welcomeView').style.display = 'flex';
-            } else if (viewName === 'hub') {
-                document.getElementById('hubView').style.display = 'grid';
-                changeSeason(defaultSeason, true);
-                if (!apiScriptInitialized) {
-                    initYouTubeEngine();
-                }
-            } else if (viewName === 'oscars') {
-                document.getElementById('oscarsSpecialsView').style.display = 'block';
-                buildDeckGridUI('specialsGridContainer', oscarsData, 'oscars');
-            } else if (viewName === 'specialPlayer') {
-                document.getElementById('specialPlayerView').style.display = 'block';
-            } else if (viewName === 'extras') {
-                document.getElementById('extrasView').style.display = 'block';
-                buildDeckGridUI('extrasGridContainer', extrasData, 'extras');
-            } else if (viewName === 'about') {
-                document.getElementById('dedicatedAboutView').style.display = 'block';
-            }
+            if(viewName === 'welcome') { document.getElementById('welcomeView').style.display = 'flex'; }
+            else if (viewName === 'hub') { document.getElementById('hubView').style.display = 'grid'; changeSeason(defaultSeason, true); if (!apiScriptInitialized) initYouTubeEngine(); }
+            else if (viewName === 'oscars') { document.getElementById('oscarsSpecialsView').style.display = 'block'; buildDeckGridUI('specialsGridContainer', oscarsData, 'oscars'); }
+            else if (viewName === 'specialPlayer') { document.getElementById('specialPlayerView').style.display = 'block'; }
+            else if (viewName === 'extras') { document.getElementById('extrasView').style.display = 'block'; buildDeckGridUI('extrasGridContainer', extrasData, 'extras'); }
+            else if (viewName === 'about') { document.getElementById('dedicatedAboutView').style.display = 'block'; }
         }
 
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            document.getElementById('customDropdown').classList.toggle('open');
-        }
-
-        function selectDropdownOption(seasonNum) {
-            document.getElementById('customDropdown').classList.remove('open');
-            changeSeason(seasonNum, false);
-        }
-
-        document.addEventListener('click', () => {
-            document.getElementById('customDropdown').classList.remove('open');
-        });
-
-        function initYouTubeEngine() {
-            apiScriptInitialized = true;
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
+        function toggleDropdown(event) { event.stopPropagation(); document.getElementById('customDropdown').classList.toggle('open'); }
+        function selectDropdownOption(seasonNum) { document.getElementById('customDropdown').classList.remove('open'); changeSeason(seasonNum, false); }
+        document.addEventListener('click', () => { document.getElementById('customDropdown').classList.remove('open'); });
+        function initYouTubeEngine() { apiScriptInitialized = true; const tag = document.createElement('script'); tag.src = "https://www.youtube.com/iframe_api"; const firstScriptTag = document.getElementsByTagName('script')[0]; firstScriptTag.parentNode.insertBefore(tag, firstScriptTag); }
 
         function onYouTubeIframeAPIReady() {
-            mainPlayer = new YT.Player('yt-player', {
-                videoId: currentActiveTrackId,
-                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
-                events: { 'onReady': onPlayerReady, 'onStateChange': (e) => onPlayerStateChange(e, 'play-btn', 'player-container') }
-            });
-
-            specialPlayer = new YT.Player('special-yt-player', {
-                videoId: oscarsData[0].id,
-                playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
-                events: { 'onStateChange': (e) => onPlayerStateChange(e, 'special-play-btn', 'special-player-container-block') }
-            });
+            mainPlayer = new YT.Player('yt-player', { videoId: currentActiveTrackId, playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 }, events: { 'onReady': onPlayerReady, 'onStateChange': (e) => onPlayerStateChange(e, 'play-btn', 'player-container') } });
+            specialPlayer = new YT.Player('special-yt-player', { videoId: oscarsData[0].id, playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 }, events: { 'onStateChange': (e) => onPlayerStateChange(e, 'special-play-btn', 'special-player-container-block') } });
         }
 
-        function onPlayerReady(event) {
-            buildPlaylistUI();
-            switchVideoDetails(currentActiveTrackId);
-            setupIdleDetection('player-container');
-        }
-
+        function onPlayerReady(event) { buildPlaylistUI(); switchVideoDetails(currentActiveTrackId); setupIdleDetection('player-container'); }
         function onPlayerStateChange(event, playBtnId, containerId) {
             const playBtn = document.getElementById(playBtnId);
-            if (event.data == YT.PlayerState.PLAYING) {
-                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                startProgressLoop(event.target, containerId);
-                resetIdleTimer(event.target, containerId);
-            } else {
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                clearInterval(updateTimer);
-                showControls(containerId);
-            }
+            if (event.data == YT.PlayerState.PLAYING) { playBtn.innerHTML = '<i class="fas fa-pause"></i>'; startProgressLoop(event.target, containerId); resetIdleTimer(event.target, containerId); }
+            else { playBtn.innerHTML = '<i class="fas fa-play"></i>'; clearInterval(updateTimer); showControls(containerId); }
         }
 
         function setupIdleDetection(containerId) {
             const container = document.getElementById(containerId);
             container.addEventListener('mousemove', () => resetIdleTimer(getActiveEngineInstance(containerId), containerId));
             container.addEventListener('click', () => resetIdleTimer(getActiveEngineInstance(containerId), containerId));
-            container.addEventListener('mouseleave', () => {
-                let instance = getActiveEngineInstance(containerId);
-                if (instance && instance.getPlayerState && instance.getPlayerState() == YT.PlayerState.PLAYING) {
-                    container.classList.add('user-idle');
-                }
-            });
+            container.addEventListener('mouseleave', () => { let instance = getActiveEngineInstance(containerId); if (instance && instance.getPlayerState && instance.getPlayerState() == YT.PlayerState.PLAYING) container.classList.add('user-idle'); });
         }
 
-        function getActiveEngineInstance(id) {
-            return id === 'player-container' ? mainPlayer : specialPlayer;
-        }
-
-        function resetIdleTimer(playerInstance, containerId) {
-            const container = document.getElementById(containerId);
-            showControls(containerId);
-            clearTimeout(idleTimer);
-            if (playerInstance && playerInstance.getPlayerState && playerInstance.getPlayerState() == YT.PlayerState.PLAYING) {
-                idleTimer = setTimeout(() => { container.classList.add('user-idle'); }, 3000);
-            }
-        }
-
-        function showControls(containerId) {
-            document.getElementById(containerId).classList.remove('user-idle');
-        }
+        function getActiveEngineInstance(id) { return id === 'player-container' ? mainPlayer : specialPlayer; }
+        function resetIdleTimer(playerInstance, containerId) { const container = document.getElementById(containerId); showControls(containerId); clearTimeout(idleTimer); if (playerInstance && playerInstance.getPlayerState && playerInstance.getPlayerState() == YT.PlayerState.PLAYING) idleTimer = setTimeout(() => { container.classList.add('user-idle'); }, 3000); }
+        function showControls(containerId) { document.getElementById(containerId).classList.remove('user-idle'); }
 
         function changeSeason(seasonNum, internalRouting = false) {
             currentSelectedSeason = seasonNum;
             document.getElementById('dropdownLabel').innerText = `Season ${seasonNum}`;
-            document.querySelectorAll('.dropdown-option').forEach(opt => {
-                if (parseInt(opt.getAttribute('data-value')) === seasonNum) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
-            
+            document.querySelectorAll('.dropdown-option').forEach(opt => { if (parseInt(opt.getAttribute('data-value')) === seasonNum) opt.classList.add('active'); else opt.classList.remove('active'); });
             const filtered = playlistData.filter(item => item.season === seasonNum);
-            if (filtered.length > 0 && !internalRouting) {
-                playEpisode(filtered[0].id);
-            } else if (filtered.length > 0 && internalRouting) {
-                currentActiveTrackId = filtered[0].id;
-                buildPlaylistUI();
-            }
+            if (filtered.length > 0 && !internalRouting) playEpisode(filtered[0].id);
+            else if (filtered.length > 0 && internalRouting) { currentActiveTrackId = filtered[0].id; buildPlaylistUI(); }
         }
 
         function buildPlaylistUI() {
-            const listContainer = document.getElementById('episode-list');
-            listContainer.innerHTML = "";
-            const filteredList = playlistData.filter(item => item.season === currentSelectedSeason);
-            
-            filteredList.forEach((item) => {
-                const div = document.createElement('div');
-                div.className = `episode-item ${item.id === currentActiveTrackId ? 'active' : ''}`;
-                div.onclick = () => playEpisode(item.id);
-                let subtitleString = item.movies.map(m => m.name).join(" & ");
-                div.innerHTML = `
-                    <div class="ep-thumb" style="background-image: url('${item.thumb}')"></div>
-                    <div class="ep-info">
-                        <h4>${item.title.split(': ')[0]}</h4>
-                        <p>${item.title.split(': ')[1] || subtitleString}</p>
-                    </div>
-                `;
+            const listContainer = document.getElementById('episode-list'); listContainer.innerHTML = "";
+            playlistData.filter(item => item.season === currentSelectedSeason).forEach((item) => {
+                const div = document.createElement('div'); div.className = `episode-item ${item.id === currentActiveTrackId ? 'active' : ''}`; div.onclick = () => playEpisode(item.id);
+                div.innerHTML = `<div class="ep-thumb" style="background-image: url('${item.thumb}')"></div><div class="ep-info"><h4>${item.title.split(': ')[0]}</h4><p>${item.title.split(': ')[1] || ""}</p></div>`;
                 listContainer.appendChild(div);
             });
         }
 
         function buildDeckGridUI(targetContainerId, dataset, originView) {
-            const container = document.getElementById(targetContainerId);
-            container.innerHTML = "";
+            const container = document.getElementById(targetContainerId); container.innerHTML = "";
             dataset.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "special-box-card";
-                card.onclick = () => launchSpecialFeature(item.id, item.title, originView);
-                card.innerHTML = `
-                    <div class="special-box-thumb" style="background-image: url('https://img.youtube.com/vi/${item.id}/0.jpg')"></div>
-                    <div class="special-box-info">
-                        <h3>${item.title}</h3>
-                    </div>
-                `;
+                const card = document.createElement('div'); card.className = "special-box-card"; card.onclick = () => launchSpecialFeature(item.id, item.title, originView);
+                card.innerHTML = `<div class="special-box-thumb" style="background-image: url('https://img.youtube.com/vi/${item.id}/0.jpg')"></div><div class="special-box-info"><h3>${item.title}</h3></div>`;
                 container.appendChild(card);
             });
         }
 
         function launchSpecialFeature(trackId, title, originView) {
-            showView('specialPlayer');
-            document.getElementById('specialPlayerHeaderTitle').innerText = title;
-            
-            const backBtn = document.getElementById('specialBackBtn');
-            backBtn.setAttribute('onclick', `showView('${originView}')`);
-            
-            if (specialPlayer && specialPlayer.cueVideoById) {
-                specialPlayer.cueVideoById(trackId);
-            }
-            setupIdleDetection('special-player-container-block');
-            document.getElementById('special-speed-dropdown').value = "1";
-            document.getElementById('special-quality-dropdown').value = "default";
-
-            // Query historical metrics mapping
-            const matchedSpecial = oscarsData.find(o => o.id === trackId);
-            const dataHeader = document.getElementById('oscarYearTitle');
-            const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
-            
-            if (matchedSpecial && matchedSpecial.history) {
-                dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
-                dataGrid.innerHTML = "";
-                matchedSpecial.history.forEach(award => {
-                    const card = document.createElement('div');
-                    card.className = "movie-card";
-                    card.innerHTML = `
-                        <div>
-                            <h4>${award.label}</h4>
-                            <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
-                        </div>
-                    `;
-                    dataGrid.appendChild(card);
-                });
-            } else {
-                dataHeader.innerText = "Bonus Archive Material";
-                dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
-            }
+            showView('specialPlayer'); document.getElementById('specialPlayerHeaderTitle').innerText = title; document.getElementById('specialBackBtn').setAttribute('onclick', `showView('${originView}')`);
+            if (specialPlayer && specialPlayer.cueVideoById) specialPlayer.cueVideoById(trackId);
+            setupIdleDetection('special-player-container-block'); document.getElementById('special-speed-dropdown').value = "1"; document.getElementById('special-quality-dropdown').value = "default";
+            const matchedSpecial = oscarsData.find(o => o.id === trackId); const dataHeader = document.getElementById('oscarYearTitle'); const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+            if (matchedSpecial && matchedSpecial.history) { dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`; dataGrid.innerHTML = ""; matchedSpecial.history.forEach(award => { const card = document.createElement('div'); card.className = "movie-card"; card.innerHTML = `<div><h4>${award.label}</h4><div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div></div>`; dataGrid.appendChild(card); }); }
+            else { dataHeader.innerText = "Bonus Archive Material"; dataGrid.innerHTML = `<div class="movie-card"><h4>No additional logs attached.</h4></div>`; }
         }
 
         function switchVideoDetails(trackId) {
-            const currentEp = playlistData.find(item => item.id === trackId);
-            if (!currentEp) return;
-            
-            document.getElementById('active-title-header').innerText = currentEp.title;
-            const metaGrid = document.getElementById('movieMetaGrid');
-            metaGrid.innerHTML = "";
-            currentEp.movies.forEach(movie => {
-                const card = document.createElement('div');
-                card.className = "movie-card";
-                card.innerHTML = `
-                    <div>
-                        <h4>${movie.name}</h4>
-                        <div class="meta-line"><span class="meta-label">IMDb Rating:</span> <span class="rating-badge">${movie.rating}</span></div>
-                        <div class="meta-line"><span class="meta-label">Director:</span> ${movie.director}</div>
-                        <div class="meta-line"><span class="meta-label">Cast:</span> ${movie.cast}</div>
-                    </div>
-                    <a href="${movie.imdb}" target="_blank" class="imdb-link-btn"><i class="fab fa-imdb"></i> View on IMDb</a>
-                `;
-                metaGrid.appendChild(card);
-            });
+            const currentEp = playlistData.find(item => item.id === trackId); if (!currentEp) return;
+            document.getElementById('active-title-header').innerText = currentEp.title; const metaGrid = document.getElementById('movieMetaGrid'); metaGrid.innerHTML = "";
+            currentEp.movies.forEach(movie => { const card = document.createElement('div'); card.className = "movie-card"; card.innerHTML = `<div><h4>${movie.name}</h4><div class="meta-line"><span class="meta-label">IMDb Rating:</span> <span class="rating-badge">${movie.rating}</span></div><div class="meta-line"><span class="meta-label">Director:</span> ${movie.director}</div><div class="meta-line"><span class="meta-label">Cast:</span> ${movie.cast}</div></div><a href="${movie.imdb}" target="_blank" class="imdb-link-btn"><i class="fab fa-imdb"></i> View on IMDb</a>`; metaGrid.appendChild(card); });
         }
 
         function playEpisode(trackId) {
-            currentActiveTrackId = trackId;
-            const track = playlistData.find(item => item.id === trackId);
-            if(track) {
-                currentSelectedSeason = track.season;
-                document.getElementById('dropdownLabel').innerText = `Season ${track.season}`;
-                document.querySelectorAll('.dropdown-option').forEach(opt => {
-                    if (parseInt(opt.getAttribute('data-value')) === track.season) {
-                        opt.classList.add('active');
-                    } else {
-                        opt.classList.remove('active');
-                    }
-                });
-            }
-            buildPlaylistUI();
-            switchVideoDetails(trackId);
-            if (mainPlayer && mainPlayer.cueVideoById) {
-                mainPlayer.cueVideoById(trackId);
-            }
-            document.getElementById('speed-dropdown').value = "1";
-            document.getElementById('quality-dropdown').value = "default";
+            currentActiveTrackId = trackId; const track = playlistData.find(item => item.id === trackId);
+            if(track) { currentSelectedSeason = track.season; document.getElementById('dropdownLabel').innerText = `Season ${track.season}`; document.querySelectorAll('.dropdown-option').forEach(opt => { if (parseInt(opt.getAttribute('data-value')) === track.season) opt.classList.add('active'); else opt.classList.remove('active'); }); }
+            buildPlaylistUI(); switchVideoDetails(trackId); if (mainPlayer && mainPlayer.cueVideoById) mainPlayer.cueVideoById(trackId);
         }
 
-        function togglePlay(targetPlayer) {
-            if (targetPlayer && targetPlayer.getPlayerState) {
-                if (targetPlayer.getPlayerState() == YT.PlayerState.PLAYING) { targetPlayer.pauseVideo(); } 
-                else { targetPlayer.playVideo(); }
-            }
-        }
-
-        function skip(targetPlayer, seconds) {
-            if (targetPlayer && targetPlayer.getCurrentTime) {
-                targetPlayer.seekTo(targetPlayer.getCurrentTime() + seconds, true);
-            }
-        }
-
-        function changeQuality(targetPlayer, targetQuality) {
-            if (targetPlayer && targetPlayer.setPlaybackQuality) {
-                targetPlayer.setPlaybackQuality(targetQuality);
-            }
-        }
-
-        function changeSpeed(targetPlayer, rate) {
-            if (targetPlayer && targetPlayer.setPlaybackRate) { targetPlayer.setPlaybackRate(parseFloat(rate)); }
-        }
-
-        function toggleSubtitles(targetPlayer, btnId) {
-            const btn = document.getElementById(btnId);
-            if (targetPlayer && targetPlayer.unloadModule) {
-                if (!ccEnabled) {
-                    targetPlayer.loadModule("captions");
-                    ccEnabled = true;
-                    btn.style.color = "var(--accent-blue)";
-                } else {
-                    targetPlayer.unloadModule("captions");
-                    ccEnabled = false;
-                    btn.style.color = "var(--text-main)";
-                }
-            }
-        }
-
-        function toggleFullscreen(containerId, iconId) {
-            const container = document.getElementById(containerId);
-            const icon = document.getElementById(iconId);
-            if (!document.fullscreenElement) {
-                container.requestFullscreen().then(() => { icon.className = "fas fa-compress"; });
-            } else {
-                document.exitFullscreen();
-                icon.className = "fas fa-expand";
-            }
-        }
-
-        function startProgressLoop(targetPlayer, containerId) {
-            clearInterval(updateTimer);
-            const suffix = containerId === 'player-container' ? '' : 'special-';
-            updateTimer = setInterval(() => {
-                if (targetPlayer && targetPlayer.getCurrentTime) {
-                    const current = targetPlayer.getCurrentTime();
-                    const duration = targetPlayer.getDuration() || 0;
-                    if (duration > 0) {
-                        document.getElementById(`${suffix}progress-bar`).style.width = ((current / duration) * 100) + '%';
-                    }
-                    document.getElementById(`${suffix}time-display`).innerText = `${formatTime(current)} / ${formatTime(duration)}`;
-                }
-            }, 300);
-        }
-
-        function seekVideo(targetPlayer, progressContainerId, event) {
-            if (targetPlayer && targetPlayer.getDuration) {
-                const rect = document.getElementById(progressContainerId).getBoundingClientRect();
-                const seekTarget = targetPlayer.getDuration() * ((event.clientX - rect.left) / rect.width);
-                targetPlayer.seekTo(seekTarget, true);
-            }
-        }
-
-        // Expanded parser tracking hh:mm:ss formatting
-        function formatTime(sec) {
-            const hrs = Math.floor(sec / 3600);
-            const mins = Math.floor((sec % 3600) / 60);
-            const secs = Math.floor(sec % 60);
-
-            const pad = (n) => String(n).padStart(2, '0');
-            return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
-        }
+        function togglePlay(targetPlayer) { if (targetPlayer && targetPlayer.getPlayerState) { if (targetPlayer.getPlayerState() == YT.PlayerState.PLAYING) targetPlayer.pauseVideo(); else targetPlayer.playVideo(); } }
+        function skip(targetPlayer, seconds) { if (targetPlayer && targetPlayer.getCurrentTime) targetPlayer.seekTo(targetPlayer.getCurrentTime() + seconds, true); }
+        function changeQuality(targetPlayer, targetQuality) { if (targetPlayer && targetPlayer.setPlaybackQuality) targetPlayer.setPlaybackQuality(targetQuality); }
+        function changeSpeed(targetPlayer, rate) { if (targetPlayer && targetPlayer.setPlaybackRate) targetPlayer.setPlaybackRate(parseFloat(rate)); }
+        function toggleSubtitles(targetPlayer, btnId) { const btn = document.getElementById(btnId); if (targetPlayer && targetPlayer.unloadModule) { if (!ccEnabled) { targetPlayer.loadModule("captions"); ccEnabled = true; btn.style.color = "var(--accent-blue)"; } else { targetPlayer.unloadModule("captions"); ccEnabled = false; btn.style.color = "var(--text-main)"; } } }
+        function toggleFullscreen(containerId, iconId) { const container = document.getElementById(containerId); const icon = document.getElementById(iconId); if (!document.fullscreenElement) container.requestFullscreen().then(() => { icon.className = "fas fa-compress"; }); else { document.exitFullscreen(); icon.className = "fas fa-expand"; } }
+        function startProgressLoop(targetPlayer, containerId) { clearInterval(updateTimer); const suffix = containerId === 'player-container' ? '' : 'special-'; updateTimer = setInterval(() => { if (targetPlayer && targetPlayer.getCurrentTime) { const current = targetPlayer.getCurrentTime(); const duration = targetPlayer.getDuration() || 0; if (duration > 0) document.getElementById(`${suffix}progress-bar`).style.width = ((current / duration) * 100) + '%'; document.getElementById(`${suffix}time-display`).innerText = `${formatTime(current)} / ${formatTime(duration)}`; } }, 300); }
+        function seekVideo(targetPlayer, progressContainerId, event) { if (targetPlayer && targetPlayer.getDuration) { const rect = document.getElementById(progressContainerId).getBoundingClientRect(); const seekTarget = targetPlayer.getDuration() * ((event.clientX - rect.left) / rect.width); targetPlayer.seekTo(seekTarget, true); } }
+        function formatTime(sec) { const hrs = Math.floor(sec / 3600); const mins = Math.floor((sec % 3600) / 60); const secs = Math.floor(sec % 60); const pad = (n) => String(n).padStart(2, '0'); return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`; }
     </script>
 </body>
 </html>
