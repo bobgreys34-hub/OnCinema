@@ -705,7 +705,7 @@
                     </div>
                 </div>
 
-                <div class="video-details" style="margin-top:25px;">
+                <div class="video-details" style="margin-top:25px;" id="specialPlayerMetaBlock">
                     <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
                     <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
                 </div>
@@ -929,10 +929,9 @@
             }
         ];
 
-        // Complete Repository mapping historical award indices across all 7 entries
         const oscarsData = [
             { 
-                id: 'aHebKoIFRKE', 
+                id: 'fDj-ZOqFiLI', 
                 title: "The 1st Annual Oscar Special",
                 year: "2013 (85th Academy Awards)",
                 history: [
@@ -943,7 +942,7 @@
                 ]
             },
             { 
-                id: 'K5UFrRFD3Gw', 
+                id: 'aHebKoIFRKE', 
                 title: "The 2nd Annual Oscar Special",
                 year: "2014 (86th Academy Awards)",
                 history: [
@@ -954,7 +953,7 @@
                 ]
             },
             { 
-                id: 'ANNOQWby8R8', 
+                id: 'K5UFrRFD3Gw', 
                 title: "The 3rd Annual Oscar Special",
                 year: "2015 (87th Academy Awards)",
                 history: [
@@ -962,6 +961,17 @@
                     { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
                     { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
                     { label: "Best Actress", val: "Julianne Moore (Still Alice)" }
+                ]
+            },
+            { 
+                id: 'ANNOQWby8R8', 
+                title: "The 4th Annual Oscar Special",
+                year: "2016 (88th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Spotlight" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
+                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
+                    { label: "Best Actress", val: "Brie Larson (Room)" }
                 ]
             },
             { 
@@ -988,7 +998,7 @@
             },
             { 
                 id: 'pKkAdoZEn-s', 
-                title: "The 6th Annual Oscar Special",
+                title: "The New On Cinema Oscar Special",
                 year: "2018 (90th Academy Awards)",
                 history: [
                     { label: "Best Picture", val: "The Shape of Water" },
@@ -1213,28 +1223,34 @@
             document.getElementById('special-speed-dropdown').value = "1";
             document.getElementById('special-quality-dropdown').value = "default";
 
-            // Query historical metrics mapping
-            const matchedSpecial = oscarsData.find(o => o.id === trackId);
-            const dataHeader = document.getElementById('oscarYearTitle');
-            const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
-            
-            if (matchedSpecial && matchedSpecial.history) {
-                dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
-                dataGrid.innerHTML = "";
-                matchedSpecial.history.forEach(award => {
-                    const card = document.createElement('div');
-                    card.className = "movie-card";
-                    card.innerHTML = `
-                        <div>
-                            <h4>${award.label}</h4>
-                            <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
-                        </div>
-                    `;
-                    dataGrid.appendChild(card);
-                });
+            const metaBlock = document.getElementById('specialPlayerMetaBlock');
+            if (originView === 'extras') {
+                if (metaBlock) metaBlock.style.display = 'none';
             } else {
-                dataHeader.innerText = "Bonus Archive Material";
-                dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+                if (metaBlock) metaBlock.style.display = 'block';
+                // Query historical metrics mapping
+                const matchedSpecial = oscarsData.find(o => o.id === trackId);
+                const dataHeader = document.getElementById('oscarYearTitle');
+                const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+                
+                if (matchedSpecial && matchedSpecial.history) {
+                    dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
+                    dataGrid.innerHTML = "";
+                    matchedSpecial.history.forEach(award => {
+                        const card = document.createElement('div');
+                        card.className = "movie-card";
+                        card.innerHTML = `
+                            <div>
+                                <h4>${award.label}</h4>
+                                <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
+                            </div>
+                        `;
+                        dataGrid.appendChild(card);
+                    });
+                } else {
+                    dataHeader.innerText = "Bonus Archive Material";
+                    dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+                }
             }
         }
 
