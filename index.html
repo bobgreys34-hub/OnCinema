@@ -60,7 +60,7 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
         }
 
         nav a {
@@ -68,8 +68,9 @@
             transition: color 0.3s, opacity 0.3s;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 0.5px;
+            cursor: pointer;
         }
 
         nav a.blue-nav {
@@ -131,7 +132,7 @@
             margin-top: 20px;
         }
 
-        #dedicatedAboutView, #extrasView, #oscarsSpecialsView, #specialPlayerView {
+        #dedicatedAboutView, #extrasView, #moreView, #oscarsSpecialsView, #specialPlayerView {
             display: none;
             margin-top: 40px;
         }
@@ -570,11 +571,12 @@
     <header>
         <div class="logo" onclick="showView('welcome')">On Cinema <span class="red-txt">Hub</span></div>
         <nav>
-            <a href="#" class="blue-nav" onclick="showView('welcome')">Home</a>
-            <a href="#" class="standard-nav" onclick="showView('hub')">On Cinema</a>
-            <a href="#" class="standard-nav" onclick="showView('oscars')">Oscar's Specials</a>
-            <a href="#" class="standard-nav" onclick="showView('extras')">Extras</a>
-            <a href="#" class="blue-nav" onclick="showView('about')">About</a>
+            <a class="blue-nav" onclick="showView('welcome')">Home</a>
+            <a class="standard-nav" onclick="showView('hub')">On Cinema</a>
+            <a class="standard-nav" onclick="showView('oscars')">Oscar's Specials</a>
+            <a class="standard-nav" onclick="showView('extras')">Extras</a>
+            <a class="standard-nav" onclick="showView('more')">More</a>
+            <a class="blue-nav" onclick="showView('about')">About</a>
         </nav>
     </header>
 
@@ -715,6 +717,11 @@
         <section id="extrasView">
             <h1 class="episode-title-hdr">Bonus Elements & Extras</h1>
             <div class="specials-grid" id="extrasGridContainer"></div>
+        </section>
+
+        <section id="moreView">
+            <h1 class="episode-title-hdr">More Content</h1>
+            <div class="specials-grid" id="moreGridContainer"></div>
         </section>
 
         <section id="dedicatedAboutView">
@@ -938,7 +945,9 @@
                     { label: "Best Picture", val: "Argo" },
                     { label: "Best Director", val: "Ang Lee (Life of Pi)" },
                     { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" },
-                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" }
+                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" },
+                    { label: "Best Supporting Actor", val: "Christoph Waltz (Django Unchained)" },
+                    { label: "Best Supporting Actress", val: "Anne Hathaway (Les Misérables)" }
                 ]
             },
             { 
@@ -949,7 +958,9 @@
                     { label: "Best Picture", val: "12 Years a Slave" },
                     { label: "Best Director", val: "Alfonso Cuarón (Gravity)" },
                     { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" },
-                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" }
+                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" },
+                    { label: "Best Supporting Actor", val: "Jared Leto (Dallas Buyers Club)" },
+                    { label: "Best Supporting Actress", val: "Lupita Nyong'o (12 Years a Slave)" }
                 ]
             },
             { 
@@ -960,7 +971,9 @@
                     { label: "Best Picture", val: "Birdman" },
                     { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
                     { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
-                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" }
+                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" },
+                    { label: "Best Supporting Actor", val: "J.K. Simmons (Whiplash)" },
+                    { label: "Best Supporting Actress", val: "Patricia Arquette (Boyhood)" }
                 ]
             },
             { 
@@ -971,7 +984,9 @@
                     { label: "Best Picture", val: "Spotlight" },
                     { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
                     { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
-                    { label: "Best Actress", val: "Brie Larson (Room)" }
+                    { label: "Best Actress", val: "Brie Larson (Room)" },
+                    { label: "Best Supporting Actor", val: "Mark Rylance (Bridge of Spies)" },
+                    { label: "Best Supporting Actress", val: "Alicia Vikander (The Danish Girl)" }
                 ]
             },
             { 
@@ -982,7 +997,9 @@
                     { label: "Best Picture", val: "Spotlight" },
                     { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
                     { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
-                    { label: "Best Actress", val: "Brie Larson (Room)" }
+                    { label: "Best Actress", val: "Brie Larson (Room)" },
+                    { label: "Best Supporting Actor", val: "Mark Rylance (Bridge of Spies)" },
+                    { label: "Best Supporting Actress", val: "Alicia Vikander (The Danish Girl)" }
                 ]
             },
             { 
@@ -993,7 +1010,9 @@
                     { label: "Best Picture", val: "Moonlight" },
                     { label: "Best Director", val: "Damien Chazelle (La La Land)" },
                     { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" },
-                    { label: "Best Actress", val: "Emma Stone (La La Land)" }
+                    { label: "Best Actress", val: "Emma Stone (La La Land)" },
+                    { label: "Best Supporting Actor", val: "Mahershala Ali (Moonlight)" },
+                    { label: "Best Supporting Actress", val: "Viola Davis (Fences)" }
                 ]
             },
             { 
@@ -1004,7 +1023,9 @@
                     { label: "Best Picture", val: "The Shape of Water" },
                     { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" },
                     { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" },
-                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" }
+                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" },
+                    { label: "Best Supporting Actor", val: "Sam Rockwell (Three Billboards Outside Ebbing, Missouri)" },
+                    { label: "Best Supporting Actress", val: "Allison Janney (I, Tonya)" }
                 ]
             },
             { 
@@ -1015,13 +1036,19 @@
                     { label: "Best Picture", val: "Green Book" },
                     { label: "Best Director", val: "Alfonso Cuarón (Roma)" },
                     { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" },
-                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" }
+                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" },
+                    { label: "Best Supporting Actor", val: "Mahershala Ali (Green Book)" },
+                    { label: "Best Supporting Actress", val: "Regina King (If Beale Street Could Talk)" }
                 ]
             }
         ];
 
         const extrasData = [
             { id: '6jNJwufR8BU', title: "On Cinema Tribute to Steven Spielberg in 3D" }
+        ];
+
+        const moreData = [
+            { id: 'CjxUL0NI9O4', title: "On Cinema Expanded Footage & Timelines" }
         ];
 
         let currentActiveTrackId = playlistData[0].id;
@@ -1044,6 +1071,7 @@
             document.getElementById('oscarsSpecialsView').style.display = 'none';
             document.getElementById('specialPlayerView').style.display = 'none';
             document.getElementById('extrasView').style.display = 'none';
+            document.getElementById('moreView').style.display = 'none';
             document.getElementById('dedicatedAboutView').style.display = 'none';
 
             if(viewName === 'welcome') {
@@ -1062,6 +1090,9 @@
             } else if (viewName === 'extras') {
                 document.getElementById('extrasView').style.display = 'block';
                 buildDeckGridUI('extrasGridContainer', extrasData, 'extras');
+            } else if (viewName === 'more') {
+                document.getElementById('moreView').style.display = 'block';
+                buildDeckGridUI('moreGridContainer', moreData, 'more');
             } else if (viewName === 'about') {
                 document.getElementById('dedicatedAboutView').style.display = 'block';
             }
@@ -1224,11 +1255,10 @@
             document.getElementById('special-quality-dropdown').value = "default";
 
             const metaBlock = document.getElementById('specialPlayerMetaBlock');
-            if (originView === 'extras') {
+            if (originView === 'extras' || originView === 'more') {
                 if (metaBlock) metaBlock.style.display = 'none';
             } else {
                 if (metaBlock) metaBlock.style.display = 'block';
-                // Query historical metrics mapping
                 const matchedSpecial = oscarsData.find(o => o.id === trackId);
                 const dataHeader = document.getElementById('oscarYearTitle');
                 const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
@@ -1372,7 +1402,6 @@
             }
         }
 
-        // Expanded parser tracking hh:mm:ss formatting
         function formatTime(sec) {
             const hrs = Math.floor(sec / 3600);
             const mins = Math.floor((sec % 3600) / 60);
