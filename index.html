@@ -1120,7 +1120,13 @@
         ];
 
         const moreData = [
-            { id: 'CjxUL0NI9O4', title: "Mister America Official Trailer" }
+            { 
+                id: 'tt10579992', 
+                title: "Mister America Official Feature", 
+                isEmbedUrl: true, 
+                embedUrl: "https://multiembed.mov/?video_id=tt10579992",
+                thumb: "https://img.youtube.com/vi/CjxUL0NI9O4/0.jpg" // Using the trailer thumbnail fallback safely
+            }
         ];
 
         let currentActiveTrackId = playlistData[0].id;
@@ -1210,9 +1216,7 @@
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         }
 
-        // Global callback exposed accurately to global window tier
         window.onYouTubeIframeAPIReady = function() {
-            // Added 'enablejsapi': 1 and 'origin' fallback filters to allow JavaScript handlers to bridge inside the iframe wrapper elements safely.
             const originUri = window.location.origin === "null" ? "*" : window.location.origin;
 
             mainPlayer = new YT.Player('yt-player', {
@@ -1248,6 +1252,7 @@
 
         function onPlayerStateChange(event, playBtnId, containerId) {
             const playBtn = document.getElementById(playBtnId);
+            if (!playBtn) return; // Guard clause for iframe swaps
             if (event.data == YT.PlayerState.PLAYING) {
                 playBtn.innerHTML = '<i class="fas fa-pause"></i>';
                 startProgressLoop(event.target, containerId);
@@ -1373,15 +1378,36 @@
             dataset.forEach(item => {
                 const card = document.createElement('div');
                 card.className = "special-box-card";
-                card.onclick = () => launchSpecialFeature(item.id, item.title, originView);
+                if (item.isEmbedUrl) {
+                    card.onclick = () => launchDirectEmbedFeature(item.embedUrl, item.title, originView);
+                } else {
+                    card.onclick = () => launchSpecialFeature(item.id, item.title, originView);
+                }
+                
+                const thumbUrl = item.thumb ? item.thumb : `https://img.youtube.com/vi/${item.id}/0.jpg`;
                 card.innerHTML = `
-                    <div class="special-box-thumb" style="background-image: url('https://img.youtube.com/vi/${item.id}/0.jpg')"></div>
+                    <div class="special-box-thumb" style="background-image: url('${thumbUrl}')"></div>
                     <div class="special-box-info">
                         <h3>${item.title}</h3>
                     </div>
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function launchDirectEmbedFeature(embedUrl, title, originView) {
+            showView('specialPlayer');
+            document.getElementById('specialPlayerHeaderTitle').innerText = title;
+            
+            const backBtn = document.getElementById('specialBackBtn');
+            backBtn.setAttribute('onclick', `showView('${originView}')`);
+
+            // Destroy custom overlay/controls visibility for non-YT streams to let native iframe elements handle play/pause
+            document.getElementById('specialHistoricalMetaContainer').style.display = 'none';
+            document.getElementById('special-controls-bar').style.style = 'none';
+            
+            const playerBlock = document.getElementById('special-player-container-block');
+            playerBlock.innerHTML = `<iframe src="${embedUrl}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
         }
 
         function launchSpecialFeature(trackId, title, originView) {
@@ -1391,16 +1417,53 @@
             const backBtn = document.getElementById('specialBackBtn');
             backBtn.setAttribute('onclick', `showView('${originView}')`);
             
-            if (specialPlayer && specialPlayer.cueVideoById) {
-                specialPlayer.cueVideoById(trackId);
-            }
+            const playerBlock = document.getElementById('special-player-container-block');
+            // Re-render original node architecture if pre-emptively rewritten by direct iframe injection
+            playerBlock.innerHTML = `<div id="special-yt-player"></div>
+                    <div class="video-overlay-click" onclick="togglePlay(specialPlayer)"></div>
+                    <div class="custom-controls" id="special-controls-bar">
+                        <div class="progress-container" id="special-progress-container" onclick="seekVideo(specialPlayer, 'special-progress-container', event)">
+                            <div class="progress-bar" id="special-progress-bar"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="togglePlay(specialPlayer)" id="special-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" onclick="skip(specialPlayer, -10)"><i class="fas fa-backward"></i></button>
+                                <button class="ctrl-btn" onclick="skip(specialPlayer, 10)"><i class="fas fa-forward"></i></button>
+                                <span class="time-display" id="special-time-display">00:00:00 / 00:00:00</span>
+                            </div>
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="toggleSubtitles(specialPlayer, 'special-caption-btn')" id="special-caption-btn"><i class="fas fa-closed-captioning"></i></button>
+                                <select class="engine-select" id="special-speed-dropdown" onchange="changeSpeed(specialPlayer, this.value)">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+                                <select class="engine-select" id="special-quality-dropdown" onchange="changeQuality(specialPlayer, this.value)">
+                                    <option value="default" selected>Auto</option>
+                                    <option value="highres">1080p</option>
+                                    <option value="hd720">720p</option>
+                                    <option value="large">480p</option>
+                                    <option value="medium">360p</option>
+                                    <option value="small">240p</option>
+                                </select>
+                                <button class="ctrl-btn" onclick="toggleFullscreen('special-player-container-block', 'special-fullscreen-icon')"><i class="fas fa-expand" id="special-fullscreen-icon"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+
+            const originUri = window.location.origin === "null" ? "*" : window.location.origin;
+            specialPlayer = new YT.Player('special-yt-player', {
+                videoId: trackId,
+                playerVars: { 'enablejsapi': 1, 'origin': originUri, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 1 },
+                events: { 'onStateChange': (e) => onPlayerStateChange(e, 'special-play-btn', 'special-player-container-block') }
+            });
+
             setupIdleDetection('special-player-container-block');
-            document.getElementById('special-speed-dropdown').value = "1";
-            document.getElementById('special-quality-dropdown').value = "default";
 
             const metaContainer = document.getElementById('specialHistoricalMetaContainer');
             
-            // If launching from extras or more, hide the bonus historical material block entirely
             if (originView === 'extras' || originView === 'more') {
                 metaContainer.style.display = 'none';
             } else {
