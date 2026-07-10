@@ -191,7 +191,7 @@
             padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 25px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
@@ -265,7 +265,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            width: 110px;
+            width: 100px;
         }
 
         .volume-slider {
@@ -287,6 +287,23 @@
             border-radius: 50%;
             background: var(--text-main);
             cursor: pointer;
+        }
+
+        /* Inline Video Quality Control styling */
+        .quality-select {
+            background: #1f1f23;
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 5px 8px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            font-weight: 600;
+        }
+        
+        .quality-select:hover {
+            border-color: var(--accent-blue);
         }
 
         /* --- Centered Standalone Special Player Layout --- */
@@ -619,21 +636,34 @@
         <!-- ON CINEMA HUB -->
         <section id="hubView">
             <div>
-                <div class="player-wrapper">
+                <div class="player-wrapper" id="hub-wrapper">
                     <div class="player-click-shield"></div>
                     <iframe id="main-iframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 
                 <!-- System Controls Interface Block -->
                 <div class="custom-control-bar">
-                    <button class="control-btn" id="hub-play-toggle" onclick="togglePlaybackSystem('hub')"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(-10, 'hub')" title="Rewind 10s"><i class="fas fa-backward"></i></button>
+                    <button class="control-btn" id="hub-play-toggle" onclick="togglePlaybackSystem('hub')" title="Play/Pause"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(10, 'hub')" title="Fast Forward 10s"><i class="fas fa-forward"></i></button>
+                    
                     <div class="timeline-slider-container">
                         <input type="range" class="custom-timeline" id="hub-timeline" min="0" max="100" value="0" oninput="timelineScrubSystem(this.value, 'hub')">
                     </div>
+                    
+                    <select class="quality-select" id="hub-quality" onchange="changeQualitySystem(this.value, 'hub')" title="Video Quality">
+                        <option value="default">Auto</option>
+                        <option value="highres">4K/1080p</option>
+                        <option value="hd720">720p</option>
+                        <option value="medium">480p</option>
+                        <option value="small">360p</option>
+                    </select>
+
                     <div class="volume-container">
                         <button class="control-btn" style="width:20px;" id="hub-volume-icon"><i class="fas fa-volume-up"></i></button>
                         <input type="range" class="volume-slider" id="hub-volume" min="0" max="100" value="100" oninput="volumeAdjustSystem(this.value, 'hub')">
                     </div>
+                    <button class="control-btn" onclick="toggleFullscreenSystem('hub-wrapper')" title="Fullscreen"><i class="fas fa-expand"></i></button>
                 </div>
 
                 <div class="video-details">
@@ -662,21 +692,34 @@
         <!-- DECKER HUB -->
         <section id="deckerView">
             <div>
-                <div class="player-wrapper">
+                <div class="player-wrapper" id="decker-wrapper">
                     <div class="player-click-shield"></div>
                     <iframe id="decker-iframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
                 <!-- Decker Controls Block -->
                 <div class="custom-control-bar">
-                    <button class="control-btn" id="decker-play-toggle" onclick="togglePlaybackSystem('decker')"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(-10, 'decker')" title="Rewind 10s"><i class="fas fa-backward"></i></button>
+                    <button class="control-btn" id="decker-play-toggle" onclick="togglePlaybackSystem('decker')" title="Play/Pause"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(10, 'decker')" title="Fast Forward 10s"><i class="fas fa-forward"></i></button>
+                    
                     <div class="timeline-slider-container">
                         <input type="range" class="custom-timeline" id="decker-timeline" min="0" max="100" value="0" oninput="timelineScrubSystem(this.value, 'decker')">
                     </div>
+
+                    <select class="quality-select" id="decker-quality" onchange="changeQualitySystem(this.value, 'decker')" title="Video Quality">
+                        <option value="default">Auto</option>
+                        <option value="highres">4K/1080p</option>
+                        <option value="hd720">720p</option>
+                        <option value="medium">480p</option>
+                        <option value="small">360p</option>
+                    </select>
+
                     <div class="volume-container">
                         <button class="control-btn" style="width:20px;" id="decker-volume-icon"><i class="fas fa-volume-up"></i></button>
                         <input type="range" class="volume-slider" id="decker-volume" min="0" max="100" value="100" oninput="volumeAdjustSystem(this.value, 'decker')">
                     </div>
+                    <button class="control-btn" onclick="toggleFullscreenSystem('decker-wrapper')" title="Fullscreen"><i class="fas fa-expand"></i></button>
                 </div>
 
                 <div class="video-details">
@@ -715,21 +758,34 @@
                     <h1 class="episode-title-hdr" id="specialPlayerHeaderTitle">Special Feature</h1>
                     <button class="control-btn" id="specialBackBtn" onclick="showView('oscars')" style="color: var(--accent-blue); font-weight: bold; width:auto; gap:5px;"><i class="fas fa-arrow-left"></i> Back to Deck</button>
                 </div>
-                <div class="player-wrapper">
+                <div class="player-wrapper" id="special-wrapper">
                     <div class="player-click-shield"></div>
                     <iframe id="special-iframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
                 <!-- Special Feature Controls Block -->
                 <div class="custom-control-bar">
-                    <button class="control-btn" id="special-play-toggle" onclick="togglePlaybackSystem('special')"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(-10, 'special')" title="Rewind 10s"><i class="fas fa-backward"></i></button>
+                    <button class="control-btn" id="special-play-toggle" onclick="togglePlaybackSystem('special')" title="Play/Pause"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" onclick="skipTimeSystem(10, 'special')" title="Fast Forward 10s"><i class="fas fa-forward"></i></button>
+                    
                     <div class="timeline-slider-container">
                         <input type="range" class="custom-timeline" id="special-timeline" min="0" max="100" value="0" oninput="timelineScrubSystem(this.value, 'special')">
                     </div>
+
+                    <select class="quality-select" id="special-quality" onchange="changeQualitySystem(this.value, 'special')" title="Video Quality">
+                        <option value="default">Auto</option>
+                        <option value="highres">4K/1080p</option>
+                        <option value="hd720">720p</option>
+                        <option value="medium">480p</option>
+                        <option value="small">360p</option>
+                    </select>
+
                     <div class="volume-container">
                         <button class="control-btn" style="width:20px;" id="special-volume-icon"><i class="fas fa-volume-up"></i></button>
                         <input type="range" class="volume-slider" id="special-volume" min="0" max="100" value="100" oninput="volumeAdjustSystem(this.value, 'special')">
                     </div>
+                    <button class="control-btn" onclick="toggleFullscreenSystem('special-wrapper')" title="Fullscreen"><i class="fas fa-expand"></i></button>
                 </div>
 
                 <div class="video-details" id="specialHistoricalMetaContainer" style="margin-top:25px;">
@@ -1088,11 +1144,11 @@
             { id: 'CjxUL0NI9O4', title: "Mister America Official Trailer" }
         ];
 
-        // System states default to playing: false so the button matches the paused embed
+        // System states map out tracks and slider parameters
         let playbackStates = {
-            hub: { videoId: playlistData[0].id, playing: false, totalMinutes: 12 },
-            decker: { videoId: deckerPlaylistData[0].id, playing: false, totalMinutes: 8 },
-            special: { videoId: '', playing: false, totalMinutes: 180 }
+            hub: { videoId: playlistData[0].id, playing: false, currentSeconds: 0, totalMinutes: 12 },
+            decker: { videoId: deckerPlaylistData[0].id, playing: false, currentSeconds: 0, totalMinutes: 8 },
+            special: { videoId: '', playing: false, currentSeconds: 0, totalMinutes: 180 }
         };
 
         let currentActiveTrackId = playlistData[0].id;
@@ -1107,9 +1163,7 @@
             switchVideoDetails(currentDeckerTrackId, 'decker');
         };
 
-        // Stripped autoplay parameter entirely to strictly follow user interactions
-        function getEmbedUrl(videoId, startPercent = 0) {
-            let startSeconds = Math.floor((startPercent / 100) * (playbackStates.hub.totalMinutes * 60));
+        function getEmbedUrl(videoId, startSeconds = 0) {
             return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&controls=0&start=${startSeconds}&enablejsapi=1`;
         }
 
@@ -1130,12 +1184,34 @@
             }
         }
 
+        // Skip forward/backward functionality
+        function skipTimeSystem(secondsToMove, playerKey) {
+            const state = playbackStates[playerKey];
+            const iframe = document.getElementById(playerKey === 'special' ? 'special-iframe' : (playerKey === 'hub' ? 'main-iframe' : 'decker-iframe'));
+            const timeline = document.getElementById(`${playerKey}-timeline`);
+            
+            // Calculate current placement value derived from slider configuration
+            let totalDurationSeconds = state.totalMinutes * 60;
+            let targetSeconds = Math.max(0, Math.min(totalDurationSeconds, state.currentSeconds + secondsToMove));
+            
+            state.currentSeconds = targetSeconds;
+            let derivedPercent = (targetSeconds / totalDurationSeconds) * 100;
+            timeline.value = derivedPercent;
+            
+            iframe.src = getEmbedUrl(state.videoId, targetSeconds);
+            state.playing = false; 
+            document.getElementById(`${playerKey}-play-toggle`).innerHTML = `<i class="fas fa-play"></i>`;
+        }
+
         function timelineScrubSystem(value, playerKey) {
             const state = playbackStates[playerKey];
             const iframe = document.getElementById(playerKey === 'special' ? 'special-iframe' : (playerKey === 'hub' ? 'main-iframe' : 'decker-iframe'));
             
-            iframe.src = getEmbedUrl(state.videoId, value);
-            state.playing = false; // Remains unplayed until custom control deck is clicked
+            let totalDurationSeconds = state.totalMinutes * 60;
+            state.currentSeconds = Math.floor((value / 100) * totalDurationSeconds);
+            
+            iframe.src = getEmbedUrl(state.videoId, state.currentSeconds);
+            state.playing = false; 
             document.getElementById(`${playerKey}-play-toggle`).innerHTML = `<i class="fas fa-play"></i>`;
         }
 
@@ -1153,6 +1229,30 @@
             iframe.contentWindow.postMessage(`{"event":"command","func":"setVolume","args":[${value}]}`, '*');
         }
 
+        // Video stream quality manipulation module
+        function changeQualitySystem(qualityValue, playerKey) {
+            const iframe = document.getElementById(playerKey === 'special' ? 'special-iframe' : (playerKey === 'hub' ? 'main-iframe' : 'decker-iframe'));
+            iframe.contentWindow.postMessage(`{"event":"command","func":"setPlaybackQuality","args":["${qualityValue}"]}`, '*');
+        }
+
+        // Fullscreen Toggle Interface Action
+        function toggleFullscreenSystem(elementId) {
+            const wrapper = document.getElementById(elementId);
+            if (!document.fullscreenElement) {
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) { /* Safari */
+                    wrapper.webkitRequestFullscreen();
+                } else if (wrapper.msRequestFullscreen) { /* IE11 */
+                    wrapper.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
         function showView(viewName, defaultSeason = 1) {
             document.getElementById('main-iframe').src = "";
             document.getElementById('decker-iframe').src = "";
@@ -1167,13 +1267,17 @@
             document.getElementById('moreView').style.display = 'none';
             document.getElementById('dedicatedAboutView').style.display = 'none';
 
-            // Clean initial state defaults to fa-play
             ['hub', 'decker', 'special'].forEach(key => {
                 const btn = document.getElementById(`${key}-play-toggle`);
                 if(btn) btn.innerHTML = `<i class="fas fa-play"></i>`;
                 const timeline = document.getElementById(`${key}-timeline`);
                 if(timeline) timeline.value = 0;
+                
+                const qualityMenu = document.getElementById(`${key}-quality`);
+                if(qualityMenu) qualityMenu.value = 'default';
+
                 playbackStates[key].playing = false;
+                playbackStates[key].currentSeconds = 0;
             });
 
             if(viewName === 'welcome') {
@@ -1234,6 +1338,7 @@
                 if (filtered.length > 0) {
                     currentActiveTrackId = filtered[0].id;
                     playbackStates.hub.videoId = currentActiveTrackId;
+                    playbackStates.hub.currentSeconds = 0;
                     buildPlaylistUI();
                     document.getElementById('main-iframe').src = getEmbedUrl(currentActiveTrackId);
                 }
@@ -1249,6 +1354,7 @@
                 if (filtered.length > 0) {
                     currentDeckerTrackId = filtered[0].id;
                     playbackStates.decker.videoId = currentDeckerTrackId;
+                    playbackStates.decker.currentSeconds = 0;
                     buildDeckerPlaylistUI();
                     document.getElementById('decker-iframe').src = getEmbedUrl(currentDeckerTrackId);
                 }
@@ -1321,6 +1427,7 @@
             
             playbackStates.special.videoId = trackId;
             playbackStates.special.playing = false;
+            playbackStates.special.currentSeconds = 0;
             document.getElementById('special-play-toggle').innerHTML = `<i class="fas fa-play"></i>`;
 
             const backBtn = document.getElementById('specialBackBtn');
@@ -1402,6 +1509,7 @@
                 currentActiveTrackId = trackId;
                 playbackStates.hub.videoId = trackId;
                 playbackStates.hub.playing = false;
+                playbackStates.hub.currentSeconds = 0;
                 document.getElementById('hub-play-toggle').innerHTML = `<i class="fas fa-play"></i>`;
                 document.getElementById('hub-timeline').value = 0;
 
@@ -1417,6 +1525,7 @@
                 currentDeckerTrackId = trackId;
                 playbackStates.decker.videoId = trackId;
                 playbackStates.decker.playing = false;
+                playbackStates.decker.currentSeconds = 0;
                 document.getElementById('decker-play-toggle').innerHTML = `<i class="fas fa-play"></i>`;
                 document.getElementById('decker-timeline').value = 0;
 
