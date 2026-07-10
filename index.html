@@ -12,32 +12,152 @@
             --card-bg: #18181b;
             --accent-red: #e11d48;
             --accent-blue: #2563eb;
+            --hover-blue: #1d4ed8;
             --text-main: #f4f4f5;
             --text-muted: #a1a1aa;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 60px; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-        /* --- Player & Fullscreen Logic --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        
+        .logo span.red-txt {
+            color: var(--accent-red);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            text-decoration: none;
+            transition: color 0.3s, opacity 0.3s;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        nav a.blue-nav {
+            color: var(--accent-blue);
+        }
+
+        nav a.blue-nav:hover {
+            color: var(--text-main);
+        }
+
+        nav a.standard-nav {
+            color: var(--text-muted);
+        }
+
+        nav a.standard-nav:hover {
+            color: var(--accent-blue);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4%;
+        }
+
+        /* --- View Container Mechanics --- */
+        #welcomeView {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-top: 30px;
+        }
+
+        .dev-billboard {
+            background: rgba(37, 99, 235, 0.03);
+            border: 1px dashed rgba(37, 99, 235, 0.2);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .dev-billboard h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .dev-billboard p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        #hubView, #deckerView {
+            display: none; 
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        #dedicatedAboutView, #extrasView, #moreView, #oscarsSpecialsView, #specialPlayerView {
+            display: none;
+            margin-top: 40px;
+        }
+
+        #dedicatedAboutView {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 1024px) {
+            #hubView, #deckerView {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- Embedded Video Window Architecture --- */
         .player-wrapper {
             position: relative;
             background: #000;
             border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             aspect-ratio: 16 / 9;
             width: 100%;
-        }
-
-        /* Maximized/Fullscreen Overlay State */
-        .player-wrapper.maximized {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 9999;
-            border-radius: 0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .player-wrapper iframe {
@@ -49,129 +169,1416 @@
             border: none;
         }
 
-        /* --- Custom Controls Overlay --- */
-        .custom-control-bar {
+        .video-overlay-click {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .custom-controls {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 20px;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.6) 70%, transparent);
+            padding: 20px 20px 15px 20px;
             display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: opacity 0.5s ease;
-            opacity: 1; /* Default visible */
-            z-index: 10;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 3;
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
-        .custom-control-bar.hidden {
+        .player-wrapper.user-idle .custom-controls {
             opacity: 0;
+            transform: translateY(10px);
             pointer-events: none;
         }
 
-        .control-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-red);
+            border-radius: 3px;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ctrl-btn {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             transition: color 0.2s;
         }
 
-        .control-btn:hover { color: var(--accent-blue); }
-
-        .timeline-slider-container { flex-grow: 1; }
-        .custom-timeline {
-            width: 100%;
-            cursor: pointer;
-            accent-color: var(--accent-blue);
+        .ctrl-btn:hover {
+            color: var(--accent-blue);
         }
 
-        /* --- UI Elements --- */
-        header { padding: 20px 4%; display: flex; justify-content: space-between; align-items: center; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 4%; }
-        #hubView { display: none; }
-        .episode-list { margin-top: 20px; }
+        .time-display {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .engine-select {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .engine-select:hover {
+            border-color: rgba(37, 99, 235, 0.5);
+        }
+
+        /* --- Centered Larger Standalone Special Player Layout --- */
+        .special-player-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .special-player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* --- Grid Decks for Cards --- */
+        .specials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .special-box-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .special-box-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+        }
+
+        .special-box-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-size: cover;
+            background-position: center;
+            background-color: #111;
+        }
+
+        .special-box-info {
+            padding: 15px;
+        }
+
+        .special-box-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        /* --- Playlist Sidebar Deck --- */
+        .sidebar {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+        }
+
+        /* --- Custom Dropdown Styling --- */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .dropdown-selected {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s;
+        }
+
+        .dropdown-selected:hover {
+            border-color: rgba(37, 99, 235, 0.4);
+        }
+
+        .dropdown-selected i {
+            font-size: 0.85rem;
+            transition: transform 0.2s;
+            color: var(--text-muted);
+        }
+
+        .custom-dropdown.open .dropdown-selected i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            right: 0;
+            background: #1f1f23;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .custom-dropdown.open .dropdown-options {
+            display: block;
+        }
+
+        .dropdown-option {
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-option:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .dropdown-option.active {
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .dropdown-option.active:hover {
+            color: white;
+            background: var(--accent-blue);
+        }
+
+        .playlist-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-blue);
+            margin-top: 5px;
+            font-weight: 700;
+        }
+
+        .episode-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .episode-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+        }
+
+        .episode-item:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .episode-item.active {
+            background: rgba(225, 29, 72, 0.08);
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .ep-thumb {
+            width: 100px;
+            aspect-ratio: 16/9;
+            background: #111;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .ep-info h4 {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .ep-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Metadata Modules --- */
+        .video-details {
+            margin-top: 25px;
+        }
+
+        .episode-title-hdr {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 12px;
+        }
+
+        .movies-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 10px;
+        }
+
+        .movie-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .movie-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .meta-line {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .meta-label {
+            font-weight: bold;
+            color: #8892b0;
+        }
+
+        .rating-badge {
+            background-color: var(--accent-blue);
+            color: #fff;
+            padding: 2px 8px;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .imdb-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #f5c518; 
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+            align-self: flex-start;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .imdb-link-btn:hover {
+            background: rgba(245, 197, 24, 0.1);
+            border-color: #f5c518;
+        }
+
+        /* --- Shared Styling for Container Blocks --- */
+        .about-section {
+            background: linear-gradient(135deg, #18181b, #09090b);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 99, 235, 0.15);
+        }
+
+        .about-section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+        }
+
+        .about-section p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">On Cinema <span style="color:var(--accent-red)">Hub</span></div>
-        <nav><a href="#" onclick="showView('hub')" style="color:white; text-decoration:none;">Enter Portal</a></nav>
+        <div class="logo" onclick="showView('welcome')">On Cinema <span class="red-txt">Hub</span></div>
+        <nav>
+            <a href="#" class="blue-nav" onclick="showView('welcome')">Home</a>
+            <a href="#" class="standard-nav" onclick="showView('hub')">On Cinema</a>
+            <a href="#" class="standard-nav" onclick="showView('decker')">Decker</a>
+            <a href="#" class="standard-nav" onclick="showView('oscars')">Oscar's Specials</a>
+            <a href="#" class="standard-nav" onclick="showView('extras')">Extras</a>
+            <a href="#" class="standard-nav" onclick="showView('more')">More</a>
+            <a href="#" class="blue-nav" onclick="showView('about')">About</a>
+        </nav>
     </header>
 
     <div class="container">
-        <section id="hubView">
-            <!-- Wrapper for Fullscreen + Overlay Controls -->
-            <div class="player-wrapper" id="hub-wrapper" onmousemove="resetIdleTimer('hub')">
-                <iframe id="main-iframe" src="https://www.youtube.com/embed/qFHLfmoLchI?enablejsapi=1&controls=0" frameborder="0"></iframe>
-                
-                <div class="custom-control-bar" id="hub-controls">
-                    <!-- Left: Rewind and Forward together -->
-                    <button class="control-btn" onclick="skipTimeSystem(-10, 'hub')"><i class="fas fa-backward"></i></button>
-                    <button class="control-btn" id="hub-play-toggle" onclick="togglePlaybackSystem('hub')"><i class="fas fa-pause"></i></button>
-                    <button class="control-btn" onclick="skipTimeSystem(10, 'hub')"><i class="fas fa-forward"></i></button>
-                    
-                    <!-- Center: Timeline -->
-                    <div class="timeline-slider-container">
-                        <input type="range" class="custom-timeline" id="hub-timeline" value="0" oninput="timelineScrubSystem(this.value, 'hub')">
-                    </div>
+        
+        <section id="welcomeView">
+            <div class="dev-billboard">
+                <h1>- In Development</h1>
+                <p>Advanced media portal architecture is actively upgrading. Access streaming layouts directly using the menu indicators.</p>
+            </div>
 
-                    <!-- Right: Fullscreen -->
-                    <button class="control-btn" onclick="toggleFullscreenSystem('hub-wrapper')"><i class="fas fa-expand"></i></button>
+            <div class="about-section">
+                <h2>About On Cinema at the Cinema</h2>
+                <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
+            </div>
+        </section>
+
+        <section id="hubView">
+            <div>
+                <div class="player-wrapper" id="player-container">
+                    <div id="yt-player"></div>
+                    <div class="video-overlay-click" onclick="togglePlay(mainPlayer)"></div>
+                    <div class="custom-controls" id="custom-controls-bar">
+                        <div class="progress-container" id="progress-container" onclick="seekVideo(mainPlayer, 'progress-container', event)">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="togglePlay(mainPlayer)" id="play-btn"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" onclick="skip(mainPlayer, -10)"><i class="fas fa-backward"></i></button>
+                                <button class="ctrl-btn" onclick="skip(mainPlayer, 10)"><i class="fas fa-forward"></i></button>
+                                <span class="time-display" id="time-display">00:00:00 / 00:00:00</span>
+                            </div>
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="toggleSubtitles(mainPlayer, 'caption-btn')" id="caption-btn"><i class="fas fa-closed-captioning"></i></button>
+                                
+                                <select class="engine-select" id="speed-dropdown" onchange="changeSpeed(mainPlayer, this.value)">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+
+                                <select class="engine-select" id="quality-dropdown" onchange="changeQuality(mainPlayer, this.value)">
+                                    <option value="default" selected>Auto</option>
+                                    <option value="highres">1080p</option>
+                                    <option value="hd720">720p</option>
+                                    <option value="large">480p</option>
+                                    <option value="medium">360p</option>
+                                    <option value="small">240p</option>
+                                </select>
+
+                                <button class="ctrl-btn" onclick="toggleFullscreen('player-container', 'fullscreen-icon')"><i class="fas fa-expand" id="fullscreen-icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-details">
+                    <h1 class="episode-title-hdr" id="active-title-header">Season 1, Episode 1</h1>
+                    <div class="movies-meta-grid" id="movieMetaGrid"></div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="custom-dropdown" id="customDropdown">
+                    <div class="dropdown-selected" onclick="toggleDropdown(event, 'customDropdown')">
+                        <span id="dropdownLabel">Season 1</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-option active" data-value="1" onclick="selectDropdownOption(1, 'hub')">Season 1</div>
+                        <div class="dropdown-option" data-value="2" onclick="selectDropdownOption(2, 'hub')">Season 2</div>
+                    </div>
+                </div>
+                
+                <div class="playlist-title">Episodes</div>
+                <div class="episode-list" id="episode-list"></div>
+            </div>
+        </section>
+
+        <section id="deckerView">
+            <div>
+                <div class="player-wrapper" id="decker-player-container">
+                    <div id="decker-yt-player"></div>
+                    <div class="video-overlay-click" onclick="togglePlay(deckerPlayer)"></div>
+                    <div class="custom-controls" id="decker-controls-bar">
+                        <div class="progress-container" id="decker-progress-container" onclick="seekVideo(deckerPlayer, 'decker-progress-container', event)">
+                            <div class="progress-bar" id="decker-progress-bar"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="togglePlay(deckerPlayer)" id="decker-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" onclick="skip(deckerPlayer, -10)"><i class="fas fa-backward"></i></button>
+                                <button class="ctrl-btn" onclick="skip(deckerPlayer, 10)"><i class="fas fa-forward"></i></button>
+                                <span class="time-display" id="decker-time-display">00:00:00 / 00:00:00</span>
+                            </div>
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="toggleSubtitles(deckerPlayer, 'decker-caption-btn')" id="decker-caption-btn"><i class="fas fa-closed-captioning"></i></button>
+                                
+                                <select class="engine-select" id="decker-speed-dropdown" onchange="changeSpeed(deckerPlayer, this.value)">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+
+                                <select class="engine-select" id="decker-quality-dropdown" onchange="changeQuality(deckerPlayer, this.value)">
+                                    <option value="default" selected>Auto</option>
+                                    <option value="highres">1080p</option>
+                                    <option value="hd720">720p</option>
+                                    <option value="large">480p</option>
+                                    <option value="medium">360p</option>
+                                    <option value="small">240p</option>
+                                </select>
+
+                                <button class="ctrl-btn" onclick="toggleFullscreen('decker-player-container', 'decker-fullscreen-icon')"><i class="fas fa-expand" id="decker-fullscreen-icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-details">
+                    <h1 class="episode-title-hdr" id="decker-active-title-header">Season 1, Episode 1</h1>
+                    <div class="movies-meta-grid" id="deckerMovieMetaGrid"></div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="custom-dropdown" id="deckerDropdown">
+                    <div class="dropdown-selected" onclick="toggleDropdown(event, 'deckerDropdown')">
+                        <span id="deckerDropdownLabel">Season 1</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-options">
+                        <div class="dropdown-option active" data-value="1" onclick="selectDropdownOption(1, 'decker')">Season 1 - Classified</div>
+                        <div class="dropdown-option" data-value="2" onclick="selectDropdownOption(2, 'decker')">Season 2 - Port of Call: Hawaii</div>
+                    </div>
+                </div>
+                
+                <div class="playlist-title">Episodes</div>
+                <div class="episode-list" id="decker-episode-list"></div>
+            </div>
+        </section>
+
+        <section id="oscarsSpecialsView">
+            <h1 class="episode-title-hdr">Oscar's Specials Deck</h1>
+            <div class="specials-grid" id="specialsGridContainer"></div>
+        </section>
+
+        <section id="specialPlayerView">
+            <div class="special-player-container">
+                <div class="special-player-header">
+                    <h1 class="episode-title-hdr" id="specialPlayerHeaderTitle">Special Feature</h1>
+                    <button class="ctrl-btn" id="specialBackBtn" onclick="showView('oscars')" style="color: var(--accent-blue); font-weight: bold;"><i class="fas fa-arrow-left"></i> Back to Deck</button>
+                </div>
+                <div class="player-wrapper" id="special-player-container-block">
+                    <div id="special-yt-player"></div>
+                    <div class="video-overlay-click" onclick="togglePlay(specialPlayer)"></div>
+                    <div class="custom-controls" id="special-controls-bar">
+                        <div class="progress-container" id="special-progress-container" onclick="seekVideo(specialPlayer, 'special-progress-container', event)">
+                            <div class="progress-bar" id="special-progress-bar"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="togglePlay(specialPlayer)" id="special-play-btn"><i class="fas fa-play"></i></button>
+                                <button class="ctrl-btn" onclick="skip(specialPlayer, -10)"><i class="fas fa-backward"></i></button>
+                                <button class="ctrl-btn" onclick="skip(specialPlayer, 10)"><i class="fas fa-forward"></i></button>
+                                <span class="time-display" id="special-time-display">00:00:00 / 00:00:00</span>
+                            </div>
+                            <div class="control-group">
+                                <button class="ctrl-btn" onclick="toggleSubtitles(specialPlayer, 'special-caption-btn')" id="special-caption-btn"><i class="fas fa-closed-captioning"></i></button>
+                                
+                                <select class="engine-select" id="special-speed-dropdown" onchange="changeSpeed(specialPlayer, this.value)">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+
+                                <select class="engine-select" id="special-quality-dropdown" onchange="changeQuality(specialPlayer, this.value)">
+                                    <option value="default" selected>Auto</option>
+                                    <option value="highres">1080p</option>
+                                    <option value="hd720">720p</option>
+                                    <option value="large">480p</option>
+                                    <option value="medium">360p</option>
+                                    <option value="small">240p</option>
+                                </select>
+
+                                <button class="ctrl-btn" onclick="toggleFullscreen('special-player-container-block', 'special-fullscreen-icon')"><i class="fas fa-expand" id="special-fullscreen-icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-details" id="specialHistoricalMetaContainer" style="margin-top:25px;">
+                    <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
+                    <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
                 </div>
             </div>
         </section>
+
+        <section id="extrasView">
+            <h1 class="episode-title-hdr">Bonus Elements & Extras</h1>
+            <div class="specials-grid" id="extrasGridContainer"></div>
+        </section>
+
+        <section id="moreView">
+            <h1 class="episode-title-hdr">More Releases</h1>
+            <div class="specials-grid" id="moreGridContainer"></div>
+        </section>
+
+        <section id="dedicatedAboutView">
+            <div class="about-section">
+                <h2>About On Cinema at the Cinema</h2>
+                <p><strong>Status: - In Development.</strong> Welcome to the ultimate movie database and premium review portal. Experience sharp analysis and comprehensive overviews of seasonal arcs tailored strictly for real cinema enthusiasts. Watch uninterrupted feeds optimized with precise, fluid aesthetic control panels to match your ultimate home viewing immersion.</p>
+            </div>
+        </section>
+
     </div>
 
     <script>
-        // Idle Timer logic
-        let idleTimers = { hub: null };
+        const playlistData = [
+            {
+                id: 'qFHLfmoLchI',
+                season: 1,
+                title: "Season 1, Episode 1",
+                thumb: "https://img.youtube.com/vi/qFHLfmoLchI/0.jpg",
+                movies: [
+                    { name: "The Man with the Iron Fists", rating: "5.6/10", director: "RZA", cast: "RZA, Russell Crowe", imdb: "https://www.imdb.com/title/tt1258972/" },
+                    { name: "Flight", rating: "7.3/10", director: "Robert Zemeckis", cast: "Denzel Washington", imdb: "https://www.imdb.com/title/tt1907668/" }
+                ]
+            },
+            {
+                id: 'nfOMBioJDJg',
+                season: 1,
+                title: "Season 1, Episode 2",
+                thumb: "https://img.youtube.com/vi/nfOMBioJDJg/0.jpg",
+                movies: [
+                    { name: "The Twilight Saga: Breaking Dawn - Part 2", rating: "5.5/10", director: "Bill Condon", cast: "Kristen Stewart", imdb: "https://www.imdb.com/title/tt1673434/" },
+                    { name: "Anna Karenina", rating: "6.6/10", director: "Joe Wright", cast: "Keira Knightley", imdb: "https://www.imdb.com/title/tt1781769/" }
+                ]
+            },
+            {
+                id: 'WzFILC5bI_c',
+                season: 1,
+                title: "Season 1, Episode 3",
+                thumb: "https://img.youtube.com/vi/WzFILC5bI_c/0.jpg",
+                movies: [
+                    { name: "Universal Soldier: Day of Reckoning", rating: "5.8/10", director: "John Hyams", cast: "Jean-Claude Van Damme", imdb: "https://www.imdb.com/title/tt1654194/" },
+                    { name: "The Frozen Ground", rating: "6.4/10", director: "Scott Walker", cast: "Nicolas Cage", imdb: "https://www.imdb.com/title/tt2004332/" }
+                ]
+            },
+            {
+                id: 'QYVJLsbciS8',
+                season: 1,
+                title: "Season 1, Episode 4",
+                thumb: "https://img.youtube.com/vi/QYVJLsbciS8/0.jpg",
+                movies: [
+                    { name: "Skyfall", rating: "7.8/10", director: "Sam Mendes", cast: "Daniel Craig, Javier Bardem", imdb: "https://www.imdb.com/title/tt1077368/" },
+                    { name: "Lincoln", rating: "7.3/10", director: "Steven Spielberg", cast: "Daniel Day-Lewis", imdb: "https://www.imdb.com/title/tt0443272/" }
+                ]
+            },
+            {
+                id: 'SQZJktp-etk',
+                season: 1,
+                title: "Season 1, Episode 5",
+                thumb: "https://img.youtube.com/vi/SQZJktp-etk/0.jpg",
+                movies: [
+                    { name: "Life of Pi", rating: "7.9/10", director: "Ang Lee", cast: "Suraj Sharma, Irrfan Khan", imdb: "https://www.imdb.com/title/tt0454876/" },
+                    { name: "Rise of the Guardians", rating: "7.2/10", director: "Peter Ramsey", cast: "Chris Pine, Alec Baldwin", imdb: "https://www.imdb.com/title/tt1446192/" }
+                ]
+            },
+            {
+                id: 'HMKm0CYEXDU',
+                season: 1,
+                title: "Season 1, Episode 6",
+                thumb: "https://img.youtube.com/vi/HMKm0CYEXDU/0.jpg",
+                movies: [
+                    { name: "Killing Them Softly", rating: "6.2/10", director: "Andrew Dominik", cast: "Brad Pitt, Ray Liotta", imdb: "https://www.imdb.com/title/tt1764234/" },
+                    { name: "The Collection", rating: "6.1/10", director: "Marcus Dunstan", cast: "Josh Stewart", imdb: "https://www.imdb.com/title/tt1748227/" }
+                ]
+            },
+            {
+                id: 'Okikb3fpN4w',
+                season: 1,
+                title: "Season 1, Episode 7",
+                thumb: "https://img.youtube.com/vi/Okikb3fpN4w/0.jpg",
+                movies: [
+                    { name: "Playing for Keeps", rating: "5.7/10", director: "Gabriele Muccino", cast: "Gerard Butler, Jessica Biel", imdb: "https://www.imdb.com/title/tt1726592/" },
+                    { name: "Dino Time", rating: "4.8/10", director: "John Kafka", cast: "Melanie Griffith, Jane Lynch", imdb: "https://www.imdb.com/title/tt1669649/" }
+                ]
+            },
+            {
+                id: 'qjqfZhyGSrA',
+                season: 1,
+                title: "Season 1, Episode 8",
+                thumb: "https://img.youtube.com/vi/qjqfZhyGSrA/0.jpg",
+                movies: [
+                    { name: "The Hobbit: An Unexpected Journey", rating: "7.8/10", director: "Peter Jackson", cast: "Martin Freeman, Ian McKellen", imdb: "https://www.imdb.com/title/tt0117038/" },
+                    { name: "Save in Paradise", rating: "6.0/10", director: "On Cinema Crew", cast: "Tim Heidecker, Gregg Turkington", imdb: "https://www.imdb.com" }
+                ]
+            },
+            {
+                id: 'vvoqgPay8bM',
+                season: 1,
+                title: "Season 1, Episode 9",
+                thumb: "https://img.youtube.com/vi/vvoqgPay8bM/0.jpg",
+                movies: [
+                    { name: "Jack Reacher", rating: "7.0/10", director: "Christopher McQuarrie", cast: "Tom Cruise, Rosamund Pike", imdb: "https://www.imdb.com/title/tt1971352/" },
+                    { name: "This Is 40", rating: "6.2/10", director: "Judd Apatow", cast: "Paul Rudd, Leslie Mann", imdb: "https://www.imdb.com/title/tt1758830/" }
+                ]
+            },
+            {
+                id: 'u75FIgboNHU',
+                season: 1,
+                title: "Season 1, Episode 10",
+                thumb: "https://img.youtube.com/vi/u75FIgboNHU/0.jpg",
+                movies: [
+                    { name: "Les Misérables", rating: "7.5/10", director: "Tom Hooper", cast: "Hugh Jackman, Russell Crowe, Anne Hathaway", imdb: "https://www.imdb.com/title/tt1707386/" },
+                    { name: "Parental Guidance", rating: "6.0/10", director: "Andy Fickman", cast: "Billy Crystal, Bette Midler", imdb: "https://www.imdb.com/title/tt1047540/" }
+                ]
+            },
+            {
+                id: 'LPw-R-WWdOc',
+                season: 2,
+                title: "Season 2, Episode 1: Side Effects & Identity Thief",
+                thumb: "https://img.youtube.com/vi/LPw-R-WWdOc/0.jpg",
+                movies: [
+                    { name: "Side Effects", rating: "7.1/10", director: "Steven Soderbergh", cast: "Rooney Mara, Channing Tatum", imdb: "https://www.imdb.com/title/tt2053463/" },
+                    { name: "Identity Thief", rating: "5.7/10", director: "Seth Gordon", cast: "Jason Bateman, Melissa McCarthy", imdb: "https://www.imdb.com/title/tt2024432/" }
+                ]
+            },
+            {
+                id: '1M2yXVn2GGA',
+                season: 2,
+                title: "Season 2, Episode 2: A Good Day to Die Hard & Escape From Planet Earth",
+                thumb: "https://img.youtube.com/vi/1M2yXVn2GGA/0.jpg",
+                movies: [
+                    { name: "A Good Day to Die Hard", rating: "5.2/10", director: "John Moore", cast: "Bruce Willis, Jai Courtney", imdb: "https://www.imdb.com/title/tt1606378/" },
+                    { name: "Escape From Planet Earth", rating: "5.9/10", director: "Cal Brunker", cast: "Rob Corddry, Brendan Fraser", imdb: "https://www.imdb.com/title/tt0765446/" }
+                ]
+            },
+            {
+                id: 'MMTsSMttjdI',
+                season: 2,
+                title: "Season 2, Episode 3: Snitch & Dark Skies",
+                thumb: "https://img.youtube.com/vi/MMTsSMttjdI/0.jpg",
+                movies: [
+                    { name: "Snitch", rating: "6.4/10", director: "Ric Roman Waugh", cast: "Dwayne Johnson, Jon Bernthal", imdb: "https://www.imdb.com/title/tt1131734/" },
+                    { name: "Dark Skies", rating: "6.3/10", director: "Scott Stewart", cast: "Keri Russell, Josh Hamilton", imdb: "https://www.imdb.com/title/tt2387346/" }
+                ]
+            },
+            {
+                id: 'LjVTxxFNeQY',
+                season: 2,
+                title: "Season 2, Episode 4: 21 and Over & Jack the Giant Slayer",
+                thumb: "https://img.youtube.com/vi/LjVTxxFNeQY/0.jpg",
+                movies: [
+                    { name: "21 & Over", rating: "5.8/10", director: "Jon Lucas, Scott Moore", cast: "Miles Teller, Skylar Astin", imdb: "https://www.imdb.com/title/tt1711425/" },
+                    { name: "Jack the Giant Slayer", rating: "6.3/10", director: "Bryan Singer", cast: "Nicholas Hoult, Eleanor Tomlinson", imdb: "https://www.imdb.com/title/tt1351685/" }
+                ]
+            },
+            {
+                id: 'JhcGWg7aV0w',
+                season: 2,
+                title: "Season 2, Episode 5: Oz the Great and Powerful & Dead Man Down",
+                thumb: "https://img.youtube.com/vi/JhcGWg7aV0w/0.jpg",
+                movies: [
+                    { name: "Oz the Great and Powerful", rating: "6.3/10", director: "Sam Raimi", cast: "James Franco, Mila Kunis", imdb: "https://www.imdb.com/title/tt1351685/" },
+                    { name: "Dead Man Down", rating: "6.4/10", director: "Niels Arden Oplev", cast: "Colin Farrell, Noomi Rapace", imdb: "https://www.imdb.com/title/tt2101341/" }
+                ]
+            },
+            {
+                id: 'fah28oNAhT8',
+                season: 2,
+                title: "Season 2, Episode 6: Carrie & The Incredible Burt Wonderstone",
+                thumb: "https://img.youtube.com/vi/fah28oNAhT8/0.jpg",
+                movies: [
+                    { name: "Carrie", rating: "5.8/10", director: "Kimberly Peirce", cast: "Chloë Grace Moretz, Julianne Moore", imdb: "https://www.imdb.com/title/tt1930315/" },
+                    { name: "The Incredible Burt Wonderstone", rating: "5.9/10", director: "Don Scardino", cast: "Steve Carell, Luke Vanek", imdb: "https://www.imdb.com/title/tt0790628/" }
+                ]
+            },
+            {
+                id: 'XxJ7YQS8sos',
+                season: 2,
+                title: "Season 2, Episode 7: The Croods",
+                thumb: "https://img.youtube.com/vi/XxJ7YQS8sos/0.jpg",
+                movies: [
+                    { name: "The Croods", rating: "7.2/10", director: "Kirk DeMicco, Chris Sanders", cast: "Nicolas Cage, Emma Stone", imdb: "https://www.imdb.com/title/tt0479143/" }
+                ]
+            },
+            {
+                id: 'jFmz7t07i7w',
+                season: 2,
+                title: "Season 2, Episode 8: G.I. Joe: Retaliation & Temptation",
+                thumb: "https://img.youtube.com/vi/jFmz7t07i7w/0.jpg",
+                movies: [
+                    { name: "G.I. Joe: Retaliation", rating: "5.7/10", director: "Jon M. Chu", cast: "Dwayne Johnson, Channing Tatum", imdb: "https://www.imdb.com/title/tt1583421/" },
+                    { name: "Temptation: Confessions of a Marriage Counselor", rating: "4.9/10", director: "Tyler Perry", cast: "Jurnee Smollett, Lance Gross", imdb: "https://www.imdb.com/title/tt2070590/" }
+                ]
+            },
+            {
+                id: 'ri0n5EMEApY',
+                season: 2,
+                title: "Season 2, Episode 9: The Company You Keep & Jurassic Park 3D",
+                thumb: "https://img.youtube.com/vi/ri0n5EMEApY/0.jpg",
+                movies: [
+                    { name: "The Company You Keep", rating: "6.4/10", director: "Robert Redford", cast: "Robert Redford, Shia LaBeouf", imdb: "https://www.imdb.com/title/tt1380607/" },
+                    { name: "Jurassic Park 3D", rating: "8.2/10", director: "Steven Spielberg", cast: "Sam Neill, Laura Dern", imdb: "https://www.imdb.com/title/tt0107290/" }
+                ]
+            },
+            {
+                id: 'R_5-N9t26V8',
+                season: 2,
+                title: "Season 2, Episode 10: Oblivion & Scary Movie 5",
+                thumb: "https://img.youtube.com/vi/R_5-N9t26V8/0.jpg",
+                movies: [
+                    { name: "Oblivion", rating: "7.0/10", director: "Joseph Kosinski", cast: "Tom Cruise, Morgan Freeman", imdb: "https://www.imdb.com/title/tt1483013/" },
+                    { name: "Scary Movie 5", rating: "3.5/10", director: "Malcolm D. Lee", cast: "Simon Rex, Ashley Tisdale", imdb: "https://www.imdb.com/title/tt0795461/" }
+                ]
+            }
+        ];
 
-        function resetIdleTimer(playerKey) {
-            const controls = document.getElementById(`${playerKey}-controls`);
-            controls.classList.remove('hidden');
+        const deckerPlaylistData = [
+            { id: 'zA-EqQhF_9o', season: 1, title: "S1E1 - Classified", thumb: "https://img.youtube.com/vi/zA-EqQhF_9o/0.jpg", movies: [] },
+            { id: 'NX_MsOPxqzs', season: 1, title: "S1E2 - Classified", thumb: "https://img.youtube.com/vi/NX_MsOPxqzs/0.jpg", movies: [] },
+            { id: 'PiR0toIBYDY', season: 1, title: "S1E3 - Classified", thumb: "https://img.youtube.com/vi/PiR0toIBYDY/0.jpg", movies: [] },
+            { id: 'n3AVpLZpDsg', season: 1, title: "S1E4 - Classified", thumb: "https://img.youtube.com/vi/n3AVpLZpDsg/0.jpg", movies: [] },
+            { id: 'pLoiGFHWqWM', season: 1, title: "S1E5 - Classified", thumb: "https://img.youtube.com/vi/pLoiGFHWqWM/0.jpg", movies: [] },
+            { id: 'h0SgQeEHRCw', season: 2, title: "S2E1 - Port of Call: Hawaii", thumb: "https://img.youtube.com/vi/h0SgQeEHRCw/0.jpg", movies: [] }
+        ];
+
+        const oscarsData = [
+            { 
+                id: 'fDj-ZOqFiLI', 
+                title: "The 1st Annual Oscar Special",
+                year: "2013 (85th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Argo" },
+                    { label: "Best Director", val: "Ang Lee (Life of Pi)" },
+                    { label: "Best Actor", val: "Daniel Day-Lewis (Lincoln)" },
+                    { label: "Best Actress", val: "Jennifer Lawrence (Silver Linings Playbook)" },
+                    { label: "Best Supporting Actor", val: "Christoph Waltz (Django Unchained)" },
+                    { label: "Best Supporting Actress", val: "Anne Hathaway (Les Misérables)" }
+                ]
+            },
+            { 
+                id: 'aHebKoIFRKE', 
+                title: "The 2nd Annual Oscar Special",
+                year: "2014 (86th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "12 Years a Slave" },
+                    { label: "Best Director", val: "Alfonso Cuarón (Gravity)" },
+                    { label: "Best Actor", val: "Matthew McConaughey (Dallas Buyers Club)" },
+                    { label: "Best Actress", val: "Cate Blanchett (Blue Jasmine)" },
+                    { label: "Best Supporting Actor", val: "Jared Leto (Dallas Buyers Club)" },
+                    { label: "Best Supporting Actress", val: "Lupita Nyong'o (12 Years a Slave)" }
+                ]
+            },
+            { 
+                id: 'K5UFrRFD3Gw', 
+                title: "The 3rd Annual Oscar Special",
+                year: "2015 (87th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Birdman" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (Birdman)" },
+                    { label: "Best Actor", val: "Eddie Redmayne (The Theory of Everything)" },
+                    { label: "Best Actress", val: "Julianne Moore (Still Alice)" },
+                    { label: "Best Supporting Actor", val: "J.K. Simmons (Whiplash)" },
+                    { label: "Best Supporting Actress", val: "Patricia Arquette (Boyhood)" }
+                ]
+            },
+            { 
+                id: 'ANNOQWby8R8', 
+                title: "The 4th Annual Oscar Special",
+                year: "2016 (88th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Spotlight" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
+                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
+                    { label: "Best Actress", val: "Brie Larson (Room)" },
+                    { label: "Best Supporting Actor", val: "Mark Rylance (Bridge of Spies)" },
+                    { label: "Best Supporting Actress", val: "Alicia Vikander (The Danish Girl)" }
+                ]
+            },
+            { 
+                id: 'ZMIQEWdPaRA', 
+                title: "Our Cinema Oscar Special LIVE",
+                year: "2016 (88th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Spotlight" },
+                    { label: "Best Director", val: "Alejandro G. Iñárritu (The Revenant)" },
+                    { label: "Best Actor", val: "Leonardo DiCaprio (The Revenant)" },
+                    { label: "Best Actress", val: "Brie Larson (Room)" },
+                    { label: "Best Supporting Actor", val: "Mark Rylance (Bridge of Spies)" },
+                    { label: "Best Supporting Actress", val: "Alicia Vikander (The Danish Girl)" }
+                ]
+            },
+            { 
+                id: 'MIAttlFcO6g', 
+                title: "The 5th Annual Oscar Special",
+                year: "2017 (89th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Moonlight" },
+                    { label: "Best Director", val: "Damien Chazelle (La La Land)" },
+                    { label: "Best Actor", val: "Casey Affleck (Manchester by the Sea)" },
+                    { label: "Best Actress", val: "Emma Stone (La La Land)" },
+                    { label: "Best Supporting Actor", val: "Mahershala Ali (Moonlight)" },
+                    { label: "Best Supporting Actress", val: "Viola Davis (Fences)" }
+                ]
+            },
+            { 
+                id: 'pKkAdoZEn-s', 
+                title: "The New On Cinema Oscar Special",
+                year: "2018 (90th Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "The Shape of Water" },
+                    { label: "Best Director", val: "Guillermo del Toro (The Shape of Water)" },
+                    { label: "Best Actor", val: "Gary Oldman (Darkest Hour)" },
+                    { label: "Best Actress", val: "Frances McDormand (Three Billboards Outside Ebbing, Missouri)" },
+                    { label: "Best Supporting Actor", val: "Sam Rockwell (Three Billboards Outside Ebbing, Missouri)" },
+                    { label: "Best Supporting Actress", val: "Allison Janney (I, Tonya)" }
+                ]
+            },
+            { 
+                id: 'WCowInr2d0s', 
+                title: "The 7th Annual Oscar Special",
+                year: "2019 (91st Academy Awards)",
+                history: [
+                    { label: "Best Picture", val: "Green Book" },
+                    { label: "Best Director", val: "Alfonso Cuarón (Roma)" },
+                    { label: "Best Actor", val: "Rami Malek (Bohemian Rhapsody)" },
+                    { label: "Best Actress", val: "Olivia Colman (The Favourite)" },
+                    { label: "Best Supporting Actor", val: "Mahershala Ali (Green Book)" },
+                    { label: "Best Supporting Actress", val: "Regina King (If Beale Street Could Talk)" }
+                ]
+            }
+        ];
+
+        const extrasData = [
+            { id: '6jNJwufR8BU', title: "On Cinema Tribute to Steven Spielberg in 3D" }
+        ];
+
+        const moreData = [
+            { id: 'CjxUL0NI9O4', title: "Mister America Official Trailer" }
+        ];
+
+        let currentActiveTrackId = playlistData[0].id;
+        let currentDeckerTrackId = deckerPlaylistData[0].id;
+        let currentSelectedSeason = 1;
+        let currentDeckerSeason = 1;
+        
+        let mainPlayer;
+        let deckerPlayer;
+        let specialPlayer;
+        let apiScriptInitialized = false;
+
+        let updateTimer;
+        let idleTimer;
+        let ccEnabled = false;
+
+        // Initialize engine instantly to prevent framework ready mismatches
+        window.onload = function() {
+            initYouTubeEngine();
+        };
+
+        function showView(viewName, defaultSeason = 1) {
+            if (mainPlayer && mainPlayer.pauseVideo) mainPlayer.pauseVideo();
+            if (deckerPlayer && deckerPlayer.pauseVideo) deckerPlayer.pauseVideo();
+            if (specialPlayer && specialPlayer.pauseVideo) specialPlayer.pauseVideo();
+
+            document.getElementById('welcomeView').style.display = 'none';
+            document.getElementById('hubView').style.display = 'none';
+            document.getElementById('deckerView').style.display = 'none';
+            document.getElementById('oscarsSpecialsView').style.display = 'none';
+            document.getElementById('specialPlayerView').style.display = 'none';
+            document.getElementById('extrasView').style.display = 'none';
+            document.getElementById('moreView').style.display = 'none';
+            document.getElementById('dedicatedAboutView').style.display = 'none';
+
+            if(viewName === 'welcome') {
+                document.getElementById('welcomeView').style.display = 'flex';
+            } else if (viewName === 'hub') {
+                document.getElementById('hubView').style.display = 'grid';
+                changeSeason(defaultSeason, 'hub', true);
+            } else if (viewName === 'decker') {
+                document.getElementById('deckerView').style.display = 'grid';
+                changeSeason(defaultSeason, 'decker', true);
+            } else if (viewName === 'oscars') {
+                document.getElementById('oscarsSpecialsView').style.display = 'block';
+                buildDeckGridUI('specialsGridContainer', oscarsData, 'oscars');
+            } else if (viewName === 'specialPlayer') {
+                document.getElementById('specialPlayerView').style.display = 'block';
+            } else if (viewName === 'extras') {
+                document.getElementById('extrasView').style.display = 'block';
+                buildDeckGridUI('extrasGridContainer', extrasData, 'extras');
+            } else if (viewName === 'more') {
+                document.getElementById('moreView').style.display = 'block';
+                buildDeckGridUI('moreGridContainer', moreData, 'more');
+            } else if (viewName === 'about') {
+                document.getElementById('dedicatedAboutView').style.display = 'block';
+            }
+        }
+
+        function toggleDropdown(event, dropdownId) {
+            event.stopPropagation();
+            document.getElementById(dropdownId).classList.toggle('open');
+        }
+
+        function selectDropdownOption(seasonNum, type) {
+            if(type === 'hub') {
+                document.getElementById('customDropdown').classList.remove('open');
+            } else {
+                document.getElementById('deckerDropdown').classList.remove('open');
+            }
+            changeSeason(seasonNum, type, false);
+        }
+
+        document.addEventListener('click', () => {
+            const hubDrop = document.getElementById('customDropdown');
+            if(hubDrop) hubDrop.classList.remove('open');
+            const deckerDrop = document.getElementById('deckerDropdown');
+            if(deckerDrop) deckerDrop.classList.remove('open');
+        });
+
+        function initYouTubeEngine() {
+            if (apiScriptInitialized) return;
+            apiScriptInitialized = true;
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // Global callback exposed accurately to global window tier
+        window.onYouTubeIframeAPIReady = function() {
+            // Added 'enablejsapi': 1 and 'origin' fallback filters to allow JavaScript handlers to bridge inside the iframe wrapper elements safely.
+            const originUri = window.location.origin === "null" ? "*" : window.location.origin;
+
+            mainPlayer = new YT.Player('yt-player', {
+                videoId: currentActiveTrackId,
+                playerVars: { 'enablejsapi': 1, 'origin': originUri, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
+                events: { 'onReady': onPlayerReady, 'onStateChange': (e) => onPlayerStateChange(e, 'play-btn', 'player-container') }
+            });
+
+            deckerPlayer = new YT.Player('decker-yt-player', {
+                videoId: currentDeckerTrackId,
+                playerVars: { 'enablejsapi': 1, 'origin': originUri, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
+                events: { 'onReady': onDeckerReady, 'onStateChange': (e) => onPlayerStateChange(e, 'decker-play-btn', 'decker-player-container') }
+            });
+
+            specialPlayer = new YT.Player('special-yt-player', {
+                videoId: oscarsData[0].id,
+                playerVars: { 'enablejsapi': 1, 'origin': originUri, 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
+                events: { 'onStateChange': (e) => onPlayerStateChange(e, 'special-play-btn', 'special-player-container-block') }
+            });
+        }
+
+        function onPlayerReady(event) {
+            buildPlaylistUI();
+            switchVideoDetails(currentActiveTrackId, 'hub');
+            setupIdleDetection('player-container');
+        }
+
+        function onDeckerReady(event) {
+            buildDeckerPlaylistUI();
+            switchVideoDetails(currentDeckerTrackId, 'decker');
+            setupIdleDetection('decker-player-container');
+        }
+
+        function onPlayerStateChange(event, playBtnId, containerId) {
+            const playBtn = document.getElementById(playBtnId);
+            if (event.data == YT.PlayerState.PLAYING) {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                startProgressLoop(event.target, containerId);
+                resetIdleTimer(event.target, containerId);
+            } else {
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                clearInterval(updateTimer);
+                showControls(containerId);
+            }
+        }
+
+        function setupIdleDetection(containerId) {
+            const container = document.getElementById(containerId);
+            container.addEventListener('mousemove', () => resetIdleTimer(getActiveEngineInstance(containerId), containerId));
+            container.addEventListener('click', () => resetIdleTimer(getActiveEngineInstance(containerId), containerId));
+            container.addEventListener('mouseleave', () => {
+                let instance = getActiveEngineInstance(containerId);
+                if (instance && instance.getPlayerState && instance.getPlayerState() == YT.PlayerState.PLAYING) {
+                    container.classList.add('user-idle');
+                }
+            });
+        }
+
+        function getActiveEngineInstance(id) {
+            if(id === 'player-container') return mainPlayer;
+            if(id === 'decker-player-container') return deckerPlayer;
+            return specialPlayer;
+        }
+
+        function resetIdleTimer(playerInstance, containerId) {
+            const container = document.getElementById(containerId);
+            showControls(containerId);
+            clearTimeout(idleTimer);
+            if (playerInstance && playerInstance.getPlayerState && playerInstance.getPlayerState() == YT.PlayerState.PLAYING) {
+                idleTimer = setTimeout(() => { container.classList.add('user-idle'); }, 3000);
+            }
+        }
+
+        function showControls(containerId) {
+            document.getElementById(containerId).classList.remove('user-idle');
+        }
+
+        function changeSeason(seasonNum, type, internalRouting = false) {
+            if (type === 'hub') {
+                currentSelectedSeason = seasonNum;
+                document.getElementById('dropdownLabel').innerText = `Season ${seasonNum}`;
+                document.querySelectorAll('#customDropdown .dropdown-option').forEach(opt => {
+                    if (parseInt(opt.getAttribute('data-value')) === seasonNum) opt.classList.add('active');
+                    else opt.classList.remove('active');
+                });
+                
+                const filtered = playlistData.filter(item => item.season === seasonNum);
+                if (filtered.length > 0 && !internalRouting) {
+                    playEpisode(filtered[0].id, 'hub');
+                } else if (filtered.length > 0 && internalRouting) {
+                    currentActiveTrackId = filtered[0].id;
+                    buildPlaylistUI();
+                }
+            } else if (type === 'decker') {
+                currentDeckerSeason = seasonNum;
+                document.getElementById('deckerDropdownLabel').innerText = seasonNum === 1 ? "Season 1 - Classified" : "Season 2 - Hawaii";
+                document.querySelectorAll('#deckerDropdown .dropdown-option').forEach(opt => {
+                    if (parseInt(opt.getAttribute('data-value')) === seasonNum) opt.classList.add('active');
+                    else opt.classList.remove('active');
+                });
+
+                const filtered = deckerPlaylistData.filter(item => item.season === seasonNum);
+                if (filtered.length > 0 && !internalRouting) {
+                    playEpisode(filtered[0].id, 'decker');
+                } else if (filtered.length > 0 && internalRouting) {
+                    currentDeckerTrackId = filtered[0].id;
+                    buildDeckerPlaylistUI();
+                }
+            }
+        }
+
+        function buildPlaylistUI() {
+            const listContainer = document.getElementById('episode-list');
+            if(!listContainer) return;
+            listContainer.innerHTML = "";
+            const filteredList = playlistData.filter(item => item.season === currentSelectedSeason);
             
-            clearTimeout(idleTimers[playerKey]);
+            filteredList.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = `episode-item ${item.id === currentActiveTrackId ? 'active' : ''}`;
+                div.onclick = () => playEpisode(item.id, 'hub');
+                let subtitleString = item.movies.map(m => m.name).join(" & ");
+                div.innerHTML = `
+                    <div class="ep-thumb" style="background-image: url('${item.thumb}')"></div>
+                    <div class="ep-info">
+                        <h4>${item.title.split(': ')[0]}</h4>
+                        <p>${item.title.split(': ')[1] || subtitleString}</p>
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function buildDeckerPlaylistUI() {
+            const listContainer = document.getElementById('decker-episode-list');
+            if(!listContainer) return;
+            listContainer.innerHTML = "";
+            const filteredList = deckerPlaylistData.filter(item => item.season === currentDeckerSeason);
             
-            idleTimers[playerKey] = setTimeout(() => {
-                controls.classList.add('hidden');
-            }, 2000);
+            filteredList.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = `episode-item ${item.id === currentDeckerTrackId ? 'active' : ''}`;
+                div.onclick = () => playEpisode(item.id, 'decker');
+                div.innerHTML = `
+                    <div class="ep-thumb" style="background-image: url('${item.thumb}')"></div>
+                    <div class="ep-info">
+                        <h4>${item.title}</h4>
+                        <p>Special Operations Agent Decker</p>
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
         }
 
-        // Toggle Fullscreen Pseudo-state
-        function toggleFullscreenSystem(elementId) {
-            const wrapper = document.getElementById(elementId);
-            wrapper.classList.toggle('maximized');
+        function buildDeckGridUI(targetContainerId, dataset, originView) {
+            const container = document.getElementById(targetContainerId);
+            container.innerHTML = "";
+            dataset.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "special-box-card";
+                card.onclick = () => launchSpecialFeature(item.id, item.title, originView);
+                card.innerHTML = `
+                    <div class="special-box-thumb" style="background-image: url('https://img.youtube.com/vi/${item.id}/0.jpg')"></div>
+                    <div class="special-box-info">
+                        <h3>${item.title}</h3>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
         }
 
-        // Playback Command: Remove state reset to keep playing
-        function togglePlaybackSystem(playerKey) {
-            const iframe = document.getElementById('main-iframe');
-            const btn = document.getElementById(`${playerKey}-play-toggle`);
+        function launchSpecialFeature(trackId, title, originView) {
+            showView('specialPlayer');
+            document.getElementById('specialPlayerHeaderTitle').innerText = title;
             
-            // Logic: Toggle Pause/Play via API
-            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            // Simplified for demonstration; real implementation would track 'isPaused' state
+            const backBtn = document.getElementById('specialBackBtn');
+            backBtn.setAttribute('onclick', `showView('${originView}')`);
+            
+            if (specialPlayer && specialPlayer.cueVideoById) {
+                specialPlayer.cueVideoById(trackId);
+            }
+            setupIdleDetection('special-player-container-block');
+            document.getElementById('special-speed-dropdown').value = "1";
+            document.getElementById('special-quality-dropdown').value = "default";
+
+            const metaContainer = document.getElementById('specialHistoricalMetaContainer');
+            
+            // If launching from extras or more, hide the bonus historical material block entirely
+            if (originView === 'extras' || originView === 'more') {
+                metaContainer.style.display = 'none';
+            } else {
+                metaContainer.style.display = 'block';
+                const matchedSpecial = oscarsData.find(o => o.id === trackId);
+                const dataHeader = document.getElementById('oscarYearTitle');
+                const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+                
+                if (matchedSpecial && matchedSpecial.history) {
+                    dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
+                    dataGrid.innerHTML = "";
+                    matchedSpecial.history.forEach(award => {
+                        const card = document.createElement('div');
+                        card.className = "movie-card";
+                        card.innerHTML = `
+                            <div>
+                                <h4>${award.label}</h4>
+                                <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
+                            </div>
+                        `;
+                        dataGrid.appendChild(card);
+                    });
+                } else {
+                    dataHeader.innerText = "Bonus Archive Material";
+                    dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+                }
+            }
         }
 
-        // Seek Command: No pause, just skip
-        function skipTimeSystem(seconds, playerKey) {
-            const iframe = document.getElementById('main-iframe');
-            // 'seekTo' command format: [seconds, allowSeekAhead]
-            // We retrieve current time from player in a production app, for now, we simulate skip
-            iframe.contentWindow.postMessage(`{"event":"command","func":"seekBy","args":[${seconds}]}`, '*');
+        function switchVideoDetails(trackId, type) {
+            if(type === 'hub') {
+                const currentEp = playlistData.find(item => item.id === trackId);
+                if (!currentEp) return;
+                
+                document.getElementById('active-title-header').innerText = currentEp.title;
+                const metaGrid = document.getElementById('movieMetaGrid');
+                metaGrid.innerHTML = "";
+                currentEp.movies.forEach(movie => {
+                    const card = document.createElement('div');
+                    card.className = "movie-card";
+                    card.innerHTML = `
+                        <div>
+                            <h4>${movie.name}</h4>
+                            <div class="meta-line"><span class="meta-label">IMDb Rating:</span> <span class="rating-badge">${movie.rating}</span></div>
+                            <div class="meta-line"><span class="meta-label">Director:</span> ${movie.director}</div>
+                            <div class="meta-line"><span class="meta-label">Cast:</span> ${movie.cast}</div>
+                        </div>
+                        <a href="${movie.imdb}" target="_blank" class="imdb-link-btn"><i class="fab fa-imdb"></i> View on IMDb</a>
+                    `;
+                    metaGrid.appendChild(card);
+                });
+            } else if (type === 'decker') {
+                const currentEp = deckerPlaylistData.find(item => item.id === trackId);
+                if (!currentEp) return;
+                document.getElementById('decker-active-title-header').innerText = currentEp.title;
+                const metaGrid = document.getElementById('deckerMovieMetaGrid');
+                metaGrid.innerHTML = `
+                    <div class="movie-card">
+                        <h4>Decker Operation Log</h4>
+                        <div class="meta-line"><span class="meta-label">Starring:</span> Tim Heidecker as Jack Decker</div>
+                        <div class="meta-line"><span class="meta-label">Co-Starring:</span> Gregg Turkington as Agent Kington</div>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:10px;">Uncut archival deployment log files monitoring structural terrorism containment assignments.</p>
+                    </div>
+                `;
+            }
         }
 
-        function timelineScrubSystem(value, playerKey) {
-            // Scrubbing logic
+        function playEpisode(trackId, type) {
+            if (type === 'hub') {
+                currentActiveTrackId = trackId;
+                const track = playlistData.find(item => item.id === trackId);
+                if(track) {
+                    currentSelectedSeason = track.season;
+                    document.getElementById('dropdownLabel').innerText = `Season ${track.season}`;
+                }
+                buildPlaylistUI();
+                switchVideoDetails(trackId, 'hub');
+                if (mainPlayer && mainPlayer.cueVideoById) mainPlayer.cueVideoById(trackId);
+                document.getElementById('speed-dropdown').value = "1";
+                document.getElementById('quality-dropdown').value = "default";
+            } else if (type === 'decker') {
+                currentDeckerTrackId = trackId;
+                const track = deckerPlaylistData.find(item => item.id === trackId);
+                if(track) {
+                    currentDeckerSeason = track.season;
+                    document.getElementById('deckerDropdownLabel').innerText = track.season === 1 ? "Season 1 - Classified" : "Season 2 - Hawaii";
+                }
+                buildDeckerPlaylistUI();
+                switchVideoDetails(trackId, 'decker');
+                if (deckerPlayer && deckerPlayer.cueVideoById) deckerPlayer.cueVideoById(trackId);
+                document.getElementById('decker-speed-dropdown').value = "1";
+                document.getElementById('decker-quality-dropdown').value = "default";
+            }
         }
 
-        function showView(view) { document.getElementById('hubView').style.display = 'block'; }
+        function togglePlay(targetPlayer) {
+            if (targetPlayer && targetPlayer.getPlayerState) {
+                if (targetPlayer.getPlayerState() == YT.PlayerState.PLAYING) { targetPlayer.pauseVideo(); } 
+                else { targetPlayer.playVideo(); }
+            }
+        }
+
+        function skip(targetPlayer, seconds) {
+            if (targetPlayer && targetPlayer.getCurrentTime) {
+                targetPlayer.seekTo(targetPlayer.getCurrentTime() + seconds, true);
+            }
+        }
+
+        function changeQuality(targetPlayer, targetQuality) {
+            if (targetPlayer && targetPlayer.setPlaybackQuality) {
+                targetPlayer.setPlaybackQuality(targetQuality);
+            }
+        }
+
+        function changeSpeed(targetPlayer, rate) {
+            if (targetPlayer && targetPlayer.setPlaybackRate) { targetPlayer.setPlaybackRate(parseFloat(rate)); }
+        }
+
+        function toggleSubtitles(targetPlayer, btnId) {
+            const btn = document.getElementById(btnId);
+            if (targetPlayer && targetPlayer.unloadModule) {
+                if (!ccEnabled) {
+                    targetPlayer.loadModule("captions");
+                    ccEnabled = true;
+                    btn.style.color = "var(--accent-blue)";
+                } else {
+                    targetPlayer.unloadModule("captions");
+                    ccEnabled = false;
+                    btn.style.color = "var(--text-main)";
+                }
+            }
+        }
+
+        function toggleFullscreen(containerId, iconId) {
+            const container = document.getElementById(containerId);
+            const icon = document.getElementById(iconId);
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().then(() => { icon.className = "fas fa-compress"; });
+            } else {
+                document.exitFullscreen();
+                icon.className = "fas fa-expand";
+            }
+        }
+
+        function startProgressLoop(targetPlayer, containerId) {
+            clearInterval(updateTimer);
+            let prefix = '';
+            if (containerId === 'special-player-container-block') prefix = 'special-';
+            if (containerId === 'decker-player-container') prefix = 'decker-';
+
+            updateTimer = setInterval(() => {
+                if (targetPlayer && targetPlayer.getCurrentTime) {
+                    const current = targetPlayer.getCurrentTime();
+                    const duration = targetPlayer.getDuration() || 0;
+                    if (duration > 0) {
+                        document.getElementById(`${prefix}progress-bar`).style.width = ((current / duration) * 100) + '%';
+                    }
+                    document.getElementById(`${prefix}time-display`).innerText = `${formatTime(current)} / ${formatTime(duration)}`;
+                }
+            }, 300);
+        }
+
+        function seekVideo(targetPlayer, progressContainerId, event) {
+            if (targetPlayer && targetPlayer.getDuration) {
+                const rect = document.getElementById(progressContainerId).getBoundingClientRect();
+                const seekTarget = targetPlayer.getDuration() * ((event.clientX - rect.left) / rect.width);
+                targetPlayer.seekTo(seekTarget, true);
+            }
+        }
+
+        function formatTime(sec) {
+            const hrs = Math.floor(sec / 3600);
+            const mins = Math.floor((sec % 3600) / 60);
+            const secs = Math.floor(sec % 60);
+
+            const pad = (n) => String(n).padStart(2, '0');
+            return `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+        }
     </script>
 </body>
 </html>
