@@ -770,7 +770,7 @@
                     </div>
                 </div>
 
-                <div class="video-details" style="margin-top:25px;">
+                <div class="video-details" id="specialHistoricalMetaContainer" style="margin-top:25px;">
                     <h2 class="episode-title-hdr" id="oscarYearTitle" style="font-size:1.4rem; margin-bottom:15px;">Academy Awards Winners Info</h2>
                     <div class="movies-meta-grid" id="oscarHistoricalMetaGrid"></div>
                 </div>
@@ -1137,6 +1137,11 @@
         let idleTimer;
         let ccEnabled = false;
 
+        // Initialize engine instantly to prevent framework ready mismatches
+        window.onload = function() {
+            initYouTubeEngine();
+        };
+
         function showView(viewName, defaultSeason = 1) {
             if (mainPlayer && mainPlayer.pauseVideo) mainPlayer.pauseVideo();
             if (deckerPlayer && deckerPlayer.pauseVideo) deckerPlayer.pauseVideo();
@@ -1156,11 +1161,9 @@
             } else if (viewName === 'hub') {
                 document.getElementById('hubView').style.display = 'grid';
                 changeSeason(defaultSeason, 'hub', true);
-                if (!apiScriptInitialized) initYouTubeEngine();
             } else if (viewName === 'decker') {
                 document.getElementById('deckerView').style.display = 'grid';
                 changeSeason(defaultSeason, 'decker', true);
-                if (!apiScriptInitialized) initYouTubeEngine();
             } else if (viewName === 'oscars') {
                 document.getElementById('oscarsSpecialsView').style.display = 'block';
                 buildDeckGridUI('specialsGridContainer', oscarsData, 'oscars');
@@ -1192,12 +1195,14 @@
         }
 
         document.addEventListener('click', () => {
-            document.getElementById('customDropdown').classList.remove('open');
+            const hubDrop = document.getElementById('customDropdown');
+            if(hubDrop) hubDrop.classList.remove('open');
             const deckerDrop = document.getElementById('deckerDropdown');
             if(deckerDrop) deckerDrop.classList.remove('open');
         });
 
         function initYouTubeEngine() {
+            if (apiScriptInitialized) return;
             apiScriptInitialized = true;
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
@@ -1205,7 +1210,8 @@
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         }
 
-        function onYouTubeIframeAPIReady() {
+        // Global callback exposed accurately to global window tier
+        window.onYouTubeIframeAPIReady = function() {
             mainPlayer = new YT.Player('yt-player', {
                 videoId: currentActiveTrackId,
                 playerVars: { 'controls': 0, 'rel': 0, 'modestbranding': 1, 'iv_load_policy': 3, 'cc_load_policy': 0, 'fs': 0, 'autoplay': 0 },
@@ -1389,28 +1395,35 @@
             document.getElementById('special-speed-dropdown').value = "1";
             document.getElementById('special-quality-dropdown').value = "default";
 
-            // Query historical metrics mapping
-            const matchedSpecial = oscarsData.find(o => o.id === trackId);
-            const dataHeader = document.getElementById('oscarYearTitle');
-            const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+            const metaContainer = document.getElementById('specialHistoricalMetaContainer');
             
-            if (matchedSpecial && matchedSpecial.history) {
-                dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
-                dataGrid.innerHTML = "";
-                matchedSpecial.history.forEach(award => {
-                    const card = document.createElement('div');
-                    card.className = "movie-card";
-                    card.innerHTML = `
-                        <div>
-                            <h4>${award.label}</h4>
-                            <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
-                        </div>
-                    `;
-                    dataGrid.appendChild(card);
-                });
+            // If launching from extras or more, hide the bonus historical material block entirely
+            if (originView === 'extras' || originView === 'more') {
+                metaContainer.style.display = 'none';
             } else {
-                dataHeader.innerText = "Bonus Archive Material";
-                dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+                metaContainer.style.display = 'block';
+                const matchedSpecial = oscarsData.find(o => o.id === trackId);
+                const dataHeader = document.getElementById('oscarYearTitle');
+                const dataGrid = document.getElementById('oscarHistoricalMetaGrid');
+                
+                if (matchedSpecial && matchedSpecial.history) {
+                    dataHeader.innerText = `${matchedSpecial.year} Historical Awards Winners`;
+                    dataGrid.innerHTML = "";
+                    matchedSpecial.history.forEach(award => {
+                        const card = document.createElement('div');
+                        card.className = "movie-card";
+                        card.innerHTML = `
+                            <div>
+                                <h4>${award.label}</h4>
+                                <div class="meta-line" style="margin-top:10px;"><span class="meta-label">Winner:</span> ${award.val}</div>
+                            </div>
+                        `;
+                        dataGrid.appendChild(card);
+                    });
+                } else {
+                    dataHeader.innerText = "Bonus Archive Material";
+                    dataGrid.innerHTML = `<div class="movie-card"><h4>No Academy Awards logs attached to this production item.</h4></div>`;
+                }
             }
         }
 
